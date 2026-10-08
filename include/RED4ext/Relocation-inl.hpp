@@ -18,7 +18,6 @@ struct IScriptable;
 
 extern "C" uint32_t tweakxl_rtti_async_id;
 extern "C" volatile int64_t tweakxl_serializable_counter;
-extern "C" void tweakxl_destruct_value_holder(RED4ext::IScriptable* aSelf);
 extern "C" void* tweakxl_memory_vault();
 extern "C" void tweakxl_vault_alloc(void* aStorage, void* aResult, uint64_t aSize);
 extern "C" void tweakxl_vault_alloc_aligned(void* aStorage, void* aResult, uint64_t aSize, uint32_t aAlign);
@@ -106,10 +105,7 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
     {
         return reinterpret_cast<uintptr_t>(&tweakxl_serializable_counter);
     }
-    if (aHash == 55710513)
-    {
-        return reinterpret_cast<uintptr_t>(&tweakxl_destruct_value_holder);
-    }
+    // R19: IScriptable_DestructValueHolder (55710513) is the game's own function now (Mac 0x22384BC, in the Mac table below).
     // Local Vault stand-in. This build has no Windows Memory::Vault global.
     // Pool allocation goes through tweakxl_vault_alloc and the Mac pool symbols.
     if (aHash == 0x1B530DEC)
