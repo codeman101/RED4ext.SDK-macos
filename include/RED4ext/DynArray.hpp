@@ -184,6 +184,28 @@ struct DynArray
         size = 0;
     }
 
+    // Grows with value-initialised elements or shrinks and destroys the tail.
+    void Resize(uint32_t aNewSize)
+    {
+        if (aNewSize < size)
+        {
+            for (uint32_t i = aNewSize; i != size; ++i)
+            {
+                entries[i].~T();
+            }
+        }
+        else if (aNewSize > size)
+        {
+            Reserve(aNewSize);
+            for (uint32_t i = size; i != aNewSize; ++i)
+            {
+                new (&entries[i]) T();
+            }
+        }
+
+        size = aNewSize;
+    }
+
     void Reserve(uint32_t aCount)
     {
         if (capacity >= aCount)

@@ -35,6 +35,10 @@ enum class EntityStubStatus : uint8_t
 
 struct EntityStub
 {
+    // R17: taken from EntityStubToken, which the same spawner creates. Check against the game before a Mac mapping
+    // for DynamicEntitySystem relies on it.
+    using AllocatorType = Memory::GMPL_SpawnAllocator;
+
     game::IPersistencySystem* persistencySystem;               // 00
     StaticArray<Handle<game::ComponentPS>, 2> componentStates; // 08
     Handle<game::EntityStubComponentPS> stubState;             // 30
