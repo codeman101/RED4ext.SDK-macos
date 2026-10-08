@@ -5,6 +5,7 @@
 #endif
 
 #include <cstring>
+#include <new>
 
 #include <RED4ext/Detail/AddressHashes.hpp>
 #include <RED4ext/Relocation.hpp>
@@ -72,9 +73,20 @@ RED4EXT_INLINE RED4ext::CString::CString(CString&& aOther) noexcept
 
 RED4EXT_INLINE RED4ext::CString& RED4ext::CString::operator=(const CString& aRhs)
 {
+#if defined(__APPLE__)
+    // Mac CString_copy is the copy constructor. It zeroes the target first,
+    // so an existing string has to be destroyed before the copy.
+    if (this != &aRhs)
+    {
+        this->~CString();
+        new (this) CString(aRhs);
+    }
+    return *this;
+#else
     static UniversalRelocFunc<CString* (*)(CString*, const CString&)> func(Detail::AddressHashes::CString_copy);
     func(this, aRhs);
     return *this;
+#endif
 }
 
 RED4EXT_INLINE RED4ext::CString& RED4ext::CString::operator=(CString&& aRhs) noexcept

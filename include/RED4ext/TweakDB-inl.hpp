@@ -6,6 +6,11 @@
 
 #include <cstdlib>
 
+#if defined(__APPLE__)
+#include <dlfcn.h>
+#include <iostream>
+#endif
+
 #include <RED4ext/Detail/AddressHashes.hpp>
 #include <RED4ext/RTTISystem.hpp>
 #include <RED4ext/Relocation.hpp>
@@ -323,6 +328,20 @@ RED4EXT_INLINE int32_t RED4ext::TweakDB::CreateFlatValue(const CStackType& aStac
     std::lock_guard<SharedSpinLock> _(mutex00);
 
     UpsizeFlatDataBuffer(MaxFlatDataBufferSize);
+#if defined(__APPLE__)
+    // A failed lookup or allocation leaves the game's buffer in place. Do not write past it.
+    if (flatDataBufferCapacity < MaxFlatDataBufferSize)
+    {
+        static bool logged = false;
+        if (!logged)
+        {
+            logged = true;
+            std::cerr << "[TweakDB] CreateFlatValue refused: capacity 0x" << std::hex << flatDataBufferCapacity
+                      << " < max 0x" << MaxFlatDataBufferSize << std::dec << std::endl;
+        }
+        return -1;
+    }
+#endif
 
     uintptr_t flatAlignment = (std::max)(static_cast<uintptr_t>(aStackType.type->GetAlignment()), static_cast<uintptr_t>(8));
     uintptr_t flatValueSize = RED4ext::AlignUp(static_cast<uintptr_t>(8) /* vftable */ + static_cast<uintptr_t>(aStackType.type->GetSize()), flatAlignment);
@@ -405,6 +424,52 @@ RED4EXT_INLINE void RED4ext::TweakDB::UpsizeFlatDataBuffer(uint32_t aCapacity)
     if (flatDataBufferCapacity >= aCapacity || aCapacity > MaxFlatDataBufferSize)
         return;
 
+#if defined(__APPLE__)
+    // PoolGMPL_TDB_Data is not in the local vault. The game exports the pool proxy.
+    struct Block
+    {
+        void* memory;
+        uint64_t size;
+    };
+    using AllocFn = Block (*)(uint64_t, uint32_t);
+    using FreeFn = void (*)(Block&);
+
+    static AllocFn allocFn = nullptr;
+    static FreeFn freeFn = nullptr;
+    static bool lookedUp = false;
+    if (!lookedUp)
+    {
+        lookedUp = true;
+        // dyld_info prints __ZN... dlsym resolves the Itanium name _ZN...
+        allocFn = reinterpret_cast<AllocFn>(dlsym(
+            RTLD_MAIN_ONLY, "_ZN3red6memory16PoolStorageProxyIN4game17PoolGMPL_TDB_DataEE15AllocateAlignedEyj"));
+        freeFn = reinterpret_cast<FreeFn>(
+            dlsym(RTLD_MAIN_ONLY, "_ZN3red6memory16PoolStorageProxyIN4game17PoolGMPL_TDB_DataEE4FreeERNS0_5BlockE"));
+        const auto base = RED4ext::RelocBase::GetImageBase();
+        const auto allocRva = allocFn ? reinterpret_cast<uintptr_t>(allocFn) - base : 0;
+        const auto freeRva = freeFn ? reinterpret_cast<uintptr_t>(freeFn) - base : 0;
+        std::cerr << "[TweakDB] PoolGMPL_TDB_Data AllocateAligned rva=0x" << std::hex << allocRva << " Free rva=0x"
+                  << freeRva << std::dec << std::endl;
+    }
+    if (!allocFn || !freeFn)
+        return;
+
+    Block result = allocFn(aCapacity, 8);
+    if (result.memory == nullptr)
+        return;
+
+    auto currentSize = static_cast<uint32_t>(flatDataBufferEnd - flatDataBuffer);
+    auto* oldFlatDataBuffer = reinterpret_cast<void*>(flatDataBuffer);
+    const uint32_t oldCapacity = flatDataBufferCapacity;
+    memcpy(result.memory, oldFlatDataBuffer, currentSize);
+    SetFlatDataBuffer(result.memory, currentSize, static_cast<uint32_t>(result.size));
+
+    // Delay freeing. The first upsize leaks the game's original buffer, same as Windows.
+    static Block lastBlock{nullptr, 0};
+    if (lastBlock.memory != nullptr)
+        freeFn(lastBlock);
+    lastBlock = Block{oldFlatDataBuffer, oldCapacity};
+#else
     Memory::GMPL_TDB_DataAllocator allocator;
 
     auto result = allocator.AllocAligned(aCapacity, 8);
@@ -426,6 +491,7 @@ RED4EXT_INLINE void RED4ext::TweakDB::UpsizeFlatDataBuffer(uint32_t aCapacity)
     if (lastFlatDataBuffer != nullptr)
         allocator.Free(lastFlatDataBuffer);
     lastFlatDataBuffer = oldFlatDataBuffer;
+#endif
 }
 
 RED4EXT_INLINE const RED4ext::TweakDB::FlatValue* RED4ext::TweakDB::GetDefaultFlatValue(CName aTypeName)

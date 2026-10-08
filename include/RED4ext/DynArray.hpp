@@ -277,6 +277,27 @@ struct DynArray
         return *(entries + size - 1);
     }
 
+    // Codeware's RedLib was written against the Windows SDK names.
+    [[nodiscard]] uint32_t Size() const
+    {
+        return size;
+    }
+
+    [[nodiscard]] bool IsEmpty() const
+    {
+        return size == 0;
+    }
+
+    T* Data()
+    {
+        return entries;
+    }
+
+    const T* Data() const
+    {
+        return entries;
+    }
+
     T* entries;        // 00
     uint32_t capacity; // 08
     uint32_t size;     // 0C

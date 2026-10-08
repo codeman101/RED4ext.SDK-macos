@@ -8,6 +8,8 @@
 #include <RED4ext/Memory/Allocators.hpp>
 #include <RED4ext/Scripting/Script.hpp>
 
+#include <cstdint>
+
 namespace RED4ext
 {
 struct CClass;
@@ -137,9 +139,17 @@ struct CClassFunction : CBaseFunction
             auto fullName = CNamePool::Add(aFullName);
             auto shortName = CNamePool::Add(aShortName);
 
+#if defined(__APPLE__)
+            // Mac ctor is (this, parent, fullName, shortName, handler, this-adjust, flags).
+            // The SDK's Windows call puts flags in the adjust slot.
+            using func_t = CClassFunction* (*)(CClassFunction*, CClass*, CName, CName, void*, std::intptr_t, Flags);
+            static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CClassFunction_ctor);
+            func(memory, aParent, fullName, shortName, reinterpret_cast<void*>(aFunc), 0, aFlags);
+#else
             using func_t = CClassFunction* (*)(CClassFunction*, CClass*, CName, CName, ScriptingFunction_t<T>, Flags);
             static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CClassFunction_ctor);
             func(memory, aParent, fullName, shortName, aFunc, aFlags);
+#endif
         }
 
         return memory;
