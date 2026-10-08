@@ -23,7 +23,9 @@ struct ConditionNodeDefinition : AI::behavior::DecoratorNodeDefinition
 
     Handle<AI::behavior::ConditionDefinition> condition; // 40
     AI::behavior::CompletionStatus resultIfFailed; // 50
+#if !defined(__APPLE__)
     uint8_t unk54[0x58 - 0x54]; // 54
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ConditionNodeDefinition, 0x58);
 } // namespace AI::behavior

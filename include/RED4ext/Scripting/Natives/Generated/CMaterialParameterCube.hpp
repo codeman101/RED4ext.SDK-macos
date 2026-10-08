@@ -18,7 +18,13 @@ struct CMaterialParameterCube : CMaterialParameter
     static constexpr const char* NAME = "CMaterialParameterCube";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<CMaterialParameter>];
     Ref<ITexture> texture; // 40
+#else
+    Ref<ITexture> texture; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(CMaterialParameterCube, 0x58);
 } // namespace RED4ext

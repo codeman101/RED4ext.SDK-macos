@@ -18,11 +18,23 @@ struct EffectInfoEvent : red::Event
     static constexpr const char* NAME = "gameEffectInfoEvent";
     static constexpr const char* ALIAS = "EffectInfoEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    CString tag; // 40
+    uint8_t unk_60[0x60 - (0x40 + sizeof(tag))];
+    uint32_t entitiesGathered; // 60
+    uint8_t unk_64[0x64 - (0x60 + sizeof(entitiesGathered))];
+    uint32_t entitiesFiltered; // 64
+    uint8_t unk_68[0x68 - (0x64 + sizeof(entitiesFiltered))];
+    uint32_t entitiesProcessed; // 68
+#else
     CString tag; // 40
     uint32_t entitiesGathered; // 60
     uint32_t entitiesFiltered; // 64
     uint32_t entitiesProcessed; // 68
     uint8_t unk6C[0x70 - 0x6C]; // 6C
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectInfoEvent, 0x70);
 } // namespace game

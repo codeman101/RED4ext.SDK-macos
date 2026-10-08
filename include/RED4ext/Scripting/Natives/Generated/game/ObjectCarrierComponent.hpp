@@ -18,8 +18,14 @@ struct ObjectCarrierComponent : ent::IComponent
     static constexpr const char* NAME = "gameObjectCarrierComponent";
     static constexpr const char* ALIAS = "ObjectCarrierComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    TweakDBID objectToSpawn; // 90
+#else
     TweakDBID objectToSpawn; // 90
     uint8_t unk98[0xA0 - 0x98]; // 98
+#endif
 };
 RED4EXT_ASSERT_SIZE(ObjectCarrierComponent, 0xA0);
 } // namespace game

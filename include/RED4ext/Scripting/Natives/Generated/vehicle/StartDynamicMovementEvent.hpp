@@ -18,8 +18,14 @@ struct StartDynamicMovementEvent : red::Event
     static constexpr const char* NAME = "vehicleStartDynamicMovementEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Vector3 targetPosition; // 40
+#else
     Vector3 targetPosition; // 40
     uint8_t unk4C[0x60 - 0x4C]; // 4C
+#endif
 };
 RED4EXT_ASSERT_SIZE(StartDynamicMovementEvent, 0x60);
 } // namespace vehicle

@@ -19,8 +19,14 @@ struct EntitySpawnerComponent : game::Component
     static constexpr const char* NAME = "gameEntitySpawnerComponent";
     static constexpr const char* ALIAS = "EntitySpawnerComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_110[0x110 - ::RED4ext::Detail::DataSize<game::Component>];
+    DynArray<game::EntitySpawnerSlotData> slotDataArray; // 110
+#else
     uint8_t unkA8[0x110 - 0xA8]; // A8
     DynArray<game::EntitySpawnerSlotData> slotDataArray; // 110
+#endif
 };
 RED4EXT_ASSERT_SIZE(EntitySpawnerComponent, 0x120);
 } // namespace game

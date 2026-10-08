@@ -19,7 +19,9 @@ struct Node : ISerializable
 
     bool isVisibleInGame; // 30
     bool isHostOnly; // 31
+#if !defined(__APPLE__)
     uint8_t unk32[0x38 - 0x32]; // 32
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(Node, 0x38);
 } // namespace world

@@ -20,7 +20,13 @@ struct SystemEntityTargetedEvent : red::Event
     static constexpr const char* NAME = "gametargetingSystemEntityTargetedEvent";
     static constexpr const char* ALIAS = "EntityTargetedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     WeakHandle<ent::Entity> targetingEntity; // 40
+#else
+    WeakHandle<ent::Entity> targetingEntity; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(SystemEntityTargetedEvent, 0x50);
 } // namespace game::targeting

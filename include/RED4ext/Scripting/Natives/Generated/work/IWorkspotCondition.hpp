@@ -20,7 +20,9 @@ struct IWorkspotCondition : ISerializable
 
     work::WorkspotLogic expectedResult; // 30
     bool equals; // 34
+#if !defined(__APPLE__)
     uint8_t unk35[0x38 - 0x35]; // 35
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(IWorkspotCondition, 0x38);
 } // namespace work

@@ -20,7 +20,9 @@ struct AnimFeature_AIAction : anim::AnimFeature
     int32_t state; // 40
     int32_t animVariation; // 44
     float stateDuration; // 48
+#if !defined(__APPLE__)
     uint8_t unk4C[0x50 - 0x4C]; // 4C
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(AnimFeature_AIAction, 0x50);
 } // namespace anim

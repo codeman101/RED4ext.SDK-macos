@@ -18,7 +18,13 @@ struct CharacterCyberdeckProgram_ConditionType : quest::ICharacterConditionType
     static constexpr const char* NAME = "questCharacterCyberdeckProgram_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_74[0x74 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
+    TweakDBID cyberdeckProgramID; // 74
+#else
     TweakDBID cyberdeckProgramID; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCyberdeckProgram_ConditionType, 0x80);
 } // namespace quest

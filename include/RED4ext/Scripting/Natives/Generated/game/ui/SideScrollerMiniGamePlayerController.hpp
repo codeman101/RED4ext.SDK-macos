@@ -17,7 +17,9 @@ struct SideScrollerMiniGamePlayerController : ink::WidgetLogicController
     static constexpr const char* NAME = "gameuiSideScrollerMiniGamePlayerController";
     static constexpr const char* ALIAS = "MinigamePlayerController";
 
+#if !defined(__APPLE__)
     uint8_t unk78[0x88 - 0x78]; // 78
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(SideScrollerMiniGamePlayerController, 0x88);
 } // namespace game::ui

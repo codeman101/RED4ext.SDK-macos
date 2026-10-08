@@ -18,9 +18,15 @@ struct __declspec(align(0x10)) MappinComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "gamemappinsMappinComponent";
     static constexpr const char* ALIAS = "MappinComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_128[0x128 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    game::mappins::MappinData data; // 128
+#else
     uint8_t unk120[0x128 - 0x120]; // 120
     game::mappins::MappinData data; // 128
     uint8_t unk1A0[0x1B0 - 0x1A0]; // 1A0
+#endif
 };
 RED4EXT_ASSERT_SIZE(MappinComponent, 0x1B0);
 } // namespace game::mappins

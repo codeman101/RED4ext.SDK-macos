@@ -18,8 +18,14 @@ struct __declspec(align(0x10)) AnimNode_VectorConstant : anim::AnimNode_VectorVa
     static constexpr const char* NAME = "animAnimNode_VectorConstant";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<anim::AnimNode_VectorValue>];
+    Vector4 value; // 50
+#else
     uint8_t unk48[0x50 - 0x48]; // 48
     Vector4 value; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_VectorConstant, 0x60);
 } // namespace anim

@@ -21,12 +21,24 @@ struct __declspec(align(0x10)) WorkspotResourceComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "workWorkspotResourceComponent";
     static constexpr const char* ALIAS = "WorkspotResourceComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_120[0x120 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    RaRef<work::WorkspotResource> workspotResource; // 120
+    uint8_t unk_140[0x140 - (0x120 + sizeof(workspotResource))];
+    Ref<work::WorkspotResource> npcWorkspotResourceSync; // 140
+    uint8_t unk_158[0x158 - (0x140 + sizeof(npcWorkspotResourceSync))];
+    Ref<work::WorkspotResource> deviceWorkspotResourceSync; // 158
+    uint8_t unk_170[0x170 - (0x158 + sizeof(deviceWorkspotResourceSync))];
+    CName syncSlotName; // 170
+#else
     RaRef<work::WorkspotResource> workspotResource; // 120
     uint8_t unk128[0x140 - 0x128]; // 128
     Ref<work::WorkspotResource> npcWorkspotResourceSync; // 140
     Ref<work::WorkspotResource> deviceWorkspotResourceSync; // 158
     CName syncSlotName; // 170
     uint8_t unk178[0x180 - 0x178]; // 178
+#endif
 };
 RED4EXT_ASSERT_SIZE(WorkspotResourceComponent, 0x180);
 } // namespace work

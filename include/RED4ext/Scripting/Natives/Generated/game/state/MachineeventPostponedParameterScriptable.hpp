@@ -20,7 +20,13 @@ struct MachineeventPostponedParameterScriptable : game::state::MachineeventPostp
     static constexpr const char* NAME = "gamestateMachineeventPostponedParameterScriptable";
     static constexpr const char* ALIAS = "PSMPostponedParameterScriptable";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<game::state::MachineeventPostponedParameterBase>];
     Handle<IScriptable> value; // 50
+#else
+    Handle<IScriptable> value; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineeventPostponedParameterScriptable, 0x60);
 } // namespace game::state

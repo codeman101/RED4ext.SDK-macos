@@ -19,7 +19,13 @@ struct MultipleSetEnableEvent : red::Event
     static constexpr const char* NAME = "gameinteractionsMultipleSetEnableEvent";
     static constexpr const char* ALIAS = "InteractionMultipleSetEnableEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     StaticArray<bool, 4> enable; // 40
+#else
+    StaticArray<bool, 4> enable; // 40
+#endif
 #pragma warning(suppress : 4324)
     alignas(8) StaticArray<CName, 4> layer; // 48
 #pragma warning(suppress : 4324)

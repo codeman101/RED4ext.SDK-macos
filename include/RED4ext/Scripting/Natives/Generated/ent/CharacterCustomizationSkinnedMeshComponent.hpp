@@ -18,7 +18,13 @@ struct __declspec(align(0x10)) CharacterCustomizationSkinnedMeshComponent : ent:
     static constexpr const char* NAME = "entCharacterCustomizationSkinnedMeshComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_268[0x268 - ::RED4ext::Detail::DataSize<ent::SkinnedMeshComponent>];
+    red::TagList tags; // 268
+#else
     red::TagList tags; // 270
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCustomizationSkinnedMeshComponent, 0x280);
 } // namespace ent

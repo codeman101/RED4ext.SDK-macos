@@ -17,9 +17,15 @@ struct __declspec(align(0x10)) DamageIndicatorGameController : game::ui::HUDGame
     static constexpr const char* NAME = "gameuiDamageIndicatorGameController";
     static constexpr const char* ALIAS = "DamageIndicatorGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_188[0x188 - ::RED4ext::Detail::DataSize<game::ui::HUDGameController>];
+    uint8_t maxVisibleParts; // 188
+#else
     uint8_t unkF8[0x188 - 0xF8]; // F8
     uint8_t maxVisibleParts; // 188
     uint8_t unk189[0x190 - 0x189]; // 189
+#endif
 };
 RED4EXT_ASSERT_SIZE(DamageIndicatorGameController, 0x190);
 } // namespace game::ui

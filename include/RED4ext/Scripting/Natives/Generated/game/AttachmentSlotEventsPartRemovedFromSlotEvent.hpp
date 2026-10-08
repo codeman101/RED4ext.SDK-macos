@@ -18,8 +18,16 @@ struct AttachmentSlotEventsPartRemovedFromSlotEvent : red::Event
     static constexpr const char* NAME = "gameAttachmentSlotEventsPartRemovedFromSlotEvent";
     static constexpr const char* ALIAS = "PartRemovedFromSlotEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    ItemID itemID; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(itemID))];
+    ItemID removedPartID; // 50
+#else
     ItemID itemID; // 40
     ItemID removedPartID; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(AttachmentSlotEventsPartRemovedFromSlotEvent, 0x60);
 } // namespace game

@@ -20,7 +20,9 @@ struct DriveCommandUpdate : IScriptable
     float minSpeed; // 40
     float maxSpeed; // 44
     bool clearTrafficOnPath; // 48
+#if !defined(__APPLE__)
     uint8_t unk49[0x50 - 0x49]; // 49
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(DriveCommandUpdate, 0x50);
 } // namespace AI

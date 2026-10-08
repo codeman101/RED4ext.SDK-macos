@@ -18,7 +18,13 @@ struct __declspec(align(0x10)) SaveSanitizationForbiddenAreaNode : world::Trigge
     static constexpr const char* NAME = "worldSaveSanitizationForbiddenAreaNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_70[0x70 - ::RED4ext::Detail::DataSize<world::TriggerAreaNode>];
     Vector4 safeSpotOffset; // 70
+#else
+    Vector4 safeSpotOffset; // 70
+#endif
 };
 RED4EXT_ASSERT_SIZE(SaveSanitizationForbiddenAreaNode, 0x80);
 } // namespace world

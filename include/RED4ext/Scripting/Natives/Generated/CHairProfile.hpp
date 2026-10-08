@@ -17,11 +17,21 @@ struct CHairProfile : CResource
     static constexpr const char* NAME = "CHairProfile";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_3A[0x3A - ::RED4ext::Detail::DataSize<CResource>];
+    uint16_t sampleCount; // 3A
+    uint8_t unk_40[0x40 - (0x3A + sizeof(sampleCount))];
+    DynArray<rend::GradientEntry> gradientEntriesID; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(gradientEntriesID))];
+    DynArray<rend::GradientEntry> gradientEntriesRootToTip; // 50
+#else
     uint16_t sampleCount; // 40
     uint8_t unk42[0x48 - 0x42]; // 42
     DynArray<rend::GradientEntry> gradientEntriesID; // 48
     DynArray<rend::GradientEntry> gradientEntriesRootToTip; // 58
     uint8_t unk68[0x78 - 0x68]; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(CHairProfile, 0x78);
 } // namespace RED4ext

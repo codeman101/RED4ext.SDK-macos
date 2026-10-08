@@ -20,6 +20,17 @@ struct StaticQuestMarkerNode : world::Node
     static constexpr const char* NAME = "worldStaticQuestMarkerNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<world::Node>];
+    world::QuestType questType; // 48
+    uint8_t unk_50[0x50 - (0x48 + sizeof(questType))];
+    CString questLabel; // 50
+    uint8_t unk_70[0x70 - (0x50 + sizeof(questLabel))];
+    float questMarkerHeight; // 70
+    uint8_t unk_78[0x78 - (0x70 + sizeof(questMarkerHeight))];
+    CName mapFilteringTag; // 78
+#else
     uint8_t unk38[0x48 - 0x38]; // 38
     world::QuestType questType; // 48
     uint8_t unk49[0x50 - 0x49]; // 49
@@ -27,6 +38,7 @@ struct StaticQuestMarkerNode : world::Node
     float questMarkerHeight; // 70
     uint8_t unk74[0x78 - 0x74]; // 74
     CName mapFilteringTag; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(StaticQuestMarkerNode, 0x80);
 } // namespace world

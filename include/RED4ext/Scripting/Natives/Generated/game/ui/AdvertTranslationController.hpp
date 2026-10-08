@@ -18,9 +18,15 @@ struct AdvertTranslationController : game::ui::WidgetGameController
     static constexpr const char* NAME = "gameuiAdvertTranslationController";
     static constexpr const char* ALIAS = "AdvertTranslationLogicController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<game::ui::WidgetGameController>];
+    ink::TextWidgetReference advertText; // F0
+#else
     uint8_t unkE0[0xF0 - 0xE0]; // E0
     ink::TextWidgetReference advertText; // F0
     uint8_t unk108[0x128 - 0x108]; // 108
+#endif
 };
 RED4EXT_ASSERT_SIZE(AdvertTranslationController, 0x128);
 } // namespace game::ui

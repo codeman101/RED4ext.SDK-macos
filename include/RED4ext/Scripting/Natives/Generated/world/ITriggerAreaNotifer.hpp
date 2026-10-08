@@ -22,7 +22,9 @@ struct ITriggerAreaNotifer : IScriptable
     uint8_t unk41[0x44 - 0x41]; // 41
     TriggerChannel includeChannels; // 44
     uint32_t excludeChannels; // 48
+#if !defined(__APPLE__)
     uint8_t unk4C[0xB8 - 0x4C]; // 4C
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ITriggerAreaNotifer, 0xB8);
 } // namespace world

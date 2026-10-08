@@ -18,7 +18,13 @@ struct TutorialBracketShowEvent : red::Event
     static constexpr const char* NAME = "gameuiTutorialBracketShowEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     game::TutorialBracketData data; // 40
+#else
+    game::TutorialBracketData data; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(TutorialBracketShowEvent, 0x60);
 } // namespace game::ui

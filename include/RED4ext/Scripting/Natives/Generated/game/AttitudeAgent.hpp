@@ -18,9 +18,15 @@ struct AttitudeAgent : game::Component
     static constexpr const char* NAME = "gameAttitudeAgent";
     static constexpr const char* ALIAS = "AttitudeAgent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_C8[0xC8 - ::RED4ext::Detail::DataSize<game::Component>];
+    CName baseAttitudeGroup; // C8
+#else
     uint8_t unkA8[0xC8 - 0xA8]; // A8
     CName baseAttitudeGroup; // C8
     uint8_t unkD0[0xD8 - 0xD0]; // D0
+#endif
 };
 RED4EXT_ASSERT_SIZE(AttitudeAgent, 0xD8);
 } // namespace game

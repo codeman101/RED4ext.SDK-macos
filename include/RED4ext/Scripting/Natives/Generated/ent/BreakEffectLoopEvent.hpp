@@ -18,7 +18,13 @@ struct BreakEffectLoopEvent : red::Event
     static constexpr const char* NAME = "entBreakEffectLoopEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     CName effectName; // 40
+#else
+    CName effectName; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(BreakEffectLoopEvent, 0x48);
 } // namespace ent

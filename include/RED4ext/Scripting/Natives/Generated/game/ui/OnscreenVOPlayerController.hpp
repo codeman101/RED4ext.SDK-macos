@@ -24,12 +24,24 @@ struct OnscreenVOPlayerController : game::ui::WidgetGameController
     static constexpr const char* NAME = "gameuiOnscreenVOPlayerController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_E0[0xE0 - ::RED4ext::Detail::DataSize<game::ui::WidgetGameController>];
+    RaRef<ink::WidgetLibraryResource> subtitlesLibraryResource; // E0
+    uint8_t unk_E8[0xE8 - (0xE0 + sizeof(subtitlesLibraryResource))];
+    CName subtitlesRootName; // E8
+    uint8_t unk_F0[0xF0 - (0xE8 + sizeof(subtitlesRootName))];
+    ink::CompoundWidgetReference subtitlesContainer; // F0
+    uint8_t unk_138[0x138 - (0xF0 + sizeof(subtitlesContainer))];
+    DynArray<game::ui::VOWithDelay> audioVOList; // 138
+#else
     RaRef<ink::WidgetLibraryResource> subtitlesLibraryResource; // E0
     CName subtitlesRootName; // E8
     ink::CompoundWidgetReference subtitlesContainer; // F0
     uint8_t unk108[0x138 - 0x108]; // 108
     DynArray<game::ui::VOWithDelay> audioVOList; // 138
     uint8_t unk148[0x150 - 0x148]; // 148
+#endif
 };
 RED4EXT_ASSERT_SIZE(OnscreenVOPlayerController, 0x150);
 } // namespace game::ui

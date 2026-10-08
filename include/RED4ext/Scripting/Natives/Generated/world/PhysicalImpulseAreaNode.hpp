@@ -18,8 +18,16 @@ struct __declspec(align(0x10)) PhysicalImpulseAreaNode : world::PhysicalTriggerA
     static constexpr const char* NAME = "worldPhysicalImpulseAreaNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_80[0x80 - ::RED4ext::Detail::DataSize<world::PhysicalTriggerAreaNode>];
+    Vector3 impulse; // 80
+    uint8_t unk_8C[0x8C - (0x80 + sizeof(impulse))];
+    float impulseRadius; // 8C
+#else
     Vector3 impulse; // 80
     float impulseRadius; // 8C
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalImpulseAreaNode, 0x90);
 } // namespace world

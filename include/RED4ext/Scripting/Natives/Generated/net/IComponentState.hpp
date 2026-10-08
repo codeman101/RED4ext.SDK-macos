@@ -20,7 +20,9 @@ struct IComponentState
     uint8_t unk00[0x10 - 0x0]; // 0
     CName componentName; // 10
     bool enabled; // 18
+#if !defined(__APPLE__)
     uint8_t unk19[0x20 - 0x19]; // 19
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(IComponentState, 0x20);
 } // namespace net

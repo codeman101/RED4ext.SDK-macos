@@ -20,7 +20,13 @@ struct __declspec(align(0x10)) SensorObjectComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "senseSensorObjectComponent";
     static constexpr const char* ALIAS = "SensorObjectComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_120[0x120 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
     Handle<sense::SensorObject> sensorObject; // 120
+#else
+    Handle<sense::SensorObject> sensorObject; // 120
+#endif
 };
 RED4EXT_ASSERT_SIZE(SensorObjectComponent, 0x130);
 } // namespace sense

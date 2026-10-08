@@ -17,7 +17,13 @@ struct DestructibleProxyMeshNode : world::PrefabProxyMeshNode
     static constexpr const char* NAME = "worldDestructibleProxyMeshNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_68[0x68 - ::RED4ext::Detail::DataSize<world::PrefabProxyMeshNode>];
     uint64_t ownerHash; // 68
+#else
+    uint64_t ownerHash; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(DestructibleProxyMeshNode, 0x70);
 } // namespace world

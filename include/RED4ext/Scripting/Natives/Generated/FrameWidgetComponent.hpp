@@ -16,8 +16,14 @@ struct __declspec(align(0x10)) FrameWidgetComponent : WorldWidgetComponent
     static constexpr const char* NAME = "FrameWidgetComponent";
     static constexpr const char* ALIAS = "frameWidgetComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_3A0[0x3A0 - ::RED4ext::Detail::DataSize<WorldWidgetComponent>];
+    Vector2 dimensions; // 3A0
+#else
     Vector2 dimensions; // 3A0
     uint8_t unk3A8[0x3B0 - 0x3A8]; // 3A8
+#endif
 };
 RED4EXT_ASSERT_SIZE(FrameWidgetComponent, 0x3B0);
 using frameWidgetComponent = FrameWidgetComponent;

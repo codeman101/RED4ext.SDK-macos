@@ -19,8 +19,14 @@ struct AnimNode_GraphSlotConditions : anim::AnimNode_GraphSlot
     static constexpr const char* NAME = "animAnimNode_GraphSlotConditions";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_B0[0xB0 - ::RED4ext::Detail::DataSize<anim::AnimNode_GraphSlot>];
+    DynArray<anim::GraphSlotCondition> conditions; // B0
+#else
     DynArray<anim::GraphSlotCondition> conditions; // B0
     uint8_t unkC0[0x100 - 0xC0]; // C0
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_GraphSlotConditions, 0x100);
 } // namespace anim

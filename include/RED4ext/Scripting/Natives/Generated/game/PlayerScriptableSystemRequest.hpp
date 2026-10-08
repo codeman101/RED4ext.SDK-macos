@@ -20,7 +20,13 @@ struct PlayerScriptableSystemRequest : game::ScriptableSystemRequest
     static constexpr const char* NAME = "gamePlayerScriptableSystemRequest";
     static constexpr const char* ALIAS = "PlayerScriptableSystemRequest";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<game::ScriptableSystemRequest>];
     WeakHandle<game::Object> owner; // 48
+#else
+    WeakHandle<game::Object> owner; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(PlayerScriptableSystemRequest, 0x58);
 } // namespace game

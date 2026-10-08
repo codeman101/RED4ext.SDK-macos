@@ -20,10 +20,20 @@ struct ThreatExpectationInvalid : AI::AIEvent
     static constexpr const char* NAME = "AIThreatExpectationInvalid";
     static constexpr const char* ALIAS = "ThreatExpectationInvalid";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<AI::AIEvent>];
+    WeakHandle<ent::Entity> owner; // 50
+    uint8_t unk_60[0x60 - (0x50 + sizeof(owner))];
+    WeakHandle<ent::Entity> threat; // 60
+    uint8_t unk_70[0x70 - (0x60 + sizeof(threat))];
+    uint32_t threatId; // 70
+#else
     WeakHandle<ent::Entity> owner; // 50
     WeakHandle<ent::Entity> threat; // 60
     uint32_t threatId; // 70
     uint8_t unk74[0x78 - 0x74]; // 74
+#endif
 };
 RED4EXT_ASSERT_SIZE(ThreatExpectationInvalid, 0x78);
 } // namespace AI

@@ -19,6 +19,17 @@ struct __declspec(align(0x10)) MovingPlatform : ent::IPlacedComponent
     static constexpr const char* NAME = "gameMovingPlatform";
     static constexpr const char* ALIAS = "MovingPlatform";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_1A8[0x1A8 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    CName soundPositionName; // 1A8
+    uint8_t unk_1DC[0x1DC - (0x1A8 + sizeof(soundPositionName))];
+    game::MovingPlatformLoopType loopType; // 1DC
+    uint8_t unk_1E8[0x1E8 - (0x1DC + sizeof(loopType))];
+    bool supportLegacyUnalignedMarkers; // 1E8
+    uint8_t unk_1E9[0x1E9 - (0x1E8 + sizeof(supportLegacyUnalignedMarkers))];
+    bool enableWaterInteractions; // 1E9
+#else
     uint8_t unk120[0x1A8 - 0x120]; // 120
     CName soundPositionName; // 1A8
     uint8_t unk1B0[0x1DC - 0x1B0]; // 1B0
@@ -27,6 +38,7 @@ struct __declspec(align(0x10)) MovingPlatform : ent::IPlacedComponent
     bool supportLegacyUnalignedMarkers; // 1E8
     bool enableWaterInteractions; // 1E9
     uint8_t unk1EA[0x200 - 0x1EA]; // 1EA
+#endif
 };
 RED4EXT_ASSERT_SIZE(MovingPlatform, 0x200);
 } // namespace game

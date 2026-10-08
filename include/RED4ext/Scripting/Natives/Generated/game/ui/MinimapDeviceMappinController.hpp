@@ -18,8 +18,14 @@ struct MinimapDeviceMappinController : game::ui::BaseMinimapMappinController
     static constexpr const char* NAME = "gameuiMinimapDeviceMappinController";
     static constexpr const char* ALIAS = "MinimapDeviceMappinController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_228[0x228 - ::RED4ext::Detail::DataSize<game::ui::BaseMinimapMappinController>];
+    ink::CircleWidgetReference effectAreaWidget; // 228
+#else
     uint8_t unk228[0x230 - 0x228]; // 228
     ink::CircleWidgetReference effectAreaWidget; // 230
+#endif
 };
 RED4EXT_ASSERT_SIZE(MinimapDeviceMappinController, 0x248);
 } // namespace game::ui

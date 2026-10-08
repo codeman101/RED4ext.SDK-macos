@@ -25,6 +25,33 @@ struct __declspec(align(0x10)) ActionMoveToSmartObjectState : game::ActionMoveTo
     static constexpr const char* NAME = "gameActionMoveToSmartObjectState";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::ActionMoveToState>];
+    uint64_t targetHash; // 40
+    uint8_t unk_48[0x48 - (0x40 + sizeof(targetHash))];
+    bool usePathfinding; // 48
+    uint8_t unk_49[0x49 - (0x48 + sizeof(usePathfinding))];
+    bool useStart; // 49
+    uint8_t unk_4A[0x4A - (0x49 + sizeof(useStart))];
+    bool useStop; // 4A
+    uint8_t unk_4C[0x4C - (0x4A + sizeof(useStop))];
+    game::SmartObjectInstanceEntryType entryType; // 4C
+    uint8_t unk_50[0x50 - (0x4C + sizeof(entryType))];
+    move::MovementType movementType; // 50
+    uint8_t unk_58[0x58 - (0x50 + sizeof(movementType))];
+    WeakHandle<game::Object> strafingTarget; // 58
+    uint8_t unk_68[0x68 - (0x58 + sizeof(strafingTarget))];
+    Vector3 entryDirection; // 68
+    uint8_t unk_74[0x74 - (0x68 + sizeof(entryDirection))];
+    Vector3 entryPointPos; // 74
+    uint8_t unk_80[0x80 - (0x74 + sizeof(entryPointPos))];
+    Vector4 entryPointDir; // 80
+    uint8_t unk_90[0x90 - (0x80 + sizeof(entryPointDir))];
+    CName animationName; // 90
+    uint8_t unk_98[0x98 - (0x90 + sizeof(animationName))];
+    bool isInSmartObject; // 98
+#else
     uint64_t targetHash; // 40
     bool usePathfinding; // 48
     bool useStart; // 49
@@ -40,6 +67,7 @@ struct __declspec(align(0x10)) ActionMoveToSmartObjectState : game::ActionMoveTo
     CName animationName; // 90
     bool isInSmartObject; // 98
     uint8_t unk99[0xA0 - 0x99]; // 99
+#endif
 };
 RED4EXT_ASSERT_SIZE(ActionMoveToSmartObjectState, 0xA0);
 } // namespace game

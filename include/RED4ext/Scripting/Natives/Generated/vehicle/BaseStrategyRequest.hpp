@@ -24,7 +24,9 @@ struct BaseStrategyRequest : IScriptable
     Vector2 distanceRange; // 44
     float minDirectDistance; // 4C
     bool forceArriveFromBehind; // 50
+#if !defined(__APPLE__)
     uint8_t unk51[0x58 - 0x51]; // 51
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(BaseStrategyRequest, 0x58);
 } // namespace vehicle

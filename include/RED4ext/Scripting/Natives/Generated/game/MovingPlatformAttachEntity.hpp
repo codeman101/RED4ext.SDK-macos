@@ -20,7 +20,13 @@ struct MovingPlatformAttachEntity : red::Event
     static constexpr const char* NAME = "gameMovingPlatformAttachEntity";
     static constexpr const char* ALIAS = "AttachEntity";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     WeakHandle<ent::Entity> entity; // 40
+#else
+    WeakHandle<ent::Entity> entity; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(MovingPlatformAttachEntity, 0x50);
 } // namespace game

@@ -18,10 +18,20 @@ struct Radio_ConditionType : quest::ISystemConditionType
     static constexpr const char* NAME = "questRadio_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<quest::ISystemConditionType>];
+    bool inverted; // 34
+    uint8_t unk_35[0x35 - (0x34 + sizeof(inverted))];
+    bool limitToSpecifiedSpeakersStations; // 35
+    uint8_t unk_38[0x38 - (0x35 + sizeof(limitToSpecifiedSpeakersStations))];
+    audio::RadioSpeakerType speakerType; // 38
+#else
     bool inverted; // 38
     bool limitToSpecifiedSpeakersStations; // 39
     uint8_t unk3A[0x3C - 0x3A]; // 3A
     audio::RadioSpeakerType speakerType; // 3C
+#endif
 };
 RED4EXT_ASSERT_SIZE(Radio_ConditionType, 0x40);
 } // namespace quest

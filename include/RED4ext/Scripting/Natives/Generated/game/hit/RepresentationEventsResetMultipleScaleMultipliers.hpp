@@ -19,7 +19,13 @@ struct RepresentationEventsResetMultipleScaleMultipliers : red::Event
     static constexpr const char* NAME = "gamehitRepresentationEventsResetMultipleScaleMultipliers";
     static constexpr const char* ALIAS = "HitRepresentation_ResetMultipleScaleMultipliers";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     DynArray<CName> shapeNames; // 40
+#else
+    DynArray<CName> shapeNames; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(RepresentationEventsResetMultipleScaleMultipliers, 0x50);
 } // namespace game::hit

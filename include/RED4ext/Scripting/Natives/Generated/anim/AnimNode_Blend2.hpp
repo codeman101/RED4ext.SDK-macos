@@ -22,6 +22,23 @@ struct AnimNode_Blend2 : anim::AnimNode_Base
     static constexpr const char* NAME = "animAnimNode_Blend2";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_44[0x44 - ::RED4ext::Detail::DataSize<anim::AnimNode_Base>];
+    float minInputValue; // 44
+    uint8_t unk_48[0x48 - (0x44 + sizeof(minInputValue))];
+    float maxInputValue; // 48
+    uint8_t unk_4C[0x4C - (0x48 + sizeof(maxInputValue))];
+    bool timeWarpingEnabled; // 4C
+    uint8_t unk_50[0x50 - (0x4C + sizeof(timeWarpingEnabled))];
+    Handle<anim::ISyncMethod> syncMethod; // 50
+    uint8_t unk_80[0x80 - (0x50 + sizeof(syncMethod))];
+    anim::PoseLink firstInputNode; // 80
+    uint8_t unk_98[0x98 - (0x80 + sizeof(firstInputNode))];
+    anim::PoseLink secondInputNode; // 98
+    uint8_t unk_B0[0xB0 - (0x98 + sizeof(secondInputNode))];
+    anim::FloatLink weightNode; // B0
+#else
     float minInputValue; // 48
     float maxInputValue; // 4C
     bool timeWarpingEnabled; // 50
@@ -31,6 +48,7 @@ struct AnimNode_Blend2 : anim::AnimNode_Base
     anim::PoseLink firstInputNode; // 88
     anim::PoseLink secondInputNode; // A0
     anim::FloatLink weightNode; // B8
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_Blend2, 0xD8);
 } // namespace anim

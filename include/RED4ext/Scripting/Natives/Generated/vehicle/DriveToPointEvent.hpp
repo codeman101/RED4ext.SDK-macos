@@ -18,11 +18,21 @@ struct DriveToPointEvent : red::Event
     static constexpr const char* NAME = "vehicleDriveToPointEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Vector3 targetPos; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(targetPos))];
+    bool useTraffic; // 50
+    uint8_t unk_54[0x54 - (0x50 + sizeof(useTraffic))];
+    float speedInTraffic; // 54
+#else
     Vector3 targetPos; // 40
     uint8_t unk4C[0x50 - 0x4C]; // 4C
     bool useTraffic; // 50
     uint8_t unk51[0x54 - 0x51]; // 51
     float speedInTraffic; // 54
+#endif
 };
 RED4EXT_ASSERT_SIZE(DriveToPointEvent, 0x58);
 } // namespace vehicle

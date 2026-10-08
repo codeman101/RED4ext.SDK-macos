@@ -18,7 +18,13 @@ struct MachineeventStopStateMachine : red::Event
     static constexpr const char* NAME = "gamestateMachineeventStopStateMachine";
     static constexpr const char* ALIAS = "PSMStopStateMachine";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     game::state::MachineStateMachineIdentifier stateMachineIdentifier; // 40
+#else
+    game::state::MachineStateMachineIdentifier stateMachineIdentifier; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineeventStopStateMachine, 0x50);
 } // namespace game::state

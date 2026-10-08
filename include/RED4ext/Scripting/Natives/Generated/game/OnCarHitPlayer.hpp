@@ -19,10 +19,20 @@ struct __declspec(align(0x10)) OnCarHitPlayer : red::Event
     static constexpr const char* NAME = "gameOnCarHitPlayer";
     static constexpr const char* ALIAS = "OnCarHitPlayer";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Vector4 hitDirection; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(hitDirection))];
+    Vector4 seperationImpulse; // 50
+    uint8_t unk_60[0x60 - (0x50 + sizeof(seperationImpulse))];
+    ent::EntityID carId; // 60
+#else
     Vector4 hitDirection; // 40
     Vector4 seperationImpulse; // 50
     ent::EntityID carId; // 60
     uint8_t unk68[0x70 - 0x68]; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(OnCarHitPlayer, 0x70);
 } // namespace game

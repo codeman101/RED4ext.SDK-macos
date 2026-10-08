@@ -19,8 +19,14 @@ struct AcousticDataResource : res::StreamedResource
     static constexpr const char* NAME = "worldAcousticDataResource";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<res::StreamedResource>];
+    DynArray<world::AcousticDataCell> cells; // 40
+#else
     uint8_t unk40[0x48 - 0x40]; // 40
     DynArray<world::AcousticDataCell> cells; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(AcousticDataResource, 0x58);
 } // namespace world

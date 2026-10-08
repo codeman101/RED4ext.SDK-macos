@@ -17,9 +17,17 @@ struct DrivePatrolUpdate : AI::DriveCommandUpdate
     static constexpr const char* NAME = "AIDrivePatrolUpdate";
     static constexpr const char* ALIAS = "DrivePatrolUpdate";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_4C[0x4C - ::RED4ext::Detail::DataSize<AI::DriveCommandUpdate>];
+    uint32_t numPatrolLoops; // 4C
+    uint8_t unk_50[0x50 - (0x4C + sizeof(numPatrolLoops))];
+    bool emergencyPatrol; // 50
+#else
     uint32_t numPatrolLoops; // 50
     bool emergencyPatrol; // 54
     uint8_t unk55[0x58 - 0x55]; // 55
+#endif
 };
 RED4EXT_ASSERT_SIZE(DrivePatrolUpdate, 0x58);
 } // namespace AI

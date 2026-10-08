@@ -18,8 +18,14 @@ struct RoachRaceObstacleController : game::ui::arcade::ArcadeObjectController
     static constexpr const char* NAME = "gameuiarcadeRoachRaceObstacleController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_100[0x100 - ::RED4ext::Detail::DataSize<game::ui::arcade::ArcadeObjectController>];
+    game::ui::arcade::BoundingRect collider; // 100
+#else
     game::ui::arcade::BoundingRect collider; // 100
     uint8_t unk168[0x178 - 0x168]; // 168
+#endif
 };
 RED4EXT_ASSERT_SIZE(RoachRaceObstacleController, 0x178);
 } // namespace game::ui::arcade

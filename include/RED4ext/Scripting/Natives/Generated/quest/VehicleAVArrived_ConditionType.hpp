@@ -18,7 +18,13 @@ struct VehicleAVArrived_ConditionType : quest::IVehicleConditionType
     static constexpr const char* NAME = "questVehicleAVArrived_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IVehicleConditionType>];
     game::EntityReference vehicleRef; // 38
+#else
+    game::EntityReference vehicleRef; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(VehicleAVArrived_ConditionType, 0x70);
 } // namespace quest

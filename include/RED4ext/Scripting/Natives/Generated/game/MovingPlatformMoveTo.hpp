@@ -21,12 +21,24 @@ struct MovingPlatformMoveTo : red::Event
     static constexpr const char* NAME = "gameMovingPlatformMoveTo";
     static constexpr const char* ALIAS = "MoveTo";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Handle<game::IMovingPlatformMovement> movement; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(movement))];
+    CName destinationName; // 50
+    uint8_t unk_58[0x58 - (0x50 + sizeof(destinationName))];
+    int32_t data; // 58
+    uint8_t unk_60[0x60 - (0x58 + sizeof(data))];
+    bool isElevator; // 60
+#else
     Handle<game::IMovingPlatformMovement> movement; // 40
     CName destinationName; // 50
     int32_t data; // 58
     uint8_t unk5C[0x60 - 0x5C]; // 5C
     bool isElevator; // 60
     uint8_t unk61[0x68 - 0x61]; // 61
+#endif
 };
 RED4EXT_ASSERT_SIZE(MovingPlatformMoveTo, 0x68);
 } // namespace game

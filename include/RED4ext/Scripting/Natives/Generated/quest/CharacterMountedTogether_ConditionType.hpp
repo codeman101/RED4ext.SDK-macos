@@ -23,11 +23,21 @@ struct CharacterMountedTogether_ConditionType : quest::ICharacterConditionType
     static constexpr const char* NAME = "questCharacterMountedTogether_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_78[0x78 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
+    DynArray<Handle<quest::MountedObjectInfo>> characters; // 78
+    uint8_t unk_8C[0x8C - (0x78 + sizeof(characters))];
+    quest::MountVehicleType vehicleType; // 8C
+    uint8_t unk_90[0x90 - (0x8C + sizeof(vehicleType))];
+    quest::MountVehicleOrigin vehicleOrigin; // 90
+#else
     DynArray<Handle<quest::MountedObjectInfo>> characters; // 78
     uint8_t unk88[0x8C - 0x88]; // 88
     quest::MountVehicleType vehicleType; // 8C
     quest::MountVehicleOrigin vehicleOrigin; // 90
     uint8_t unk94[0x98 - 0x94]; // 94
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterMountedTogether_ConditionType, 0x98);
 } // namespace quest

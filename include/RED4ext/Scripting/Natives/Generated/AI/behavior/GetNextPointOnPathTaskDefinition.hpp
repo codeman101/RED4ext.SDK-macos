@@ -20,9 +20,19 @@ struct GetNextPointOnPathTaskDefinition : AI::behavior::TaskDefinition
     static constexpr const char* NAME = "AIbehaviorGetNextPointOnPathTaskDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<AI::behavior::TaskDefinition>];
+    Handle<AI::ArgumentMapping> patrolProgress; // 38
+    uint8_t unk_48[0x48 - (0x38 + sizeof(patrolProgress))];
+    Handle<AI::ArgumentMapping> positionOnPath; // 48
+    uint8_t unk_58[0x58 - (0x48 + sizeof(positionOnPath))];
+    Handle<AI::ArgumentMapping> entryTangent; // 58
+#else
     Handle<AI::ArgumentMapping> patrolProgress; // 38
     Handle<AI::ArgumentMapping> positionOnPath; // 48
     Handle<AI::ArgumentMapping> entryTangent; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(GetNextPointOnPathTaskDefinition, 0x68);
 } // namespace AI::behavior

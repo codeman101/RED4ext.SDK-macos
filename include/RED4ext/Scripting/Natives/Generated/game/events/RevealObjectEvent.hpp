@@ -18,9 +18,17 @@ struct RevealObjectEvent : red::Event
     static constexpr const char* NAME = "gameeventsRevealObjectEvent";
     static constexpr const char* ALIAS = "RevealObjectEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    bool reveal; // 40
+    uint8_t unk_48[0x48 - (0x40 + sizeof(reveal))];
+    game::VisionModeSystemRevealIdentifier reason; // 48
+#else
     bool reveal; // 40
     uint8_t unk41[0x48 - 0x41]; // 41
     game::VisionModeSystemRevealIdentifier reason; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(RevealObjectEvent, 0x58);
 } // namespace game::events

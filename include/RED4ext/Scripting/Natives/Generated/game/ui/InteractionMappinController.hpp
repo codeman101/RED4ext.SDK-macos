@@ -25,7 +25,9 @@ struct __declspec(align(0x10)) InteractionMappinController : game::ui::MappinBas
     uint8_t unk290[0x2A0 - 0x290]; // 290
     bool isCurrentlyClamped; // 2A0
     bool isUnderCrosshair; // 2A1
+#if !defined(__APPLE__)
     uint8_t unk2A2[0x2C0 - 0x2A2]; // 2A2
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(InteractionMappinController, 0x2C0);
 } // namespace game::ui

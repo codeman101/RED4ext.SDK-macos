@@ -20,8 +20,16 @@ struct IsInDesiredRangeConditionDefinition : AI::behavior::CompanionConditionDef
     static constexpr const char* NAME = "AIbehaviorIsInDesiredRangeConditionDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<AI::behavior::CompanionConditionDefinition>];
+    Handle<AI::ArgumentMapping> desiredDistance; // 58
+    uint8_t unk_68[0x68 - (0x58 + sizeof(desiredDistance))];
+    Handle<AI::ArgumentMapping> deadZoneRadius; // 68
+#else
     Handle<AI::ArgumentMapping> desiredDistance; // 58
     Handle<AI::ArgumentMapping> deadZoneRadius; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(IsInDesiredRangeConditionDefinition, 0x78);
 } // namespace AI::behavior

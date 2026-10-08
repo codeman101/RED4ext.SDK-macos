@@ -21,11 +21,23 @@ struct __declspec(align(0x10)) WidgetMenuComponentInterface : WidgetBaseComponen
     static constexpr const char* NAME = "WidgetMenuComponentInterface";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_198[0x198 - ::RED4ext::Detail::DataSize<WidgetBaseComponent>];
+    Handle<world::ui::MeshTargetBinding> meshTargetBinding; // 198
+    uint8_t unk_1A8[0x1A8 - (0x198 + sizeof(meshTargetBinding))];
+    Ref<CMaterialTemplate> externalMaterial; // 1A8
+    uint8_t unk_1C0[0x1C0 - (0x1A8 + sizeof(externalMaterial))];
+    Ref<ink::WidgetLibraryResource> widgetResource; // 1C0
+    uint8_t unk_1D8[0x1D8 - (0x1C0 + sizeof(widgetResource))];
+    Ref<ink::WidgetLibraryResource> cursorResource; // 1D8
+#else
     Handle<world::ui::MeshTargetBinding> meshTargetBinding; // 1A0
     Ref<CMaterialTemplate> externalMaterial; // 1B0
     Ref<ink::WidgetLibraryResource> widgetResource; // 1C8
     Ref<ink::WidgetLibraryResource> cursorResource; // 1E0
     uint8_t unk1F8[0x200 - 0x1F8]; // 1F8
+#endif
 };
 RED4EXT_ASSERT_SIZE(WidgetMenuComponentInterface, 0x200);
 } // namespace RED4ext

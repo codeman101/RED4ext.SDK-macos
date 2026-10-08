@@ -19,8 +19,16 @@ struct PlayAnimEvent : ink::anim::Event
     static constexpr const char* NAME = "inkanimPlayAnimEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<ink::anim::Event>];
+    CName animName; // 48
+    uint8_t unk_50[0x50 - (0x48 + sizeof(animName))];
+    ink::anim::PlaybackOptions playbackOptions; // 50
+#else
     CName animName; // 48
     ink::anim::PlaybackOptions playbackOptions; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(PlayAnimEvent, 0x80);
 } // namespace ink::anim

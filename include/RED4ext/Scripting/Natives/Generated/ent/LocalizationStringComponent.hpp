@@ -19,7 +19,13 @@ struct LocalizationStringComponent : ent::IComponent
     static constexpr const char* NAME = "entLocalizationStringComponent";
     static constexpr const char* ALIAS = "LocalizationStringComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
     DynArray<ent::LocalizationStringMapEntry> Strings; // 90
+#else
+    DynArray<ent::LocalizationStringMapEntry> Strings; // 90
+#endif
 };
 RED4EXT_ASSERT_SIZE(LocalizationStringComponent, 0xA0);
 } // namespace ent

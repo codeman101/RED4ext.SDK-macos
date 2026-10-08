@@ -21,10 +21,20 @@ struct ReactionEvent : red::Event
     static constexpr const char* NAME = "gameinteractionsReactionEvent";
     static constexpr const char* ALIAS = "ReactionEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    CName interactionType; // 40
+    uint8_t unk_48[0x48 - (0x40 + sizeof(interactionType))];
+    DynArray<game::EquipParam> interactionItems; // 48
+    uint8_t unk_58[0x58 - (0x48 + sizeof(interactionItems))];
+    game::interactions::ReactionState state; // 58
+#else
     CName interactionType; // 40
     DynArray<game::EquipParam> interactionItems; // 48
     game::interactions::ReactionState state; // 58
     uint8_t unk5C[0x60 - 0x5C]; // 5C
+#endif
 };
 RED4EXT_ASSERT_SIZE(ReactionEvent, 0x60);
 } // namespace game::interactions

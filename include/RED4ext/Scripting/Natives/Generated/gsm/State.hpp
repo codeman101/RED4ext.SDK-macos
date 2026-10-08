@@ -17,7 +17,9 @@ struct State : IScriptable
     static constexpr const char* NAME = "gsmState";
     static constexpr const char* ALIAS = NAME;
 
+#if !defined(__APPLE__)
     uint8_t unk40[0xB8 - 0x40]; // 40
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(State, 0xB8);
 } // namespace gsm

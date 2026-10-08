@@ -20,7 +20,13 @@ struct NPCCommandEvent : AI::AIEvent
     static constexpr const char* NAME = "AINPCCommandEvent";
     static constexpr const char* ALIAS = "AICommandEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<AI::AIEvent>];
     Handle<AI::Command> command; // 50
+#else
+    Handle<AI::Command> command; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(NPCCommandEvent, 0x60);
 } // namespace AI

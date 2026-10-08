@@ -18,8 +18,14 @@ struct __declspec(align(0x10)) TrafficCompiledNode : world::Node
     static constexpr const char* NAME = "worldTrafficCompiledNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<world::Node>];
+    Box aabb; // 50
+#else
     uint8_t unk38[0x50 - 0x38]; // 38
     Box aabb; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(TrafficCompiledNode, 0x70);
 } // namespace world

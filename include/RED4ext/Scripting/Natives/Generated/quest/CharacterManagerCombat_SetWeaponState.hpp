@@ -18,8 +18,14 @@ struct CharacterManagerCombat_SetWeaponState : quest::ICharacterManagerCombat_No
     static constexpr const char* NAME = "questCharacterManagerCombat_SetWeaponState";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_6C[0x6C - ::RED4ext::Detail::DataSize<quest::ICharacterManagerCombat_NodeSubType>];
+    game::CityAreaType areaType; // 6C
+#else
     game::CityAreaType areaType; // 70
     uint8_t unk74[0x78 - 0x74]; // 74
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerCombat_SetWeaponState, 0x78);
 } // namespace quest

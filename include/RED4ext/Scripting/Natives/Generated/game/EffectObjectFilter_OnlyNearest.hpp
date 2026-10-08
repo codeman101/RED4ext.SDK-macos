@@ -17,8 +17,14 @@ struct EffectObjectFilter_OnlyNearest : game::EffectObjectGroupFilter
     static constexpr const char* NAME = "gameEffectObjectFilter_OnlyNearest";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::EffectObjectGroupFilter>];
+    uint32_t count; // 40
+#else
     uint32_t count; // 40
     uint8_t unk44[0x48 - 0x44]; // 44
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectFilter_OnlyNearest, 0x48);
 } // namespace game

@@ -18,8 +18,14 @@ struct AnimNode_Join : anim::AnimNode_Base
     static constexpr const char* NAME = "animAnimNode_Join";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_Base>];
+    anim::PoseLink input; // 48
+#else
     anim::PoseLink input; // 48
     uint8_t unk60[0xA0 - 0x60]; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_Join, 0xA0);
 } // namespace anim

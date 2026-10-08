@@ -19,7 +19,13 @@ struct __declspec(align(0x10)) OccupantSlotComponent : ent::SlotComponent
     static constexpr const char* NAME = "gameOccupantSlotComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_1A0[0x1A0 - ::RED4ext::Detail::DataSize<ent::SlotComponent>];
     DynArray<game::OccupantSlotData> slotData; // 1A0
+#else
+    DynArray<game::OccupantSlotData> slotData; // 1A0
+#endif
 };
 RED4EXT_ASSERT_SIZE(OccupantSlotComponent, 0x1B0);
 } // namespace game

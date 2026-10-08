@@ -19,6 +19,131 @@ struct BenchmarkSummary : IScriptable
     static constexpr const char* NAME = "worldBenchmarkSummary";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<IScriptable>];
+    CString gameVersion; // 40
+    uint8_t unk_60[0x60 - (0x40 + sizeof(gameVersion))];
+    CString benchmarkName; // 60
+    uint8_t unk_80[0x80 - (0x60 + sizeof(benchmarkName))];
+    CString gpuName; // 80
+    uint8_t unk_A0[0xA0 - (0x80 + sizeof(gpuName))];
+    uint64_t gpuMemory; // A0
+    uint8_t unk_A8[0xA8 - (0xA0 + sizeof(gpuMemory))];
+    CString gpuDriverVersion; // A8
+    uint8_t unk_C8[0xC8 - (0xA8 + sizeof(gpuDriverVersion))];
+    CString cpuName; // C8
+    uint8_t unk_E8[0xE8 - (0xC8 + sizeof(cpuName))];
+    uint64_t systemMemory; // E8
+    uint8_t unk_F0[0xF0 - (0xE8 + sizeof(systemMemory))];
+    CString osName; // F0
+    uint8_t unk_110[0x110 - (0xF0 + sizeof(osName))];
+    CString osVersion; // 110
+    uint8_t unk_150[0x150 - (0x110 + sizeof(osVersion))];
+    CString presetName; // 150
+    uint8_t unk_170[0x170 - (0x150 + sizeof(presetName))];
+    CName presetLocalizedName; // 170
+    uint8_t unk_178[0x178 - (0x170 + sizeof(presetLocalizedName))];
+    CName textureQualityPresetLocalizedName; // 178
+    uint8_t unk_180[0x180 - (0x178 + sizeof(textureQualityPresetLocalizedName))];
+    uint32_t renderWidth; // 180
+    uint8_t unk_184[0x184 - (0x180 + sizeof(renderWidth))];
+    uint32_t renderHeight; // 184
+    uint8_t unk_188[0x188 - (0x184 + sizeof(renderHeight))];
+    uint8_t windowMode; // 188
+    uint8_t unk_189[0x189 - (0x188 + sizeof(windowMode))];
+    bool verticalSync; // 189
+    uint8_t unk_18C[0x18C - (0x189 + sizeof(verticalSync))];
+    int32_t fpsClamp; // 18C
+    uint8_t unk_190[0x190 - (0x18C + sizeof(fpsClamp))];
+    float averageFps; // 190
+    uint8_t unk_194[0x194 - (0x190 + sizeof(averageFps))];
+    float minFps; // 194
+    uint8_t unk_198[0x198 - (0x194 + sizeof(minFps))];
+    float maxFps; // 198
+    uint8_t unk_19C[0x19C - (0x198 + sizeof(maxFps))];
+    float time; // 19C
+    uint8_t unk_1A0[0x1A0 - (0x19C + sizeof(time))];
+    uint32_t frameNumber; // 1A0
+    uint8_t unk_1A4[0x1A4 - (0x1A0 + sizeof(frameNumber))];
+    uint8_t upscalingType; // 1A4
+    uint8_t unk_1A5[0x1A5 - (0x1A4 + sizeof(upscalingType))];
+    uint8_t frameGenerationType; // 1A5
+    uint8_t unk_1A6[0x1A6 - (0x1A5 + sizeof(frameGenerationType))];
+    bool DLAAEnabled; // 1A6
+    uint8_t unk_1A8[0x1A8 - (0x1A6 + sizeof(DLAAEnabled))];
+    float DLAASharpness; // 1A8
+    uint8_t unk_1AC[0x1AC - (0x1A8 + sizeof(DLAASharpness))];
+    bool DLSSEnabled; // 1AC
+    uint8_t unk_1B0[0x1B0 - (0x1AC + sizeof(DLSSEnabled))];
+    int32_t DLSSPreset; // 1B0
+    uint8_t unk_1B4[0x1B4 - (0x1B0 + sizeof(DLSSPreset))];
+    bool DLSSDEnabled; // 1B4
+    uint8_t unk_1B8[0x1B8 - (0x1B4 + sizeof(DLSSDEnabled))];
+    int32_t DLSSQuality; // 1B8
+    uint8_t unk_1BC[0x1BC - (0x1B8 + sizeof(DLSSQuality))];
+    float DLSSSharpness; // 1BC
+    uint8_t unk_1C0[0x1C0 - (0x1BC + sizeof(DLSSSharpness))];
+    bool DLSSFrameGenEnabled; // 1C0
+    uint8_t unk_1C1[0x1C1 - (0x1C0 + sizeof(DLSSFrameGenEnabled))];
+    bool DLSSMultiFrameGenEnabled; // 1C1
+    uint8_t unk_1C4[0x1C4 - (0x1C1 + sizeof(DLSSMultiFrameGenEnabled))];
+    int32_t DLSSMultiFrameGenFrameToGenerate; // 1C4
+    uint8_t unk_1C8[0x1C8 - (0x1C4 + sizeof(DLSSMultiFrameGenFrameToGenerate))];
+    bool FSR2Enabled; // 1C8
+    uint8_t unk_1CC[0x1CC - (0x1C8 + sizeof(FSR2Enabled))];
+    int32_t FSR2Quality; // 1CC
+    uint8_t unk_1D0[0x1D0 - (0x1CC + sizeof(FSR2Quality))];
+    float FSR2Sharpness; // 1D0
+    uint8_t unk_1D4[0x1D4 - (0x1D0 + sizeof(FSR2Sharpness))];
+    bool FSR3Enabled; // 1D4
+    uint8_t unk_1D8[0x1D8 - (0x1D4 + sizeof(FSR3Enabled))];
+    int32_t FSR3Quality; // 1D8
+    uint8_t unk_1DC[0x1DC - (0x1D8 + sizeof(FSR3Quality))];
+    float FSR3Sharpness; // 1DC
+    uint8_t unk_1E0[0x1E0 - (0x1DC + sizeof(FSR3Sharpness))];
+    bool FSR3FrameGenEnabled; // 1E0
+    uint8_t unk_1E1[0x1E1 - (0x1E0 + sizeof(FSR3FrameGenEnabled))];
+    bool FSR4Enabled; // 1E1
+    uint8_t unk_1E4[0x1E4 - (0x1E1 + sizeof(FSR4Enabled))];
+    int32_t FSR4Quality; // 1E4
+    uint8_t unk_1E8[0x1E8 - (0x1E4 + sizeof(FSR4Quality))];
+    float FSR4Sharpness; // 1E8
+    uint8_t unk_1EC[0x1EC - (0x1E8 + sizeof(FSR4Sharpness))];
+    bool XeSSEnabled; // 1EC
+    uint8_t unk_1F0[0x1F0 - (0x1EC + sizeof(XeSSEnabled))];
+    int32_t XeSSQuality; // 1F0
+    uint8_t unk_1F4[0x1F4 - (0x1F0 + sizeof(XeSSQuality))];
+    float XeSSSharpness; // 1F4
+    uint8_t unk_1F8[0x1F8 - (0x1F4 + sizeof(XeSSSharpness))];
+    bool XeSSFrameGenEnabled; // 1F8
+    uint8_t unk_204[0x204 - (0x1F8 + sizeof(XeSSFrameGenEnabled))];
+    bool DRSEnabled; // 204
+    uint8_t unk_208[0x208 - (0x204 + sizeof(DRSEnabled))];
+    uint32_t DRSTargetFPS; // 208
+    uint8_t unk_20C[0x20C - (0x208 + sizeof(DRSTargetFPS))];
+    uint32_t DRSMinimalResolutionPercentage; // 20C
+    uint8_t unk_210[0x210 - (0x20C + sizeof(DRSMinimalResolutionPercentage))];
+    uint32_t DRSMaximalResolutionPercentage; // 210
+    uint8_t unk_214[0x214 - (0x210 + sizeof(DRSMaximalResolutionPercentage))];
+    bool CASSharpeningEnabled; // 214
+    uint8_t unk_215[0x215 - (0x214 + sizeof(CASSharpeningEnabled))];
+    bool FSREnabled; // 215
+    uint8_t unk_218[0x218 - (0x215 + sizeof(FSREnabled))];
+    int32_t FSRQuality; // 218
+    uint8_t unk_21C[0x21C - (0x218 + sizeof(FSRQuality))];
+    bool rayTracingEnabled; // 21C
+    uint8_t unk_21D[0x21D - (0x21C + sizeof(rayTracingEnabled))];
+    bool rayTracedReflections; // 21D
+    uint8_t unk_21E[0x21E - (0x21D + sizeof(rayTracedReflections))];
+    bool rayTracedSunShadows; // 21E
+    uint8_t unk_21F[0x21F - (0x21E + sizeof(rayTracedSunShadows))];
+    bool rayTracedLocalShadows; // 21F
+    uint8_t unk_220[0x220 - (0x21F + sizeof(rayTracedLocalShadows))];
+    int32_t rayTracedLightingQuality; // 220
+    uint8_t unk_224[0x224 - (0x220 + sizeof(rayTracedLightingQuality))];
+    bool rayTracedPathTracingEnabled; // 224
+#else
     CString gameVersion; // 40
     CString benchmarkName; // 60
     CString gpuName; // 80
@@ -92,6 +217,7 @@ struct BenchmarkSummary : IScriptable
     int32_t rayTracedLightingQuality; // 1F4
     bool rayTracedPathTracingEnabled; // 1F8
     uint8_t unk1F9[0x200 - 0x1F9]; // 1F9
+#endif
 };
 RED4EXT_ASSERT_SIZE(BenchmarkSummary, 0x200);
 } // namespace world

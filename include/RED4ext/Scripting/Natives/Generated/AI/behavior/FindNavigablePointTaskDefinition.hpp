@@ -20,9 +20,19 @@ struct FindNavigablePointTaskDefinition : AI::behavior::TaskDefinition
     static constexpr const char* NAME = "AIbehaviorFindNavigablePointTaskDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<AI::behavior::TaskDefinition>];
+    Handle<AI::ArgumentMapping> destination; // 38
+    uint8_t unk_48[0x48 - (0x38 + sizeof(destination))];
+    Handle<AI::ArgumentMapping> outAdjustedDestination; // 48
+    uint8_t unk_58[0x58 - (0x48 + sizeof(outAdjustedDestination))];
+    Handle<AI::ArgumentMapping> outWasAdjusted; // 58
+#else
     Handle<AI::ArgumentMapping> destination; // 38
     Handle<AI::ArgumentMapping> outAdjustedDestination; // 48
     Handle<AI::ArgumentMapping> outWasAdjusted; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(FindNavigablePointTaskDefinition, 0x68);
 } // namespace AI::behavior

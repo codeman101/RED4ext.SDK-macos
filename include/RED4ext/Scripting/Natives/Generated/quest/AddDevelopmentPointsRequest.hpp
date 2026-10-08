@@ -18,8 +18,16 @@ struct AddDevelopmentPointsRequest : game::PlayerScriptableSystemRequest
     static constexpr const char* NAME = "questAddDevelopmentPointsRequest";
     static constexpr const char* ALIAS = "AddDevelopmentPoints";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<game::PlayerScriptableSystemRequest>];
+    int32_t amountOfPoints; // 58
+    uint8_t unk_5C[0x5C - (0x58 + sizeof(amountOfPoints))];
+    game::data::DevelopmentPointType developmentPointType; // 5C
+#else
     int32_t amountOfPoints; // 58
     game::data::DevelopmentPointType developmentPointType; // 5C
+#endif
 };
 RED4EXT_ASSERT_SIZE(AddDevelopmentPointsRequest, 0x60);
 } // namespace quest

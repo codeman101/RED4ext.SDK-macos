@@ -18,7 +18,13 @@ struct CharacterBodyType_CondtionType : quest::ICharacterConditionType
     static constexpr const char* NAME = "questCharacterBodyType_CondtionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_78[0x78 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
     CName gender; // 78
+#else
+    CName gender; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterBodyType_CondtionType, 0x80);
 } // namespace quest

@@ -19,9 +19,17 @@ struct RandomizerNodeDefinition : quest::DisableableNodeDefinition
     static constexpr const char* NAME = "questRandomizerNodeDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_42[0x42 - ::RED4ext::Detail::DataSize<quest::DisableableNodeDefinition>];
+    quest::RandomizerMode mode; // 42
+    uint8_t unk_48[0x48 - (0x42 + sizeof(mode))];
+    DynArray<uint8_t> outputWeights; // 48
+#else
     quest::RandomizerMode mode; // 48
     uint8_t unk49[0x50 - 0x49]; // 49
     DynArray<uint8_t> outputWeights; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(RandomizerNodeDefinition, 0x60);
 } // namespace quest

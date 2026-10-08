@@ -18,8 +18,14 @@ struct FPSCounterGameController : game::ui::HUDGameController
     static constexpr const char* NAME = "gameuiFPSCounterGameController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F8[0xF8 - ::RED4ext::Detail::DataSize<game::ui::HUDGameController>];
+    ink::TextWidgetReference counterWidget; // F8
+#else
     ink::TextWidgetReference counterWidget; // F8
     uint8_t unk110[0x118 - 0x110]; // 110
+#endif
 };
 RED4EXT_ASSERT_SIZE(FPSCounterGameController, 0x118);
 } // namespace game::ui

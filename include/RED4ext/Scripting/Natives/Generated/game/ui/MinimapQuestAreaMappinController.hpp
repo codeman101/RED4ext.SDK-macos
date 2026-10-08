@@ -18,8 +18,14 @@ struct MinimapQuestAreaMappinController : game::ui::BaseMinimapMappinController
     static constexpr const char* NAME = "gameuiMinimapQuestAreaMappinController";
     static constexpr const char* ALIAS = "MinimapQuestAreaMappinController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_228[0x228 - ::RED4ext::Detail::DataSize<game::ui::BaseMinimapMappinController>];
+    ink::ShapeWidgetReference areaShapeWidget; // 228
+#else
     uint8_t unk228[0x230 - 0x228]; // 228
     ink::ShapeWidgetReference areaShapeWidget; // 230
+#endif
 };
 RED4EXT_ASSERT_SIZE(MinimapQuestAreaMappinController, 0x248);
 } // namespace game::ui

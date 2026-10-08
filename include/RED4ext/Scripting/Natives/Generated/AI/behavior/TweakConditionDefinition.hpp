@@ -18,7 +18,13 @@ struct TweakConditionDefinition : AI::behavior::ConditionDefinition
     static constexpr const char* NAME = "AIbehaviorTweakConditionDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<AI::behavior::ConditionDefinition>];
+    TweakDBID recordId; // 34
+#else
     TweakDBID recordId; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(TweakConditionDefinition, 0x40);
 } // namespace AI::behavior

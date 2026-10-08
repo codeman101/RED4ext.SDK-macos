@@ -20,7 +20,13 @@ struct MountAIEvent : AI::AIEvent
     static constexpr const char* NAME = "gameMountAIEvent";
     static constexpr const char* ALIAS = "MountAIEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<AI::AIEvent>];
     Handle<game::MountEventData> data; // 50
+#else
+    Handle<game::MountEventData> data; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(MountAIEvent, 0x60);
 } // namespace game

@@ -18,7 +18,13 @@ struct PerfectChargeEvent : red::Event
     static constexpr const char* NAME = "gameweaponeventsPerfectChargeEvent";
     static constexpr const char* ALIAS = "PerfectChargeEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     CName type; // 40
+#else
+    CName type; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(PerfectChargeEvent, 0x48);
 } // namespace game::weapon::events

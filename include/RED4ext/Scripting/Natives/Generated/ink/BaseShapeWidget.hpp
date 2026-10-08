@@ -21,7 +21,9 @@ struct __declspec(align(0x10)) BaseShapeWidget : ink::LeafWidget
 
     uint8_t unk200[0x208 - 0x200]; // 200
     DynArray<Vector2> vertexList; // 208
+#if !defined(__APPLE__)
     uint8_t unk218[0x230 - 0x218]; // 218
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(BaseShapeWidget, 0x230);
 } // namespace ink

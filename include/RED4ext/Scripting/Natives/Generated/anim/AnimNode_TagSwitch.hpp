@@ -19,7 +19,13 @@ struct AnimNode_TagSwitch : anim::AnimNode_BaseSwitch
     static constexpr const char* NAME = "animAnimNode_TagSwitch";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_C8[0xC8 - ::RED4ext::Detail::DataSize<anim::AnimNode_BaseSwitch>];
     DynArray<CName> tags; // C8
+#else
+    DynArray<CName> tags; // C8
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_TagSwitch, 0xD8);
 } // namespace anim

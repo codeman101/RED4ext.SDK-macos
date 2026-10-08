@@ -18,7 +18,13 @@ struct UnequipByTDBIDRequest : game::PlayerScriptableSystemRequest
     static constexpr const char* NAME = "gameUnequipByTDBIDRequest";
     static constexpr const char* ALIAS = "UnequipByTDBIDRequest";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<game::PlayerScriptableSystemRequest>];
     TweakDBID itemTDBID; // 58
+#else
+    TweakDBID itemTDBID; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(UnequipByTDBIDRequest, 0x60);
 } // namespace game

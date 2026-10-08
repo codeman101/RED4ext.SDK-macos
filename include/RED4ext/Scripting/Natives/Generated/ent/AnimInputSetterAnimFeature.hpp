@@ -20,9 +20,17 @@ struct AnimInputSetterAnimFeature : ent::AnimInputSetter
     static constexpr const char* NAME = "entAnimInputSetterAnimFeature";
     static constexpr const char* ALIAS = "AnimInputSetterAnimFeature";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<ent::AnimInputSetter>];
+    float delay; // 48
+    uint8_t unk_50[0x50 - (0x48 + sizeof(delay))];
+    Handle<anim::AnimFeature> value; // 50
+#else
     float delay; // 48
     uint8_t unk4C[0x50 - 0x4C]; // 4C
     Handle<anim::AnimFeature> value; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimInputSetterAnimFeature, 0x60);
 } // namespace ent

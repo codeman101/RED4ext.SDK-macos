@@ -19,7 +19,13 @@ struct AnimNode_Stage : anim::AnimNode_Container
     static constexpr const char* NAME = "animAnimNode_Stage";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<anim::AnimNode_Container>];
     DynArray<anim::PoseLink> inputPoses; // 58
+#else
+    DynArray<anim::PoseLink> inputPoses; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_Stage, 0x68);
 } // namespace anim

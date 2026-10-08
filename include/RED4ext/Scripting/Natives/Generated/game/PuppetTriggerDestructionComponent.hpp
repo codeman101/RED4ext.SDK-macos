@@ -17,8 +17,14 @@ struct __declspec(align(0x10)) PuppetTriggerDestructionComponent : game::ITrigge
     static constexpr const char* NAME = "gamePuppetTriggerDestructionComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_CC[0xCC - ::RED4ext::Detail::DataSize<game::ITriggerDestructionComponent>];
+    float projectionDist; // CC
+#else
     uint8_t unk98[0xCC - 0x98]; // 98
     float projectionDist; // CC
+#endif
 };
 RED4EXT_ASSERT_SIZE(PuppetTriggerDestructionComponent, 0xD0);
 } // namespace game

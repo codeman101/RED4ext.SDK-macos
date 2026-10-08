@@ -20,9 +20,19 @@ struct UpdateInputHintMultipleEvent : red::Event
     static constexpr const char* NAME = "gameuiUpdateInputHintMultipleEvent";
     static constexpr const char* ALIAS = "UpdateInputHintMultipleEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    DynArray<game::ui::InputHintData> data; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(data))];
+    DynArray<bool> show; // 50
+    uint8_t unk_60[0x60 - (0x50 + sizeof(show))];
+    CName targetHintContainer; // 60
+#else
     DynArray<game::ui::InputHintData> data; // 40
     DynArray<bool> show; // 50
     CName targetHintContainer; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(UpdateInputHintMultipleEvent, 0x68);
 } // namespace game::ui

@@ -18,9 +18,17 @@ struct PhysicalDeformShapesEvent : red::Event
     static constexpr const char* NAME = "enteventsPhysicalDeformShapesEvent";
     static constexpr const char* ALIAS = "PhysicalDeformShapesEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    DynArray<int32_t> shapes; // 40
+    uint8_t unk_54[0x54 - (0x40 + sizeof(shapes))];
+    float value; // 54
+#else
     DynArray<int32_t> shapes; // 40
     uint8_t unk50[0x54 - 0x50]; // 50
     float value; // 54
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalDeformShapesEvent, 0x58);
 } // namespace ent::events

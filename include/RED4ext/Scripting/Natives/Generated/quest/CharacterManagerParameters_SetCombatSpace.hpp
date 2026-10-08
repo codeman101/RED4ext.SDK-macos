@@ -18,8 +18,14 @@ struct CharacterManagerParameters_SetCombatSpace : quest::ICharacterManagerComba
     static constexpr const char* NAME = "questCharacterManagerParameters_SetCombatSpace";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_6C[0x6C - ::RED4ext::Detail::DataSize<quest::ICharacterManagerCombat_NodeSubType>];
+    AI::CombatSpaceSize combatSpaceSize; // 6C
+#else
     AI::CombatSpaceSize combatSpaceSize; // 70
     uint8_t unk74[0x78 - 0x74]; // 74
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerParameters_SetCombatSpace, 0x78);
 } // namespace quest

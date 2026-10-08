@@ -19,9 +19,17 @@ struct __declspec(align(0x10)) VirtualCameraViewComponent : ent::IVisualComponen
     static constexpr const char* NAME = "entVirtualCameraViewComponent";
     static constexpr const char* ALIAS = "VirtualCameraViewComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_140[0x140 - ::RED4ext::Detail::DataSize<ent::IVisualComponent>];
+    CName virtualCameraName; // 140
+    uint8_t unk_148[0x148 - (0x140 + sizeof(virtualCameraName))];
+    Vector2 targetPlaneSize; // 148
+#else
     CName virtualCameraName; // 140
     Vector2 targetPlaneSize; // 148
     uint8_t unk150[0x170 - 0x150]; // 150
+#endif
 };
 RED4EXT_ASSERT_SIZE(VirtualCameraViewComponent, 0x170);
 } // namespace ent

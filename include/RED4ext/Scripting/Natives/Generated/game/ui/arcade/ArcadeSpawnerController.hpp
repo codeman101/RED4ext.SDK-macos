@@ -21,7 +21,9 @@ struct ArcadeSpawnerController : ink::WidgetLogicController
     uint8_t unk78[0xC0 - 0x78]; // 78
     CName objectLibraryID; // C0
     uint32_t initialObjectsCount; // C8
+#if !defined(__APPLE__)
     uint8_t unkCC[0xD0 - 0xCC]; // CC
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ArcadeSpawnerController, 0xD0);
 } // namespace game::ui::arcade

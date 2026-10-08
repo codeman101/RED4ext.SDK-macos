@@ -21,10 +21,20 @@ struct AnimNode_RuntimeSwitch : anim::AnimNode_Base
     static constexpr const char* NAME = "animAnimNode_RuntimeSwitch";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_Base>];
+    Handle<anim::IRuntimeCondition> condition; // 48
+    uint8_t unk_68[0x68 - (0x48 + sizeof(condition))];
+    anim::PoseLink True; // 68
+    uint8_t unk_80[0x80 - (0x68 + sizeof(True))];
+    anim::PoseLink False; // 80
+#else
     Handle<anim::IRuntimeCondition> condition; // 48
     uint8_t unk58[0x68 - 0x58]; // 58
     anim::PoseLink True; // 68
     anim::PoseLink False; // 80
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_RuntimeSwitch, 0x98);
 } // namespace anim

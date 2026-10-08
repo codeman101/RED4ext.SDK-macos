@@ -19,9 +19,17 @@ struct AnimNode_LocoState : anim::AnimNode_State
     static constexpr const char* NAME = "animAnimNode_LocoState";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_88[0x88 - ::RED4ext::Detail::DataSize<anim::AnimNode_State>];
+    anim::LocoStateType type; // 88
+    uint8_t unk_90[0x90 - (0x88 + sizeof(type))];
+    CName locoTag; // 90
+#else
     anim::LocoStateType type; // 88
     uint8_t unk8C[0x90 - 0x8C]; // 8C
     CName locoTag; // 90
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_LocoState, 0x98);
 } // namespace anim

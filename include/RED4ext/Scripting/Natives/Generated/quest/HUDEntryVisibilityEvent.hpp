@@ -19,8 +19,14 @@ struct HUDEntryVisibilityEvent : red::Event
     static constexpr const char* NAME = "questHUDEntryVisibilityEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    DynArray<quest::HUDEntryVisibilityData> dataEntries; // 40
+#else
     DynArray<quest::HUDEntryVisibilityData> dataEntries; // 40
     uint8_t unk50[0x58 - 0x50]; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(HUDEntryVisibilityEvent, 0x58);
 } // namespace quest

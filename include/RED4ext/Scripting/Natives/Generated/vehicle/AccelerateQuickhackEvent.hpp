@@ -17,8 +17,14 @@ struct AccelerateQuickhackEvent : game::ActionEvent
     static constexpr const char* NAME = "vehicleAccelerateQuickhackEvent";
     static constexpr const char* ALIAS = "VehicleAccelerateQuickhackEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_68[0x68 - ::RED4ext::Detail::DataSize<game::ActionEvent>];
+    bool active; // 68
+#else
     bool active; // 68
     uint8_t unk69[0x70 - 0x69]; // 69
+#endif
 };
 RED4EXT_ASSERT_SIZE(AccelerateQuickhackEvent, 0x70);
 } // namespace vehicle

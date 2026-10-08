@@ -18,8 +18,14 @@ struct NpcNameplateGameController : game::ui::ProjectedHUDGameController
     static constexpr const char* NAME = "gameuiNpcNameplateGameController";
     static constexpr const char* ALIAS = "NpcNameplateGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_190[0x190 - ::RED4ext::Detail::DataSize<game::ui::ProjectedHUDGameController>];
+    ink::WidgetReference projection; // 190
+#else
     uint8_t unk160[0x190 - 0x160]; // 160
     ink::WidgetReference projection; // 190
+#endif
 };
 RED4EXT_ASSERT_SIZE(NpcNameplateGameController, 0x1A8);
 } // namespace game::ui

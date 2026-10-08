@@ -18,8 +18,14 @@ struct __declspec(align(0x10)) AnimInputSetterVector : ent::AnimInputSetter
     static constexpr const char* NAME = "entAnimInputSetterVector";
     static constexpr const char* ALIAS = "AnimInputSetterVector";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<ent::AnimInputSetter>];
+    Vector4 value; // 50
+#else
     uint8_t unk48[0x50 - 0x48]; // 48
     Vector4 value; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimInputSetterVector, 0x60);
 } // namespace ent

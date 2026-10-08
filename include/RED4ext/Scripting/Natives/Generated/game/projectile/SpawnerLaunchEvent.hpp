@@ -23,6 +23,19 @@ struct __declspec(align(0x10)) SpawnerLaunchEvent : red::Event
     static constexpr const char* NAME = "gameprojectileSpawnerLaunchEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    game::projectile::LaunchParams launchParams; // 40
+    uint8_t unk_98[0x98 - (0x40 + sizeof(launchParams))];
+    CName templateName; // 98
+    uint8_t unk_A0[0xA0 - (0x98 + sizeof(templateName))];
+    CName appearance; // A0
+    uint8_t unk_A8[0xA8 - (0xA0 + sizeof(appearance))];
+    WeakHandle<game::Object> owner; // A8
+    uint8_t unk_D0[0xD0 - (0xA8 + sizeof(owner))];
+    game::projectile::WeaponParams projectileParams; // D0
+#else
     game::projectile::LaunchParams launchParams; // 40
     CName templateName; // 98
     CName appearance; // A0
@@ -30,6 +43,7 @@ struct __declspec(align(0x10)) SpawnerLaunchEvent : red::Event
     uint8_t unkB8[0xD0 - 0xB8]; // B8
     game::projectile::WeaponParams projectileParams; // D0
     uint8_t unk190[0x1A0 - 0x190]; // 190
+#endif
 };
 RED4EXT_ASSERT_SIZE(SpawnerLaunchEvent, 0x1A0);
 } // namespace game::projectile

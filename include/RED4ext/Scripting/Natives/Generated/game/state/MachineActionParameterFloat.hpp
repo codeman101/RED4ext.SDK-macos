@@ -20,7 +20,9 @@ struct MachineActionParameterFloat
     uint8_t unk00[0x8 - 0x0]; // 0
     CName name; // 08
     float value; // 10
+#if !defined(__APPLE__)
     uint8_t unk14[0x18 - 0x14]; // 14
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(MachineActionParameterFloat, 0x18);
 } // namespace game::state

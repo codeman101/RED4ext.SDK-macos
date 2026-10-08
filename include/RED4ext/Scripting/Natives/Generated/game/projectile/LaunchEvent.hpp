@@ -22,12 +22,24 @@ struct __declspec(align(0x10)) LaunchEvent : red::Event
     static constexpr const char* NAME = "gameprojectileLaunchEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    game::projectile::LaunchParams launchParams; // 40
+    uint8_t unk_98[0x98 - (0x40 + sizeof(launchParams))];
+    WeakHandle<game::Object> owner; // 98
+    uint8_t unk_A8[0xA8 - (0x98 + sizeof(owner))];
+    WeakHandle<game::Object> weapon; // A8
+    uint8_t unk_C0[0xC0 - (0xA8 + sizeof(weapon))];
+    game::projectile::WeaponParams projectileParams; // C0
+#else
     game::projectile::LaunchParams launchParams; // 40
     WeakHandle<game::Object> owner; // 98
     WeakHandle<game::Object> weapon; // A8
     uint8_t unkB8[0xC0 - 0xB8]; // B8
     game::projectile::WeaponParams projectileParams; // C0
     uint8_t unk180[0x1A0 - 0x180]; // 180
+#endif
 };
 RED4EXT_ASSERT_SIZE(LaunchEvent, 0x1A0);
 } // namespace game::projectile

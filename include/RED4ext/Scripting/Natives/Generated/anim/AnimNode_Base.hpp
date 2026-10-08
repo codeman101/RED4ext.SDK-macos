@@ -19,7 +19,9 @@ struct AnimNode_Base : ISerializable
 
     uint8_t unk30[0x40 - 0x30]; // 30
     uint32_t id; // 40
+#if !defined(__APPLE__)
     uint8_t unk44[0x48 - 0x44]; // 44
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(AnimNode_Base, 0x48);
 } // namespace anim

@@ -18,6 +18,19 @@ struct __declspec(align(0x10)) ScrollAreaWidget : ink::CompoundWidget
     static constexpr const char* NAME = "inkScrollAreaWidget";
     static constexpr const char* ALIAS = "inkScrollArea";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_238[0x238 - ::RED4ext::Detail::DataSize<ink::CompoundWidget>];
+    float horizontalScrolling; // 238
+    uint8_t unk_23C[0x23C - (0x238 + sizeof(horizontalScrolling))];
+    float verticalScrolling; // 23C
+    uint8_t unk_240[0x240 - (0x23C + sizeof(verticalScrolling))];
+    bool constrainContentPosition; // 240
+    uint8_t unk_241[0x241 - (0x240 + sizeof(constrainContentPosition))];
+    bool useInternalMask; // 241
+    uint8_t unk_24C[0x24C - (0x241 + sizeof(useInternalMask))];
+    ink::FitToContentDirection fitToContentDirection; // 24C
+#else
     uint8_t unk230[0x240 - 0x230]; // 230
     float horizontalScrolling; // 240
     float verticalScrolling; // 244
@@ -26,6 +39,7 @@ struct __declspec(align(0x10)) ScrollAreaWidget : ink::CompoundWidget
     uint8_t unk24A[0x254 - 0x24A]; // 24A
     ink::FitToContentDirection fitToContentDirection; // 254
     uint8_t unk258[0x260 - 0x258]; // 258
+#endif
 };
 RED4EXT_ASSERT_SIZE(ScrollAreaWidget, 0x260);
 } // namespace ink

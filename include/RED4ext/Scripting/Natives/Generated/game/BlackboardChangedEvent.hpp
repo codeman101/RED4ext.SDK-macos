@@ -21,8 +21,16 @@ struct BlackboardChangedEvent : red::Event
     static constexpr const char* NAME = "gameBlackboardChangedEvent";
     static constexpr const char* ALIAS = "BlackboardChangedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Handle<game::bb::ScriptDefinition> definition; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(definition))];
+    game::bb::ScriptID id; // 50
+#else
     Handle<game::bb::ScriptDefinition> definition; // 40
     game::bb::ScriptID id; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(BlackboardChangedEvent, 0x60);
 } // namespace game

@@ -17,8 +17,14 @@ struct __declspec(align(0x10)) MachineConsumableParameterVector : game::state::M
     static constexpr const char* NAME = "gamestateMachineConsumableParameterVector";
     static constexpr const char* ALIAS = "ConsumableParameterVector";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_20[0x20 - ::RED4ext::Detail::DataSize<game::state::MachineActionParameterVector>];
+    bool consumed; // 20
+#else
     bool consumed; // 30
     uint8_t unk31[0x40 - 0x31]; // 31
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineConsumableParameterVector, 0x40);
 } // namespace game::state

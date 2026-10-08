@@ -20,6 +20,25 @@ struct ActionMoveToDynamicNodeState : game::ActionMoveToState
     static constexpr const char* NAME = "gameActionMoveToDynamicNodeState";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::ActionMoveToState>];
+    WeakHandle<game::Object> target; // 40
+    uint8_t unk_58[0x58 - (0x40 + sizeof(target))];
+    WeakHandle<game::Object> strafingTarget; // 58
+    uint8_t unk_68[0x68 - (0x58 + sizeof(strafingTarget))];
+    float desiredDistanceFromTarget; // 68
+    uint8_t unk_6C[0x6C - (0x68 + sizeof(desiredDistanceFromTarget))];
+    bool stopWhenDestinationReached; // 6C
+    uint8_t unk_70[0x70 - (0x6C + sizeof(stopWhenDestinationReached))];
+    float pathfindingUpdateInterval; // 70
+    uint8_t unk_74[0x74 - (0x70 + sizeof(pathfindingUpdateInterval))];
+    bool usePathfinding; // 74
+    uint8_t unk_75[0x75 - (0x74 + sizeof(usePathfinding))];
+    bool useStart; // 75
+    uint8_t unk_76[0x76 - (0x75 + sizeof(useStart))];
+    bool useStop; // 76
+#else
     WeakHandle<game::Object> target; // 40
     uint8_t unk50[0x58 - 0x50]; // 50
     WeakHandle<game::Object> strafingTarget; // 58
@@ -31,6 +50,7 @@ struct ActionMoveToDynamicNodeState : game::ActionMoveToState
     bool useStart; // 75
     bool useStop; // 76
     uint8_t unk77[0x78 - 0x77]; // 77
+#endif
 };
 RED4EXT_ASSERT_SIZE(ActionMoveToDynamicNodeState, 0x78);
 } // namespace game

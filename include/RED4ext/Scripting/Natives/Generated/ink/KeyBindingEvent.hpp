@@ -18,7 +18,13 @@ struct KeyBindingEvent : red::Event
     static constexpr const char* NAME = "inkKeyBindingEvent";
     static constexpr const char* ALIAS = "KeyBindingEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     CName keyName; // 40
+#else
+    CName keyName; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(KeyBindingEvent, 0x48);
 } // namespace ink

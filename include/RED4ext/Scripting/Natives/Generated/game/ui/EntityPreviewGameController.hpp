@@ -20,9 +20,15 @@ struct EntityPreviewGameController : game::ui::MenuGameController
     static constexpr const char* NAME = "gameuiEntityPreviewGameController";
     static constexpr const char* ALIAS = "inkEntityPreviewGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_148[0x148 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    RaRef<ent::EntityTemplate> entityToPreview; // 148
+#else
     uint8_t unkF0[0x148 - 0xF0]; // F0
     RaRef<ent::EntityTemplate> entityToPreview; // 148
     uint8_t unk150[0x160 - 0x150]; // 150
+#endif
 };
 RED4EXT_ASSERT_SIZE(EntityPreviewGameController, 0x160);
 } // namespace game::ui

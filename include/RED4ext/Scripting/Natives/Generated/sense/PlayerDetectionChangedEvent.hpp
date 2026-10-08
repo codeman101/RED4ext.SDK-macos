@@ -17,8 +17,16 @@ struct PlayerDetectionChangedEvent : red::Event
     static constexpr const char* NAME = "sensePlayerDetectionChangedEvent";
     static constexpr const char* ALIAS = "PlayerDetectionChangedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    float oldDetectionValue; // 40
+    uint8_t unk_44[0x44 - (0x40 + sizeof(oldDetectionValue))];
+    float newDetectionValue; // 44
+#else
     float oldDetectionValue; // 40
     float newDetectionValue; // 44
+#endif
 };
 RED4EXT_ASSERT_SIZE(PlayerDetectionChangedEvent, 0x48);
 } // namespace sense

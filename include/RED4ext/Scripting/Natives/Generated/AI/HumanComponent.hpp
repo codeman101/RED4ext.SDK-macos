@@ -18,8 +18,14 @@ struct HumanComponent : AI::CAgent
     static constexpr const char* NAME = "AIHumanComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_4F0[0x4F0 - ::RED4ext::Detail::DataSize<AI::CAgent>];
+    TweakDBID movementParamsRecord; // 4F0
+#else
     TweakDBID movementParamsRecord; // 4F0
     uint8_t unk4F8[0x5B8 - 0x4F8]; // 4F8
+#endif
 };
 RED4EXT_ASSERT_SIZE(HumanComponent, 0x5B8);
 } // namespace AI

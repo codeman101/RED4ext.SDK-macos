@@ -18,7 +18,13 @@ struct CharacterCallReinforcements_ConditionType : quest::ICharacterConditionTyp
     static constexpr const char* NAME = "questCharacterCallReinforcements_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_78[0x78 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
     game::EntityReference puppetRef; // 78
+#else
+    game::EntityReference puppetRef; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCallReinforcements_ConditionType, 0xB0);
 } // namespace quest

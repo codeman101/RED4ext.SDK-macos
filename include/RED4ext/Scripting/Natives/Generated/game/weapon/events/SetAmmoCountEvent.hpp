@@ -18,9 +18,17 @@ struct SetAmmoCountEvent : red::Event
     static constexpr const char* NAME = "gameweaponeventsSetAmmoCountEvent";
     static constexpr const char* ALIAS = "SetAmmoCountEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    ItemID ammoTypeID; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(ammoTypeID))];
+    uint32_t count; // 50
+#else
     ItemID ammoTypeID; // 40
     uint32_t count; // 50
     uint8_t unk54[0x58 - 0x54]; // 54
+#endif
 };
 RED4EXT_ASSERT_SIZE(SetAmmoCountEvent, 0x58);
 } // namespace game::weapon::events

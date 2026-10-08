@@ -20,9 +20,17 @@ struct DeviceRegisterCameraControlOnPuppetEvent : red::Event
     static constexpr const char* NAME = "gameeventsDeviceRegisterCameraControlOnPuppetEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Handle<game::DeviceCameraControlComponent> component; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(component))];
+    bool register_; // 50
+#else
     Handle<game::DeviceCameraControlComponent> component; // 40
     bool register_; // 50 -- register
     uint8_t unk51[0x58 - 0x51]; // 51
+#endif
 };
 RED4EXT_ASSERT_SIZE(DeviceRegisterCameraControlOnPuppetEvent, 0x58);
 } // namespace game::events

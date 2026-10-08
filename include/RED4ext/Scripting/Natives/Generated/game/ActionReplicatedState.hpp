@@ -24,7 +24,9 @@ struct ActionReplicatedState
     net::Time startTimeStamp; // 10
     net::Time stopTimeStamp; // 18
     uint8_t updateBucket; // 20
+#if !defined(__APPLE__)
     uint8_t unk21[0x28 - 0x21]; // 21
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ActionReplicatedState, 0x28);
 } // namespace game

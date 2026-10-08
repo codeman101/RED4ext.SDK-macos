@@ -18,9 +18,17 @@ struct LightChannelVolumeNode : world::AreaShapeNode
     static constexpr const char* NAME = "worldLightChannelVolumeNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<world::AreaShapeNode>];
+    rend::LightChannel channels; // 60
+    uint8_t unk_64[0x64 - (0x60 + sizeof(channels))];
+    float streamingDistanceFactor; // 64
+#else
     rend::LightChannel channels; // 60
     uint8_t unk62[0x64 - 0x62]; // 62
     float streamingDistanceFactor; // 64
+#endif
 };
 RED4EXT_ASSERT_SIZE(LightChannelVolumeNode, 0x68);
 } // namespace world

@@ -17,8 +17,16 @@ struct EffectObjectProvider_SweepOverTime_Capsule : game::EffectObjectProvider_S
     static constexpr const char* NAME = "gameEffectObjectProvider_SweepOverTime_Capsule";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_68[0x68 - ::RED4ext::Detail::DataSize<game::EffectObjectProvider_SweepOverTime>];
+    float radius; // 68
+    uint8_t unk_6C[0x6C - (0x68 + sizeof(radius))];
+    float height; // 6C
+#else
     float radius; // 68
     float height; // 6C
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectProvider_SweepOverTime_Capsule, 0x70);
 } // namespace game

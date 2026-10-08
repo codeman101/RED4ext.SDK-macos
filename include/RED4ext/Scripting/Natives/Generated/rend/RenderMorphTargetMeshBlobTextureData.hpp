@@ -22,11 +22,23 @@ struct __declspec(align(0x10)) RenderMorphTargetMeshBlobTextureData
     alignas(16) StaticArray<Vector4, 3> targetDiffScale; // 00
 #pragma warning(suppress : 4324)
     alignas(16) StaticArray<Vector4, 3> targetDiffOffset; // 40
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_80[0x80];
+    StaticArray<uint32_t, 3> targetDiffsDataOffset; // 80
+    uint8_t unk_90[0x90 - (0x80 + sizeof(targetDiffsDataOffset))];
+    StaticArray<uint32_t, 3> targetDiffsDataSize; // 90
+    uint8_t unk_A0[0xA0 - (0x90 + sizeof(targetDiffsDataSize))];
+    StaticArray<uint16_t, 3> targetDiffsWidth; // A0
+    uint8_t unk_AC[0xAC - (0xA0 + sizeof(targetDiffsWidth))];
+    StaticArray<uint8_t, 3> targetDiffsMipLevelCounts; // AC
+#else
     StaticArray<uint32_t, 3> targetDiffsDataOffset; // 80
     StaticArray<uint32_t, 3> targetDiffsDataSize; // 90
     StaticArray<uint16_t, 3> targetDiffsWidth; // A0
     StaticArray<uint8_t, 3> targetDiffsMipLevelCounts; // AC
     uint8_t unkB4[0xC0 - 0xB4]; // B4
+#endif
 };
 RED4EXT_ASSERT_SIZE(RenderMorphTargetMeshBlobTextureData, 0xC0);
 } // namespace rend

@@ -19,9 +19,19 @@ struct SetMetaQuestProgress_NodeType : quest::IUIManagerNodeType
     static constexpr const char* NAME = "questSetMetaQuestProgress_NodeType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<quest::IUIManagerNodeType>];
+    game::data::MetaQuest metaQuestId; // 34
+    uint8_t unk_38[0x38 - (0x34 + sizeof(metaQuestId))];
+    uint32_t percent; // 38
+    uint8_t unk_40[0x40 - (0x38 + sizeof(percent))];
+    LocalizationString text; // 40
+#else
     game::data::MetaQuest metaQuestId; // 38
     uint32_t percent; // 3C
     LocalizationString text; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(SetMetaQuestProgress_NodeType, 0x68);
 } // namespace quest

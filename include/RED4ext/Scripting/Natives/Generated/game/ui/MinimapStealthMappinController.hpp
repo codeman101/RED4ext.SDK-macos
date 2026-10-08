@@ -18,7 +18,13 @@ struct MinimapStealthMappinController : game::ui::BaseMinimapMappinController
     static constexpr const char* NAME = "gameuiMinimapStealthMappinController";
     static constexpr const char* ALIAS = "MinimapStealthMappinController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_228[0x228 - ::RED4ext::Detail::DataSize<game::ui::BaseMinimapMappinController>];
     ink::ImageWidgetReference visionConeWidget; // 228
+#else
+    ink::ImageWidgetReference visionConeWidget; // 228
+#endif
 };
 RED4EXT_ASSERT_SIZE(MinimapStealthMappinController, 0x240);
 } // namespace game::ui

@@ -20,10 +20,20 @@ struct __declspec(align(0x10)) ObstacleComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "gameinfluenceObstacleComponent";
     static constexpr const char* ALIAS = "InfluenceObstacleComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_120[0x120 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    Box customBoundingBox; // 120
+    uint8_t unk_140[0x140 - (0x120 + sizeof(customBoundingBox))];
+    game::influence::EBoundingBoxType boundingBoxType; // 140
+    uint8_t unk_150[0x150 - (0x140 + sizeof(boundingBoxType))];
+    game::influence::ObstacleAgent obstacleAgent; // 150
+#else
     Box customBoundingBox; // 120
     game::influence::EBoundingBoxType boundingBoxType; // 140
     uint8_t unk144[0x150 - 0x144]; // 144
     game::influence::ObstacleAgent obstacleAgent; // 150
+#endif
 };
 RED4EXT_ASSERT_SIZE(ObstacleComponent, 0x210);
 } // namespace game::influence

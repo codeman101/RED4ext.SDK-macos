@@ -25,6 +25,21 @@ struct AnimNode_BlendByMaskDynamic : anim::AnimNode_Base
     static constexpr const char* NAME = "animAnimNode_BlendByMaskDynamic";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_Base>];
+    anim::PoseLink base; // 48
+    uint8_t unk_60[0x60 - (0x48 + sizeof(base))];
+    anim::PoseLink blend; // 60
+    uint8_t unk_78[0x78 - (0x60 + sizeof(blend))];
+    anim::IntLink mask; // 78
+    uint8_t unk_98[0x98 - (0x78 + sizeof(mask))];
+    anim::FloatLink weight; // 98
+    uint8_t unk_B8[0xB8 - (0x98 + sizeof(weight))];
+    Handle<anim::ISyncMethod> syncMethod; // B8
+    uint8_t unk_C8[0xC8 - (0xB8 + sizeof(syncMethod))];
+    DynArray<CName> masks; // C8
+#else
     anim::PoseLink base; // 48
     anim::PoseLink blend; // 60
     anim::IntLink mask; // 78
@@ -32,6 +47,7 @@ struct AnimNode_BlendByMaskDynamic : anim::AnimNode_Base
     Handle<anim::ISyncMethod> syncMethod; // B8
     DynArray<CName> masks; // C8
     uint8_t unkD8[0x108 - 0xD8]; // D8
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_BlendByMaskDynamic, 0x108);
 } // namespace anim

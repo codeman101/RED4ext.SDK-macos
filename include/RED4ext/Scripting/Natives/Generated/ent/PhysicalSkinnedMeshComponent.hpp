@@ -22,6 +22,19 @@ struct __declspec(align(0x10)) PhysicalSkinnedMeshComponent : ent::SkinnedMeshCo
     static constexpr const char* NAME = "entPhysicalSkinnedMeshComponent";
     static constexpr const char* ALIAS = "PhysicalSkinnedMeshComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_2A0[0x2A0 - ::RED4ext::Detail::DataSize<ent::SkinnedMeshComponent>];
+    Handle<physics::FilterData> filterData; // 2A0
+    uint8_t unk_2BC[0x2BC - (0x2A0 + sizeof(filterData))];
+    physics::SimulationType simulationType; // 2BC
+    uint8_t unk_2BD[0x2BD - (0x2BC + sizeof(simulationType))];
+    physics::FilterDataSource filterDataSource; // 2BD
+    uint8_t unk_2BE[0x2BE - (0x2BD + sizeof(filterDataSource))];
+    bool startInactive; // 2BE
+    uint8_t unk_2C0[0x2C0 - (0x2BE + sizeof(startInactive))];
+    bool useResourceSimulationType; // 2C0
+#else
     uint8_t unk270[0x2A8 - 0x270]; // 270
     Handle<physics::FilterData> filterData; // 2A8
     uint8_t unk2B8[0x2C4 - 0x2B8]; // 2B8
@@ -31,6 +44,7 @@ struct __declspec(align(0x10)) PhysicalSkinnedMeshComponent : ent::SkinnedMeshCo
     uint8_t unk2C7[0x2C8 - 0x2C7]; // 2C7
     bool useResourceSimulationType; // 2C8
     uint8_t unk2C9[0x2D0 - 0x2C9]; // 2C9
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalSkinnedMeshComponent, 0x2D0);
 } // namespace ent

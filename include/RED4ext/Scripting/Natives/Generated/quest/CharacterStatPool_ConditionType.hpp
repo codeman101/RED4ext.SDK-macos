@@ -19,10 +19,20 @@ struct CharacterStatPool_ConditionType : quest::ICharacterConditionType
     static constexpr const char* NAME = "questCharacterStatPool_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_74[0x74 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
+    float percent; // 74
+    uint8_t unk_78[0x78 - (0x74 + sizeof(percent))];
+    EComparisonType comparisonType; // 78
+    uint8_t unk_7C[0x7C - (0x78 + sizeof(comparisonType))];
+    game::data::StatPoolType statPoolType; // 7C
+#else
     float percent; // 78
     EComparisonType comparisonType; // 7C
     game::data::StatPoolType statPoolType; // 80
     uint8_t unk84[0x88 - 0x84]; // 84
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterStatPool_ConditionType, 0x88);
 } // namespace quest

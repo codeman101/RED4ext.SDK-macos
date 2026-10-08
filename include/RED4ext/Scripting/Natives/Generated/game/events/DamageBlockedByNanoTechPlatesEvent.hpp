@@ -20,7 +20,13 @@ struct DamageBlockedByNanoTechPlatesEvent : red::Event
     static constexpr const char* NAME = "gameeventsDamageBlockedByNanoTechPlatesEvent";
     static constexpr const char* ALIAS = "DamageBlockedByNanoTechPlatesEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     Handle<game::events::HitEvent> hitEvent; // 40
+#else
+    Handle<game::events::HitEvent> hitEvent; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(DamageBlockedByNanoTechPlatesEvent, 0x50);
 } // namespace game::events

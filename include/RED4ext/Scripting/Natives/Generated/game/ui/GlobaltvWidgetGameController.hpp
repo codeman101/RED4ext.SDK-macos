@@ -18,8 +18,14 @@ struct GlobaltvWidgetGameController : game::ui::WidgetGameController
     static constexpr const char* NAME = "gameuiGlobaltvWidgetGameController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_108[0x108 - ::RED4ext::Detail::DataSize<game::ui::WidgetGameController>];
+    ink::CompoundWidgetReference overlayContainer; // 108
+#else
     uint8_t unkE0[0x108 - 0xE0]; // E0
     ink::CompoundWidgetReference overlayContainer; // 108
+#endif
 };
 RED4EXT_ASSERT_SIZE(GlobaltvWidgetGameController, 0x120);
 } // namespace game::ui

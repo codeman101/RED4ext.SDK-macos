@@ -20,7 +20,9 @@ struct MachineActionParameterBool
     uint8_t unk00[0x8 - 0x0]; // 0
     CName name; // 08
     bool value; // 10
+#if !defined(__APPLE__)
     uint8_t unk11[0x18 - 0x11]; // 11
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(MachineActionParameterBool, 0x18);
 } // namespace game::state

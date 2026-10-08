@@ -22,8 +22,16 @@ struct OnMiniGameStateUpdateEventAdvanced : red::Event
     static constexpr const char* NAME = "gameuiOnMiniGameStateUpdateEventAdvanced";
     static constexpr const char* ALIAS = "MiniGameStateUpdateEventAdvanced";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Handle<game::ui::SideScrollerMiniGameStateAdvanced> gameState; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(gameState))];
+    DynArray<CName> propertyNames; // 50
+#else
     Handle<game::ui::SideScrollerMiniGameStateAdvanced> gameState; // 40
     DynArray<CName> propertyNames; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(OnMiniGameStateUpdateEventAdvanced, 0x60);
 } // namespace game::ui

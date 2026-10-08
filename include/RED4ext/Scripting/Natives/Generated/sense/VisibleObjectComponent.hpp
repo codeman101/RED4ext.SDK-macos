@@ -20,8 +20,14 @@ struct __declspec(align(0x10)) VisibleObjectComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "senseVisibleObjectComponent";
     static constexpr const char* ALIAS = "VisibleObjectComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_120[0x120 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    Handle<sense::VisibleObject> visibleObject; // 120
+#else
     Handle<sense::VisibleObject> visibleObject; // 120
     uint8_t unk130[0x140 - 0x130]; // 130
+#endif
 };
 RED4EXT_ASSERT_SIZE(VisibleObjectComponent, 0x140);
 } // namespace sense

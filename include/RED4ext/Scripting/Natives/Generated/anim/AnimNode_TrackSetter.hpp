@@ -19,8 +19,16 @@ struct AnimNode_TrackSetter : anim::AnimNode_OnePoseInput
     static constexpr const char* NAME = "animAnimNode_TrackSetter";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<anim::AnimNode_OnePoseInput>];
+    anim::NamedTrackIndex track; // 60
+    uint8_t unk_78[0x78 - (0x60 + sizeof(track))];
+    anim::FloatLink value; // 78
+#else
     anim::NamedTrackIndex track; // 60
     anim::FloatLink value; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_TrackSetter, 0x98);
 } // namespace anim

@@ -25,6 +25,27 @@ struct __declspec(align(0x10)) PhotoModeBackgroundCameraComponent : ent::BaseCam
     static constexpr const char* NAME = "gamePhotoModeBackgroundCameraComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_1D8[0x1D8 - ::RED4ext::Detail::DataSize<ent::BaseCameraComponent>];
+    RaRef<DynamicTexture> dynamicTextureRes; // 1D8
+    uint8_t unk_1F8[0x1F8 - (0x1D8 + sizeof(dynamicTextureRes))];
+    CName virtualCameraName; // 1F8
+    uint8_t unk_200[0x200 - (0x1F8 + sizeof(virtualCameraName))];
+    Ref<world::EnvironmentAreaParameters> env; // 200
+    uint8_t unk_218[0x218 - (0x200 + sizeof(env))];
+    WorldRenderAreaSettings params; // 218
+    uint8_t unk_900[0x900 - (0x218 + sizeof(params))];
+    float streamingDistance; // 900
+    uint8_t unk_904[0x904 - (0x900 + sizeof(streamingDistance))];
+    Color backgroundColor; // 904
+    uint8_t unk_908[0x908 - (0x904 + sizeof(backgroundColor))];
+    float depthCutDistance; // 908
+    uint8_t unk_90C[0x90C - (0x908 + sizeof(depthCutDistance))];
+    RenderSceneLayer renderSceneLayer; // 90C
+    uint8_t unk_90D[0x90D - (0x90C + sizeof(renderSceneLayer))];
+    bool overrideBackgroundColor; // 90D
+#else
     RaRef<DynamicTexture> dynamicTextureRes; // 1E0
     uint8_t unk1E8[0x200 - 0x1E8]; // 1E8
     CName virtualCameraName; // 200
@@ -37,6 +58,7 @@ struct __declspec(align(0x10)) PhotoModeBackgroundCameraComponent : ent::BaseCam
     RenderSceneLayer renderSceneLayer; // 91C
     bool overrideBackgroundColor; // 91D
     uint8_t unk91E[0x920 - 0x91E]; // 91E
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhotoModeBackgroundCameraComponent, 0x920);
 } // namespace game

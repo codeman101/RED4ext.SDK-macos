@@ -17,8 +17,14 @@ struct __declspec(align(0x10)) TargetDamageEvent : game::events::TargetHitEvent
     static constexpr const char* NAME = "gameeventsTargetDamageEvent";
     static constexpr const char* ALIAS = "gameTargetDamageEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F8[0xF8 - ::RED4ext::Detail::DataSize<game::events::TargetHitEvent>];
+    float damage; // F8
+#else
     float damage; // 100
     uint8_t unk104[0x110 - 0x104]; // 104
+#endif
 };
 RED4EXT_ASSERT_SIZE(TargetDamageEvent, 0x110);
 } // namespace game::events

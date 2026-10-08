@@ -17,9 +17,15 @@ struct RoachRaceSceneryObjectSpawnerController : game::ui::arcade::ArcadeSpawner
     static constexpr const char* NAME = "gameuiarcadeRoachRaceSceneryObjectSpawnerController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_E8[0xE8 - ::RED4ext::Detail::DataSize<game::ui::arcade::ArcadeSpawnerController>];
+    float sceneryObjectSpawnTime; // E8
+#else
     uint8_t unkD0[0xE8 - 0xD0]; // D0
     float sceneryObjectSpawnTime; // E8
     uint8_t unkEC[0xF8 - 0xEC]; // EC
+#endif
 };
 RED4EXT_ASSERT_SIZE(RoachRaceSceneryObjectSpawnerController, 0xF8);
 } // namespace game::ui::arcade

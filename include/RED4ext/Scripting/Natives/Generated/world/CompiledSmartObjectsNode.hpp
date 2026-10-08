@@ -20,7 +20,13 @@ struct CompiledSmartObjectsNode : world::Node
     static constexpr const char* NAME = "worldCompiledSmartObjectsNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<world::Node>];
     RaRef<game::SmartObjectsCompiledResource> resource; // 38
+#else
+    RaRef<game::SmartObjectsCompiledResource> resource; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(CompiledSmartObjectsNode, 0x40);
 } // namespace world

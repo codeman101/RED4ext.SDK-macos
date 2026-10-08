@@ -18,7 +18,13 @@ struct __declspec(align(0x10)) RagdollNotifyVelocityTresholdEvent : red::Event
     static constexpr const char* NAME = "entRagdollNotifyVelocityTresholdEvent";
     static constexpr const char* ALIAS = "RagdollNotifyVelocityTresholdEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     Vector4 velocity; // 40
+#else
+    Vector4 velocity; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(RagdollNotifyVelocityTresholdEvent, 0x50);
 } // namespace ent

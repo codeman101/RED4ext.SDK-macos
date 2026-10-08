@@ -21,6 +21,21 @@ struct Inventory_ConditionType : quest::IObjectConditionType
     static constexpr const char* NAME = "questInventory_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IObjectConditionType>];
+    game::EntityReference objectRef; // 38
+    uint8_t unk_70[0x70 - (0x38 + sizeof(objectRef))];
+    bool isPlayer; // 70
+    uint8_t unk_74[0x74 - (0x70 + sizeof(isPlayer))];
+    TweakDBID itemID; // 74
+    uint8_t unk_80[0x80 - (0x74 + sizeof(itemID))];
+    CName itemTag; // 80
+    uint8_t unk_88[0x88 - (0x80 + sizeof(itemTag))];
+    uint32_t quantity; // 88
+    uint8_t unk_8C[0x8C - (0x88 + sizeof(quantity))];
+    EComparisonType comparisonType; // 8C
+#else
     game::EntityReference objectRef; // 38
     bool isPlayer; // 70
     uint8_t unk71[0x74 - 0x71]; // 71
@@ -29,6 +44,7 @@ struct Inventory_ConditionType : quest::IObjectConditionType
     CName itemTag; // 80
     uint32_t quantity; // 88
     EComparisonType comparisonType; // 8C
+#endif
 };
 RED4EXT_ASSERT_SIZE(Inventory_ConditionType, 0x90);
 } // namespace quest

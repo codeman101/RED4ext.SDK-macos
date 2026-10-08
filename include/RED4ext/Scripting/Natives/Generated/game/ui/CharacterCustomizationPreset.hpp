@@ -21,6 +21,23 @@ struct CharacterCustomizationPreset : CResource
     static constexpr const char* NAME = "gameuiCharacterCustomizationPreset";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_39[0x39 - ::RED4ext::Detail::DataSize<CResource>];
+    bool isMale; // 39
+    uint8_t unk_40[0x40 - (0x39 + sizeof(isMale))];
+    DynArray<game::ui::CustomizationGroup> bodyGroups; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(bodyGroups))];
+    DynArray<game::ui::CustomizationGroup> headGroups; // 50
+    uint8_t unk_60[0x60 - (0x50 + sizeof(headGroups))];
+    DynArray<game::ui::CustomizationGroup> armsGroups; // 60
+    uint8_t unk_70[0x70 - (0x60 + sizeof(armsGroups))];
+    DynArray<game::ui::PerspectiveInfo> perspectiveInfo; // 70
+    uint8_t unk_80[0x80 - (0x70 + sizeof(perspectiveInfo))];
+    red::TagList tags; // 80
+    uint8_t unk_90[0x90 - (0x80 + sizeof(tags))];
+    uint32_t version; // 90
+#else
     bool isMale; // 40
     uint8_t unk41[0x48 - 0x41]; // 41
     DynArray<game::ui::CustomizationGroup> bodyGroups; // 48
@@ -30,6 +47,7 @@ struct CharacterCustomizationPreset : CResource
     red::TagList tags; // 88
     uint32_t version; // 98
     uint8_t unk9C[0xA0 - 0x9C]; // 9C
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCustomizationPreset, 0xA0);
 } // namespace game::ui

@@ -15,8 +15,14 @@ struct CParticleDrawerBillboard : IParticleDrawer
     static constexpr const char* NAME = "CParticleDrawerBillboard";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<IParticleDrawer>];
+    bool isGPUBased; // 34
+#else
     bool isGPUBased; // 38
     uint8_t unk39[0x40 - 0x39]; // 39
+#endif
 };
 RED4EXT_ASSERT_SIZE(CParticleDrawerBillboard, 0x40);
 } // namespace RED4ext

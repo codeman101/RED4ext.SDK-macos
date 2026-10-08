@@ -21,12 +21,24 @@ struct VehicleBumpEvent : red::Event
     static constexpr const char* NAME = "vehicleVehicleBumpEvent";
     static constexpr const char* ALIAS = "VehicleBumpEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    float impactVelocityChange; // 40
+    uint8_t unk_44[0x44 - (0x40 + sizeof(impactVelocityChange))];
+    bool isInTraffic; // 44
+    uint8_t unk_48[0x48 - (0x44 + sizeof(isInTraffic))];
+    WeakHandle<vehicle::BaseObject> hitVehicle; // 48
+    uint8_t unk_58[0x58 - (0x48 + sizeof(hitVehicle))];
+    Vector3 hitNormal; // 58
+#else
     float impactVelocityChange; // 40
     bool isInTraffic; // 44
     uint8_t unk45[0x48 - 0x45]; // 45
     WeakHandle<vehicle::BaseObject> hitVehicle; // 48
     Vector3 hitNormal; // 58
     uint8_t unk64[0x68 - 0x64]; // 64
+#endif
 };
 RED4EXT_ASSERT_SIZE(VehicleBumpEvent, 0x68);
 } // namespace vehicle

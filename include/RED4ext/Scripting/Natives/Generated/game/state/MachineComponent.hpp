@@ -18,9 +18,15 @@ struct __declspec(align(0x10)) MachineComponent : game::PlayerControlledComponen
     static constexpr const char* NAME = "gamestateMachineComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_188C0[0x188C0 - ::RED4ext::Detail::DataSize<game::PlayerControlledComponent>];
+    CString packageName; // 188C0
+#else
     uint8_t unk98[0x1ACE0 - 0x98]; // 98
     CString packageName; // 1ACE0
     uint8_t unk1AD00[0x1AD30 - 0x1AD00]; // 1AD00
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineComponent, 0x1AD30);
 } // namespace game::state

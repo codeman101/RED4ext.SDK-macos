@@ -18,9 +18,17 @@ struct TankPickupController : game::ui::arcade::ArcadeObjectController
     static constexpr const char* NAME = "gameuiarcadeTankPickupController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_100[0x100 - ::RED4ext::Detail::DataSize<game::ui::arcade::ArcadeObjectController>];
+    ink::WidgetReference pickup; // 100
+    uint8_t unk_118[0x118 - (0x100 + sizeof(pickup))];
+    ink::WidgetReference pickupText; // 118
+#else
     ink::WidgetReference pickup; // 100
     ink::WidgetReference pickupText; // 118
     uint8_t unk130[0x150 - 0x130]; // 130
+#endif
 };
 RED4EXT_ASSERT_SIZE(TankPickupController, 0x150);
 } // namespace game::ui::arcade

@@ -17,9 +17,15 @@ struct CharacterCustomizationBodyPartsController : game::ui::ICharacterCustomiza
     static constexpr const char* NAME = "gameuiCharacterCustomizationBodyPartsController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_B0[0xB0 - ::RED4ext::Detail::DataSize<game::ui::ICharacterCustomizationBodyPartsController>];
+    bool isHiddenInFpp; // B0
+#else
     uint8_t unk98[0xB8 - 0x98]; // 98
     bool isHiddenInFpp; // B8
     uint8_t unkB9[0xC0 - 0xB9]; // B9
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCustomizationBodyPartsController, 0xC0);
 } // namespace game::ui

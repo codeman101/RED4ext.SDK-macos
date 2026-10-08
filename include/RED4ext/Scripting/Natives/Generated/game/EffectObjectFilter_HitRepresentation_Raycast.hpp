@@ -17,9 +17,17 @@ struct EffectObjectFilter_HitRepresentation_Raycast : game::EffectObjectFilter_H
     static constexpr const char* NAME = "gameEffectObjectFilter_HitRepresentation_Raycast";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::EffectObjectFilter_HitRepresentation>];
+    bool isPreview; // 40
+    uint8_t unk_41[0x41 - (0x40 + sizeof(isPreview))];
+    bool fillNearlyHitData; // 41
+#else
     bool isPreview; // 40
     bool fillNearlyHitData; // 41
     uint8_t unk42[0x48 - 0x42]; // 42
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectFilter_HitRepresentation_Raycast, 0x48);
 } // namespace game

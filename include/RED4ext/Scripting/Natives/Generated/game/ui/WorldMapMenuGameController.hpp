@@ -28,6 +28,51 @@ struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsCon
     static constexpr const char* NAME = "gameuiWorldMapMenuGameController";
     static constexpr const char* ALIAS = "WorldMapMenuGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_368[0x368 - ::RED4ext::Detail::DataSize<game::ui::MappinsContainerController>];
+    WeakHandle<game::ui::BaseWorldMapMappinController> selectedMappin; // 368
+    uint8_t unk_3B0[0x3B0 - (0x368 + sizeof(selectedMappin))];
+    game::NewMappinID delamainTaxiMappinID; // 3B0
+    uint8_t unk_3D8[0x3D8 - (0x3B0 + sizeof(delamainTaxiMappinID))];
+    bool isZoomToMappinEnabled; // 3D8
+    uint8_t unk_420[0x420 - (0x3D8 + sizeof(isZoomToMappinEnabled))];
+    bool canChangeCustomFilter; // 420
+    uint8_t unk_4A0[0x4A0 - (0x420 + sizeof(canChangeCustomFilter))];
+    TweakDBID settingsRecordID; // 4A0
+    uint8_t unk_4A8[0x4A8 - (0x4A0 + sizeof(settingsRecordID))];
+    CName entityPreviewLibraryID; // 4A8
+    uint8_t unk_4B0[0x4B0 - (0x4A8 + sizeof(entityPreviewLibraryID))];
+    ink::CompoundWidgetReference entityPreviewSpawnContainer; // 4B0
+    uint8_t unk_4C8[0x4C8 - (0x4B0 + sizeof(entityPreviewSpawnContainer))];
+    ink::CompoundWidgetReference floorPlanSpawnContainer; // 4C8
+    uint8_t unk_4E0[0x4E0 - (0x4C8 + sizeof(floorPlanSpawnContainer))];
+    ink::WidgetReference compassWidget; // 4E0
+    uint8_t unk_4F8[0x4F8 - (0x4E0 + sizeof(compassWidget))];
+    ink::CompoundWidgetReference tooltipContainer; // 4F8
+    uint8_t unk_510[0x510 - (0x4F8 + sizeof(tooltipContainer))];
+    ink::Margin tooltipOffset; // 510
+    uint8_t unk_520[0x520 - (0x510 + sizeof(tooltipOffset))];
+    ink::Margin tooltipDistrictOffset; // 520
+    uint8_t unk_530[0x530 - (0x520 + sizeof(tooltipDistrictOffset))];
+    ink::CompoundWidgetReference districtsContainer; // 530
+    uint8_t unk_548[0x548 - (0x530 + sizeof(districtsContainer))];
+    ink::CompoundWidgetReference subdistrictsContainer; // 548
+    uint8_t unk_560[0x560 - (0x548 + sizeof(subdistrictsContainer))];
+    bool playerOnTop; // 560
+    uint8_t unk_568[0x568 - (0x560 + sizeof(playerOnTop))];
+    ink::CompoundWidgetReference mappinOutlinesContainer; // 568
+    uint8_t unk_580[0x580 - (0x568 + sizeof(mappinOutlinesContainer))];
+    ink::CompoundWidgetReference groupOutlinesContainer; // 580
+    uint8_t unk_5D8[0x5D8 - (0x580 + sizeof(groupOutlinesContainer))];
+    game::data::District hoveredDistrict; // 5D8
+    uint8_t unk_5DC[0x5DC - (0x5D8 + sizeof(hoveredDistrict))];
+    game::data::District hoveredSubDistrict; // 5DC
+    uint8_t unk_5E0[0x5E0 - (0x5DC + sizeof(hoveredSubDistrict))];
+    game::data::District selectedDistrict; // 5E0
+    uint8_t unk_5EC[0x5EC - (0x5E0 + sizeof(selectedDistrict))];
+    game::ui::EWorldMapDistrictView districtView; // 5EC
+#else
     uint8_t unk340[0x368 - 0x340]; // 340
     WeakHandle<game::ui::BaseWorldMapMappinController> selectedMappin; // 368
     uint8_t unk378[0x3B0 - 0x378]; // 378
@@ -58,6 +103,7 @@ struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsCon
     uint8_t unk5E4[0x5EC - 0x5E4]; // 5E4
     game::ui::EWorldMapDistrictView districtView; // 5EC
     uint8_t unk5F0[0x6C0 - 0x5F0]; // 5F0
+#endif
 };
 RED4EXT_ASSERT_SIZE(WorldMapMenuGameController, 0x6C0);
 } // namespace game::ui

@@ -18,7 +18,13 @@ struct EffectFilter_ReachableByAcousticGraph : game::EffectObjectSingleFilter
     static constexpr const char* NAME = "gameEffectFilter_ReachableByAcousticGraph";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::EffectObjectSingleFilter>];
     game::EffectInputParameter_Float maxPathLength; // 40
+#else
+    game::EffectInputParameter_Float maxPathLength; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectFilter_ReachableByAcousticGraph, 0x58);
 } // namespace game

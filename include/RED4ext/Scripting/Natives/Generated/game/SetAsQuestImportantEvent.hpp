@@ -17,9 +17,17 @@ struct SetAsQuestImportantEvent : red::Event
     static constexpr const char* NAME = "gameSetAsQuestImportantEvent";
     static constexpr const char* ALIAS = "SetAsQuestImportantEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    bool isImportant; // 40
+    uint8_t unk_41[0x41 - (0x40 + sizeof(isImportant))];
+    bool propagateToSlaves; // 41
+#else
     bool isImportant; // 40
     bool propagateToSlaves; // 41
     uint8_t unk42[0x48 - 0x42]; // 42
+#endif
 };
 RED4EXT_ASSERT_SIZE(SetAsQuestImportantEvent, 0x48);
 } // namespace game

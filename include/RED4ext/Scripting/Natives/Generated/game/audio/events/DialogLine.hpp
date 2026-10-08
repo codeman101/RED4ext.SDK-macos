@@ -18,7 +18,13 @@ struct DialogLine : red::Event
     static constexpr const char* NAME = "gameaudioeventsDialogLine";
     static constexpr const char* ALIAS = "DialogLineEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     audio::DialogLineEventData data; // 40
+#else
+    audio::DialogLineEventData data; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(DialogLine, 0x68);
 } // namespace game::audio::events

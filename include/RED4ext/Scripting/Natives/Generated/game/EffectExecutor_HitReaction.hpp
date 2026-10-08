@@ -17,8 +17,14 @@ struct EffectExecutor_HitReaction : game::EffectExecutor
     static constexpr const char* NAME = "gameEffectExecutor_HitReaction";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_41[0x41 - ::RED4ext::Detail::DataSize<game::EffectExecutor>];
+    bool npcMissEvents; // 41
+#else
     bool npcMissEvents; // 48
     uint8_t unk49[0x50 - 0x49]; // 49
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectExecutor_HitReaction, 0x50);
 } // namespace game

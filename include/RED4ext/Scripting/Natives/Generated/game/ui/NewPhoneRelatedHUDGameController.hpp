@@ -17,8 +17,14 @@ struct NewPhoneRelatedHUDGameController : game::ui::HUDGameController
     static constexpr const char* NAME = "gameuiNewPhoneRelatedHUDGameController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F8[0xF8 - ::RED4ext::Detail::DataSize<game::ui::HUDGameController>];
+    bool isNewPhoneEnabled; // F8
+#else
     bool isNewPhoneEnabled; // F8
     uint8_t unkF9[0x100 - 0xF9]; // F9
+#endif
 };
 RED4EXT_ASSERT_SIZE(NewPhoneRelatedHUDGameController, 0x100);
 } // namespace game::ui

@@ -16,9 +16,15 @@ struct CIESDataResource : CResource
     static constexpr const char* NAME = "CIESDataResource";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<CResource>];
+    NativeArray<uint16_t, 128> samples; // 40
+#else
     uint8_t unk40[0x44 - 0x40]; // 40
     NativeArray<uint16_t, 128> samples; // 44
     uint8_t unk144[0x148 - 0x144]; // 144
+#endif
 };
 RED4EXT_ASSERT_SIZE(CIESDataResource, 0x148);
 } // namespace RED4ext

@@ -18,7 +18,13 @@ struct __declspec(align(0x10)) RepresentationEventsSetSingleScaleMultiplier_AllS
     static constexpr const char* NAME = "gamehitRepresentationEventsSetSingleScaleMultiplier_AllShapes";
     static constexpr const char* ALIAS = "HitRepresentation_SetSingleScaleMultiplier_AllShapes";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     Vector4 scaleMultiplier; // 40
+#else
+    Vector4 scaleMultiplier; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(RepresentationEventsSetSingleScaleMultiplier_AllShapes, 0x50);
 } // namespace game::hit

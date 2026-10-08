@@ -18,7 +18,13 @@ struct MachineeventBaseEvent : red::Event
     static constexpr const char* NAME = "gamestateMachineeventBaseEvent";
     static constexpr const char* ALIAS = "PSMBaseEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     CName id; // 40
+#else
+    CName id; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineeventBaseEvent, 0x48);
 } // namespace game::state

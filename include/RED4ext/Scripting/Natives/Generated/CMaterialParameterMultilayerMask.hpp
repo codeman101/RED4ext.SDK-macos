@@ -18,7 +18,13 @@ struct CMaterialParameterMultilayerMask : CMaterialParameter
     static constexpr const char* NAME = "CMaterialParameterMultilayerMask";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<CMaterialParameter>];
     Ref<Multilayer_Mask> mask; // 40
+#else
+    Ref<Multilayer_Mask> mask; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(CMaterialParameterMultilayerMask, 0x58);
 } // namespace RED4ext

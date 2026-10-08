@@ -18,8 +18,16 @@ struct CharacterHealth_ConditionType : quest::ICharacterConditionType
     static constexpr const char* NAME = "questCharacterHealth_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_74[0x74 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
+    float percent; // 74
+    uint8_t unk_78[0x78 - (0x74 + sizeof(percent))];
+    EComparisonType comparisonType; // 78
+#else
     float percent; // 78
     EComparisonType comparisonType; // 7C
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterHealth_ConditionType, 0x80);
 } // namespace quest

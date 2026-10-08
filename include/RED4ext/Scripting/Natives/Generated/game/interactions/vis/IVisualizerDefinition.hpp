@@ -20,7 +20,9 @@ struct IVisualizerDefinition : ISerializable
 
     uint8_t unk30[0x40 - 0x30]; // 30
     game::interactions::vis::EVisualizerDefinitionFlags flags; // 40
+#if !defined(__APPLE__)
     uint8_t unk42[0x48 - 0x42]; // 42
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(IVisualizerDefinition, 0x48);
 } // namespace game::interactions::vis

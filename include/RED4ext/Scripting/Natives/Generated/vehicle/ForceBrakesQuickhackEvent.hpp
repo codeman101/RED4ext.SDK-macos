@@ -17,9 +17,17 @@ struct ForceBrakesQuickhackEvent : game::ActionEvent
     static constexpr const char* NAME = "vehicleForceBrakesQuickhackEvent";
     static constexpr const char* ALIAS = "VehicleForceBrakesQuickhackEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_68[0x68 - ::RED4ext::Detail::DataSize<game::ActionEvent>];
+    float alarmDuration; // 68
+    uint8_t unk_6C[0x6C - (0x68 + sizeof(alarmDuration))];
+    bool active; // 6C
+#else
     float alarmDuration; // 68
     bool active; // 6C
     uint8_t unk6D[0x70 - 0x6D]; // 6D
+#endif
 };
 RED4EXT_ASSERT_SIZE(ForceBrakesQuickhackEvent, 0x70);
 } // namespace vehicle

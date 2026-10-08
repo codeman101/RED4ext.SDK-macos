@@ -18,7 +18,13 @@ struct IKTargetRemoveEvent : red::Event
     static constexpr const char* NAME = "entIKTargetRemoveEvent";
     static constexpr const char* ALIAS = "IKTargetRemoveEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     anim::IKTargetRef ikTargetRef; // 40
+#else
+    anim::IKTargetRef ikTargetRef; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(IKTargetRemoveEvent, 0x50);
 } // namespace ent

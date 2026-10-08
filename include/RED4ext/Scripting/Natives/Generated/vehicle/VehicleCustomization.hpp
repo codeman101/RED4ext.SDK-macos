@@ -19,8 +19,14 @@ struct VehicleCustomization : ent::IComponent
     static constexpr const char* NAME = "vehicleVehicleCustomization";
     static constexpr const char* ALIAS = "VehicleCustomizationComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    DynArray<vehicle::VehicleAppearanceToDecalsName> defaultDecalsPerAppearance; // 90
+#else
     DynArray<vehicle::VehicleAppearanceToDecalsName> defaultDecalsPerAppearance; // 90
     uint8_t unkA0[0x158 - 0xA0]; // A0
+#endif
 };
 RED4EXT_ASSERT_SIZE(VehicleCustomization, 0x158);
 } // namespace vehicle

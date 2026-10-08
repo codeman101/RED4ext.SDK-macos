@@ -17,8 +17,14 @@ struct AnimNode_DisableSleepMode : anim::AnimNode_OnePoseInput
     static constexpr const char* NAME = "animAnimNode_DisableSleepMode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<anim::AnimNode_OnePoseInput>];
+    bool forceUpdate; // 60
+#else
     bool forceUpdate; // 60
     uint8_t unk61[0x68 - 0x61]; // 61
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_DisableSleepMode, 0x68);
 } // namespace anim

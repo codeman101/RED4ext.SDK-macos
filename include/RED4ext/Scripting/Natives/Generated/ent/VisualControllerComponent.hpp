@@ -24,12 +24,24 @@ struct VisualControllerComponent : ent::IComponent
     static constexpr const char* NAME = "entVisualControllerComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    Ref<CMesh> meshProxy; // 90
+    uint8_t unk_A8[0xA8 - (0x90 + sizeof(meshProxy))];
+    DynArray<ent::VisualControllerDependency> appearanceDependency; // A8
+    uint8_t unk_B8[0xB8 - (0xA8 + sizeof(appearanceDependency))];
+    RaRef<appearance::CookedAppearanceData> cookedAppearanceData; // B8
+    uint8_t unk_F0[0xF0 - (0xB8 + sizeof(cookedAppearanceData))];
+    ent::ForcedLodDistance forcedLodDistance; // F0
+#else
     Ref<CMesh> meshProxy; // 90
     DynArray<ent::VisualControllerDependency> appearanceDependency; // A8
     RaRef<appearance::CookedAppearanceData> cookedAppearanceData; // B8
     uint8_t unkC0[0xF0 - 0xC0]; // C0
     ent::ForcedLodDistance forcedLodDistance; // F0
     uint8_t unkF1[0x128 - 0xF1]; // F1
+#endif
 };
 RED4EXT_ASSERT_SIZE(VisualControllerComponent, 0x128);
 } // namespace ent

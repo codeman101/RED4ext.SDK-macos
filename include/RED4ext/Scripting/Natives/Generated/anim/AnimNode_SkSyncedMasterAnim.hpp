@@ -18,8 +18,14 @@ struct AnimNode_SkSyncedMasterAnim : anim::AnimNode_SkSpeedAnim
     static constexpr const char* NAME = "animAnimNode_SkSyncedMasterAnim";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<anim::AnimNode_SkSpeedAnim>];
+    CName syncTag; // F0
+#else
     CName syncTag; // F0
     uint8_t unkF8[0x118 - 0xF8]; // F8
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_SkSyncedMasterAnim, 0x118);
 } // namespace anim

@@ -19,8 +19,16 @@ struct PhysicalDestructionListenerComponent : ent::IComponent
     static constexpr const char* NAME = "gamePhysicalDestructionListenerComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    CName physicalDestructionComponentName; // 90
+    uint8_t unk_98[0x98 - (0x90 + sizeof(physicalDestructionComponentName))];
+    DynArray<float> thresholdLevels; // 98
+#else
     CName physicalDestructionComponentName; // 90
     DynArray<float> thresholdLevels; // 98
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalDestructionListenerComponent, 0xA8);
 } // namespace game

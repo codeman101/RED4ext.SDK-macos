@@ -18,9 +18,17 @@ struct HudSafezonesEditorGameController : game::ui::MenuGameController
     static constexpr const char* NAME = "gameuiHudSafezonesEditorGameController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    ink::CompoundWidgetReference rootWidget; // F0
+    uint8_t unk_108[0x108 - (0xF0 + sizeof(rootWidget))];
+    ink::CompoundWidgetReference flexWidget; // 108
+#else
     ink::CompoundWidgetReference rootWidget; // F0
     ink::CompoundWidgetReference flexWidget; // 108
     uint8_t unk120[0x138 - 0x120]; // 120
+#endif
 };
 RED4EXT_ASSERT_SIZE(HudSafezonesEditorGameController, 0x138);
 } // namespace game::ui

@@ -19,10 +19,20 @@ struct EffectObjectFilter_AxisRange : game::EffectObjectSingleFilter
     static constexpr const char* NAME = "gameEffectObjectFilter_AxisRange";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::EffectObjectSingleFilter>];
+    game::EffectObjectFilter_AxisRangeAxis axis; // 40
+    uint8_t unk_48[0x48 - (0x40 + sizeof(axis))];
+    game::EffectInputParameter_Vector position; // 48
+    uint8_t unk_60[0x60 - (0x48 + sizeof(position))];
+    game::EffectInputParameter_Vector constraints; // 60
+#else
     game::EffectObjectFilter_AxisRangeAxis axis; // 40
     uint8_t unk44[0x48 - 0x44]; // 44
     game::EffectInputParameter_Vector position; // 48
     game::EffectInputParameter_Vector constraints; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectFilter_AxisRange, 0x78);
 } // namespace game

@@ -26,7 +26,9 @@ struct __declspec(align(0x10)) CompoundWidget : ink::Widget
     ink::EChildOrder childOrder; // 210
     uint8_t unk211[0x214 - 0x211]; // 211
     ink::Margin childMargin; // 214
+#if !defined(__APPLE__)
     uint8_t unk224[0x230 - 0x224]; // 224
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(CompoundWidget, 0x230);
 } // namespace ink

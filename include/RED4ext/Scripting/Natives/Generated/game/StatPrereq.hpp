@@ -18,8 +18,16 @@ struct StatPrereq : game::IRPGPrereq
     static constexpr const char* NAME = "gameStatPrereq";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_44[0x44 - ::RED4ext::Detail::DataSize<game::IRPGPrereq>];
+    game::data::StatType statType; // 44
+    uint8_t unk_48[0x48 - (0x44 + sizeof(statType))];
+    float valueToCheck; // 48
+#else
     game::data::StatType statType; // 48
     float valueToCheck; // 4C
+#endif
 };
 RED4EXT_ASSERT_SIZE(StatPrereq, 0x50);
 } // namespace game

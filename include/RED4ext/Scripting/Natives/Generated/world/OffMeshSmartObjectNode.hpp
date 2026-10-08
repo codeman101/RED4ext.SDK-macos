@@ -20,7 +20,13 @@ struct OffMeshSmartObjectNode : world::OffMeshConnectionNode
     static constexpr const char* NAME = "worldOffMeshSmartObjectNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<world::OffMeshConnectionNode>];
     Handle<game::SmartObjectDefinition> object; // 90
+#else
+    Handle<game::SmartObjectDefinition> object; // 90
+#endif
 };
 RED4EXT_ASSERT_SIZE(OffMeshSmartObjectNode, 0xA0);
 } // namespace world

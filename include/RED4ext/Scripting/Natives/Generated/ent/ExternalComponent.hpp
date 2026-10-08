@@ -18,7 +18,13 @@ struct ExternalComponent : ent::IComponent
     static constexpr const char* NAME = "entExternalComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
     CName externalComponentName; // 90
+#else
+    CName externalComponentName; // 90
+#endif
 };
 RED4EXT_ASSERT_SIZE(ExternalComponent, 0x98);
 } // namespace ent

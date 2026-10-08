@@ -17,10 +17,18 @@ struct __declspec(align(0x10)) StaticTriggerAreaComponent : game::StaticAreaShap
     static constexpr const char* NAME = "gameStaticTriggerAreaComponent";
     static constexpr const char* ALIAS = "TriggerComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_178[0x178 - ::RED4ext::Detail::DataSize<game::StaticAreaShapeComponent>];
+    uint32_t includeMask; // 178
+    uint8_t unk_17C[0x17C - (0x178 + sizeof(includeMask))];
+    uint32_t excludeMask; // 17C
+#else
     uint8_t unk150[0x180 - 0x150]; // 150
     uint32_t includeMask; // 180
     uint32_t excludeMask; // 184
     uint8_t unk188[0x190 - 0x188]; // 188
+#endif
 };
 RED4EXT_ASSERT_SIZE(StaticTriggerAreaComponent, 0x190);
 } // namespace game

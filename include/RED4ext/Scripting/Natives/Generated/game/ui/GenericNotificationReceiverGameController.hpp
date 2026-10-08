@@ -18,10 +18,20 @@ struct GenericNotificationReceiverGameController : game::ui::WidgetGameControlle
     static constexpr const char* NAME = "gameuiGenericNotificationReceiverGameController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_E0[0xE0 - ::RED4ext::Detail::DataSize<game::ui::WidgetGameController>];
+    ink::EmptyCallback ItemChanged; // E0
+    uint8_t unk_118[0x118 - (0xE0 + sizeof(ItemChanged))];
+    ink::EmptyCallback NotificationPaused; // 118
+    uint8_t unk_150[0x150 - (0x118 + sizeof(NotificationPaused))];
+    ink::EmptyCallback NotificationResumed; // 150
+#else
     ink::EmptyCallback ItemChanged; // E0
     ink::EmptyCallback NotificationPaused; // 118
     ink::EmptyCallback NotificationResumed; // 150
     uint8_t unk188[0x198 - 0x188]; // 188
+#endif
 };
 RED4EXT_ASSERT_SIZE(GenericNotificationReceiverGameController, 0x198);
 } // namespace game::ui

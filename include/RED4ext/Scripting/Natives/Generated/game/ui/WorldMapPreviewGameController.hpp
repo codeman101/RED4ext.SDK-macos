@@ -22,11 +22,23 @@ struct WorldMapPreviewGameController : game::ui::MenuGameController
     static constexpr const char* NAME = "gameuiWorldMapPreviewGameController";
     static constexpr const char* ALIAS = "inkWorldMapPreviewGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_1B8[0x1B8 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    RaRef<ent::EntityTemplate> viewTemplate; // 1B8
+    uint8_t unk_1C0[0x1C0 - (0x1B8 + sizeof(viewTemplate))];
+    Ref<world::EnvironmentAreaParameters> viewEnvironmentDefinition; // 1C0
+    uint8_t unk_1D8[0x1D8 - (0x1C0 + sizeof(viewEnvironmentDefinition))];
+    RaRef<ent::EntityTemplate> cursorTemplate; // 1D8
+    uint8_t unk_1E0[0x1E0 - (0x1D8 + sizeof(cursorTemplate))];
+    ink::ImageWidgetReference canvas; // 1E0
+#else
     uint8_t unkF0[0x1B8 - 0xF0]; // F0
     RaRef<ent::EntityTemplate> viewTemplate; // 1B8
     Ref<world::EnvironmentAreaParameters> viewEnvironmentDefinition; // 1C0
     RaRef<ent::EntityTemplate> cursorTemplate; // 1D8
     ink::ImageWidgetReference canvas; // 1E0
+#endif
 };
 RED4EXT_ASSERT_SIZE(WorldMapPreviewGameController, 0x1F8);
 } // namespace game::ui

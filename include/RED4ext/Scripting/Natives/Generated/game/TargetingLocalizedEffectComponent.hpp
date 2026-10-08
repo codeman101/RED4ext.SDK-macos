@@ -17,8 +17,16 @@ struct TargetingLocalizedEffectComponent : ent::IComponent
     static constexpr const char* NAME = "gameTargetingLocalizedEffectComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    float streamingDistance; // 90
+    uint8_t unk_94[0x94 - (0x90 + sizeof(streamingDistance))];
+    float visibleTargetRange; // 94
+#else
     float streamingDistance; // 90
     float visibleTargetRange; // 94
+#endif
 };
 RED4EXT_ASSERT_SIZE(TargetingLocalizedEffectComponent, 0x98);
 } // namespace game

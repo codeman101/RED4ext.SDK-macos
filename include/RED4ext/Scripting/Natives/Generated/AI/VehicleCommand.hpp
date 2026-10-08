@@ -19,7 +19,9 @@ struct VehicleCommand : AI::Command
 
     bool useKinematic; // 60
     bool needDriver; // 61
+#if !defined(__APPLE__)
     uint8_t unk62[0x68 - 0x62]; // 62
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(VehicleCommand, 0x68);
 } // namespace AI

@@ -19,7 +19,13 @@ struct WeakspotDestroyPhysicalComponentsEvent : red::Event
     static constexpr const char* NAME = "gameWeakspotDestroyPhysicalComponentsEvent";
     static constexpr const char* ALIAS = "WeakspotDestroyPhysicalComponentsEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     DynArray<game::WeakspotPhysicalDestructionComponent> components; // 40
+#else
+    DynArray<game::WeakspotPhysicalDestructionComponent> components; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(WeakspotDestroyPhysicalComponentsEvent, 0x50);
 } // namespace game

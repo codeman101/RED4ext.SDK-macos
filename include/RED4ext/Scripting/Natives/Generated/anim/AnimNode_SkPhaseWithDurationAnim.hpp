@@ -18,7 +18,13 @@ struct AnimNode_SkPhaseWithDurationAnim : anim::AnimNode_SkPhaseAnim
     static constexpr const char* NAME = "animAnimNode_SkPhaseWithDurationAnim";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_D8[0xD8 - ::RED4ext::Detail::DataSize<anim::AnimNode_SkPhaseAnim>];
     anim::FloatLink durationLink; // D8
+#else
+    anim::FloatLink durationLink; // D8
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_SkPhaseWithDurationAnim, 0xF8);
 } // namespace anim

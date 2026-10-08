@@ -18,7 +18,13 @@ struct MinimapPingSystemMappinController : game::ui::BaseMinimapMappinController
     static constexpr const char* NAME = "gameuiMinimapPingSystemMappinController";
     static constexpr const char* ALIAS = "MinimapPingSystemMappinController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_228[0x228 - ::RED4ext::Detail::DataSize<game::ui::BaseMinimapMappinController>];
     ink::WidgetReference rootWidget; // 228
+#else
+    ink::WidgetReference rootWidget; // 228
+#endif
 };
 RED4EXT_ASSERT_SIZE(MinimapPingSystemMappinController, 0x240);
 } // namespace game::ui

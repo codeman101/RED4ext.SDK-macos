@@ -18,7 +18,13 @@ struct VisualStateRestorePreviousEvent : red::Event
     static constexpr const char* NAME = "inkVisualStateRestorePreviousEvent";
     static constexpr const char* ALIAS = "VisualStateRestorePreviousEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     CName visualState; // 40
+#else
+    CName visualState; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(VisualStateRestorePreviousEvent, 0x48);
 } // namespace ink

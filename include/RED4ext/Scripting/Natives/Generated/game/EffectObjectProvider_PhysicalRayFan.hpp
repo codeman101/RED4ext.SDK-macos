@@ -18,7 +18,13 @@ struct EffectObjectProvider_PhysicalRayFan : game::EffectObjectProvider_Physical
     static constexpr const char* NAME = "gameEffectObjectProvider_PhysicalRayFan";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<game::EffectObjectProvider_PhysicalRay>];
     game::EffectInputParameter_Float inputMinRayAngleDiff; // F0
+#else
+    game::EffectInputParameter_Float inputMinRayAngleDiff; // F0
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectProvider_PhysicalRayFan, 0x108);
 } // namespace game

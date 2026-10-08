@@ -19,6 +19,17 @@ struct __declspec(align(0x10)) MinimapDataNode : world::Node
     static constexpr const char* NAME = "MinimapDataNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<world::Node>];
+    Box localBounds; // 40
+    uint8_t unk_60[0x60 - (0x40 + sizeof(localBounds))];
+    float streamingDistance; // 60
+    uint8_t unk_68[0x68 - (0x60 + sizeof(streamingDistance))];
+    RaRef<minimap::EncodedShapes> encodedShapesRef; // 68
+    uint8_t unk_70[0x70 - (0x68 + sizeof(encodedShapesRef))];
+    bool allInteriorShapes; // 70
+#else
     uint8_t unk38[0x40 - 0x38]; // 38
     Box localBounds; // 40
     float streamingDistance; // 60
@@ -26,6 +37,7 @@ struct __declspec(align(0x10)) MinimapDataNode : world::Node
     RaRef<minimap::EncodedShapes> encodedShapesRef; // 68
     bool allInteriorShapes; // 70
     uint8_t unk71[0x80 - 0x71]; // 71
+#endif
 };
 RED4EXT_ASSERT_SIZE(MinimapDataNode, 0x80);
 } // namespace RED4ext

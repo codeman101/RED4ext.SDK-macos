@@ -17,12 +17,28 @@ struct SetupScrollBarForAttributeEvent : red::Event
     static constexpr const char* NAME = "gameuiSetupScrollBarForAttributeEvent";
     static constexpr const char* ALIAS = "SetupScrollBarForAttributeEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    uint32_t attribute; // 40
+    uint8_t unk_44[0x44 - (0x40 + sizeof(attribute))];
+    float startValue; // 44
+    uint8_t unk_48[0x48 - (0x44 + sizeof(startValue))];
+    float minValue; // 48
+    uint8_t unk_4C[0x4C - (0x48 + sizeof(minValue))];
+    float maxValue; // 4C
+    uint8_t unk_50[0x50 - (0x4C + sizeof(maxValue))];
+    float step; // 50
+    uint8_t unk_54[0x54 - (0x50 + sizeof(step))];
+    uint32_t displayType; // 54
+#else
     uint32_t attribute; // 40
     float startValue; // 44
     float minValue; // 48
     float maxValue; // 4C
     float step; // 50
     uint32_t displayType; // 54
+#endif
 };
 RED4EXT_ASSERT_SIZE(SetupScrollBarForAttributeEvent, 0x58);
 } // namespace game::ui

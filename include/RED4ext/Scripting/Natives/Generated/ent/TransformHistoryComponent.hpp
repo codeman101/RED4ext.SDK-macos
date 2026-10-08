@@ -17,10 +17,18 @@ struct TransformHistoryComponent : ent::IComponent
     static constexpr const char* NAME = "entTransformHistoryComponent";
     static constexpr const char* ALIAS = "TransformHistoryComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_A8[0xA8 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    float historyLength; // A8
+    uint8_t unk_AC[0xAC - (0xA8 + sizeof(historyLength))];
+    uint32_t samplesAmount; // AC
+#else
     uint8_t unk90[0xA8 - 0x90]; // 90
     float historyLength; // A8
     uint32_t samplesAmount; // AC
     uint8_t unkB0[0xC0 - 0xB0]; // B0
+#endif
 };
 RED4EXT_ASSERT_SIZE(TransformHistoryComponent, 0xC0);
 } // namespace ent

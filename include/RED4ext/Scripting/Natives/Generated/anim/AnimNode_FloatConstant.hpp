@@ -17,8 +17,14 @@ struct AnimNode_FloatConstant : anim::AnimNode_FloatValue
     static constexpr const char* NAME = "animAnimNode_FloatConstant";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_44[0x44 - ::RED4ext::Detail::DataSize<anim::AnimNode_FloatValue>];
+    float value; // 44
+#else
     float value; // 48
     uint8_t unk4C[0x50 - 0x4C]; // 4C
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_FloatConstant, 0x50);
 } // namespace anim

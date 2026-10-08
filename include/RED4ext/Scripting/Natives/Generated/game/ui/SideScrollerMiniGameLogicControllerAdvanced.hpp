@@ -34,7 +34,9 @@ struct SideScrollerMiniGameLogicControllerAdvanced : ink::WidgetLogicController
     DynArray<game::ui::SideScrollerCheatCode> cheatCodes; // 108
     uint8_t unk118[0x130 - 0x118]; // 118
     DynArray<CName> acceptableCheatKeys; // 130
+#if !defined(__APPLE__)
     uint8_t unk140[0x148 - 0x140]; // 140
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(SideScrollerMiniGameLogicControllerAdvanced, 0x148);
 } // namespace game::ui

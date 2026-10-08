@@ -20,7 +20,13 @@ struct PhotomodeCameraSwitchedEvent : red::Event
     static constexpr const char* NAME = "gameuiPhotomodeCameraSwitchedEvent";
     static constexpr const char* ALIAS = "PhotomodeCameraSwitchedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     WeakHandle<ent::Entity> camera; // 40
+#else
+    WeakHandle<ent::Entity> camera; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhotomodeCameraSwitchedEvent, 0x50);
 } // namespace game::ui

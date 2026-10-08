@@ -18,7 +18,13 @@ struct SynchronizeAttachmentSlotRequest : game::PlayerScriptableSystemRequest
     static constexpr const char* NAME = "gameSynchronizeAttachmentSlotRequest";
     static constexpr const char* ALIAS = "SynchronizeAttachmentSlotRequest";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<game::PlayerScriptableSystemRequest>];
     TweakDBID slotID; // 58
+#else
+    TweakDBID slotID; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(SynchronizeAttachmentSlotRequest, 0x60);
 } // namespace game

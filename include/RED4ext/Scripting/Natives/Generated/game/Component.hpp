@@ -20,8 +20,14 @@ struct Component : ent::IComponent
     static constexpr const char* NAME = "gameComponent";
     static constexpr const char* ALIAS = "GameComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_98[0x98 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    Handle<game::PersistentState> persistentState; // 98
+#else
     uint8_t unk90[0x98 - 0x90]; // 90
     Handle<game::PersistentState> persistentState; // 98
+#endif
 };
 RED4EXT_ASSERT_SIZE(Component, 0xA8);
 } // namespace game

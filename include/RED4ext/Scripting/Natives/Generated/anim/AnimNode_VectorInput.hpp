@@ -18,9 +18,17 @@ struct AnimNode_VectorInput : anim::AnimNode_VectorValue
     static constexpr const char* NAME = "animAnimNode_VectorInput";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_VectorValue>];
+    CName group; // 48
+    uint8_t unk_50[0x50 - (0x48 + sizeof(group))];
+    CName name; // 50
+#else
     CName group; // 48
     CName name; // 50
     uint8_t unk58[0x68 - 0x58]; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_VectorInput, 0x68);
 } // namespace anim

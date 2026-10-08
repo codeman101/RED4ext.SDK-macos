@@ -18,7 +18,13 @@ struct CMaterialParameterSkinParameters : CMaterialParameter
     static constexpr const char* NAME = "CMaterialParameterSkinParameters";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<CMaterialParameter>];
     Ref<CSkinProfile> skinProfile; // 40
+#else
+    Ref<CSkinProfile> skinProfile; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(CMaterialParameterSkinParameters, 0x58);
 } // namespace RED4ext

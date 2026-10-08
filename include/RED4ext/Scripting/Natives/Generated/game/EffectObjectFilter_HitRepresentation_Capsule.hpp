@@ -17,8 +17,14 @@ struct EffectObjectFilter_HitRepresentation_Capsule : game::EffectObjectFilter_H
     static constexpr const char* NAME = "gameEffectObjectFilter_HitRepresentation_Capsule";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::EffectObjectFilter_HitRepresentation>];
+    bool flattenCapsuleToHeight; // 40
+#else
     bool flattenCapsuleToHeight; // 40
     uint8_t unk41[0x48 - 0x41]; // 41
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectFilter_HitRepresentation_Capsule, 0x48);
 } // namespace game

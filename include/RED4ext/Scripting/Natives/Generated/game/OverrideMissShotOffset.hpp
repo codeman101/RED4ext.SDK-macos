@@ -18,7 +18,13 @@ struct OverrideMissShotOffset : red::Event
     static constexpr const char* NAME = "gameOverrideMissShotOffset";
     static constexpr const char* ALIAS = "OverrideMissShotOffset";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     CString overrideRecord; // 40
+#else
+    CString overrideRecord; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(OverrideMissShotOffset, 0x60);
 } // namespace game
