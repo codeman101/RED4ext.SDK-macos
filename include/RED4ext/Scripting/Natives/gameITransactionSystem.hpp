@@ -23,7 +23,12 @@ struct ITransactionSystem : IGameSystem
     virtual void sub_1C0() = 0;                                                                                  // 1C0
     virtual void sub_1C8() = 0;                                                                                  // 1C8
     virtual CName* GetItemAppearance(CName& aAppearance, IScriptable* aOwner, const ItemID& aItemID) = 0;        // 1D0
+#if defined(__APPLE__)
+    // macOS (R22): the 16 byte ItemID is passed by value in x2:x3 (the Windows ABI passes it through a hidden pointer, which the reference expresses).
+    virtual void ResetItemAppearance(IScriptable* aOwner, ItemID aItemID) = 0;                                   // 1D8
+#else
     virtual void ResetItemAppearance(IScriptable* aOwner, const ItemID& aItemID) = 0;                            // 1D8
+#endif
     virtual void sub_1E0() = 0;                                                                                  // 1E0
     virtual void sub_1E8() = 0;                                                                                  // 1E8
     virtual void sub_1F0() = 0;                                                                                  // 1F0
