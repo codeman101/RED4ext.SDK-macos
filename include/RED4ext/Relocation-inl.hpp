@@ -67,13 +67,6 @@ RED4EXT_INLINE
 uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
 {
 #if !defined(_WIN32) && !defined(_WIN64)
-    // MARKER: This is TweakXL's modified SDK Resolve function
-    static bool firstCall = true;
-    if (firstCall) {
-        std::cerr << ">>> TWEAKXL_SDK_RESOLVE_MARKER: Using modified Resolve function <<<" << std::endl;
-        firstCall = false;
-    }
-    
     // macOS: Use built-in address table to avoid dependency on RED4ext's limited addresses
     // This is necessary because RED4ext only has 9 addresses configured, but the SDK
     // and mods like TweakXL need many more.

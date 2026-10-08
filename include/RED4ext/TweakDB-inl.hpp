@@ -445,11 +445,11 @@ RED4EXT_INLINE void RED4ext::TweakDB::UpsizeFlatDataBuffer(uint32_t aCapacity)
             RTLD_MAIN_ONLY, "_ZN3red6memory16PoolStorageProxyIN4game17PoolGMPL_TDB_DataEE15AllocateAlignedEyj"));
         freeFn = reinterpret_cast<FreeFn>(
             dlsym(RTLD_MAIN_ONLY, "_ZN3red6memory16PoolStorageProxyIN4game17PoolGMPL_TDB_DataEE4FreeERNS0_5BlockE"));
-        const auto base = RED4ext::RelocBase::GetImageBase();
-        const auto allocRva = allocFn ? reinterpret_cast<uintptr_t>(allocFn) - base : 0;
-        const auto freeRva = freeFn ? reinterpret_cast<uintptr_t>(freeFn) - base : 0;
-        std::cerr << "[TweakDB] PoolGMPL_TDB_Data AllocateAligned rva=0x" << std::hex << allocRva << " Free rva=0x"
-                  << freeRva << std::dec << std::endl;
+        if (!allocFn || !freeFn)
+        {
+            std::cerr << "[TweakDB] the game does not export the PoolGMPL_TDB_Data proxy (AllocateAligned " << (allocFn ? "found" : "missing")
+                      << ", Free " << (freeFn ? "found" : "missing") << ")" << std::endl;
+        }
     }
     if (!allocFn || !freeFn)
         return;
