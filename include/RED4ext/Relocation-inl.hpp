@@ -8,6 +8,26 @@
 #include <sstream>
 #include <iostream>
 
+#if !defined(_WIN32) && !defined(_WIN64)
+#include <mach-o/loader.h>
+
+namespace RED4ext
+{
+struct IScriptable;
+}
+
+extern "C" uint32_t tweakxl_rtti_async_id;
+extern "C" volatile int64_t tweakxl_serializable_counter;
+extern "C" void tweakxl_destruct_value_holder(RED4ext::IScriptable* aSelf);
+extern "C" void* tweakxl_memory_vault();
+extern "C" void tweakxl_vault_alloc(void* aStorage, void* aResult, uint64_t aSize);
+extern "C" void tweakxl_vault_alloc_aligned(void* aStorage, void* aResult, uint64_t aSize, uint32_t aAlign);
+extern "C" void tweakxl_vault_realloc(void* aStorage, void* aResult, void* aInput, uint64_t aSize);
+extern "C" void tweakxl_vault_realloc_aligned(void* aStorage, void* aResult, void* aInput, uint64_t aSize, uint32_t aAlign);
+extern "C" void tweakxl_vault_free(void* aStorage, void* aInput);
+extern "C" uintptr_t tweakxl_class_vslot(uint32_t aByteOffset);
+#endif
+
 #if defined(_WIN32) || defined(_WIN64)
 #include <Windows.h>
 #else
@@ -26,7 +46,20 @@ RED4EXT_INLINE uintptr_t RED4ext::RelocBase::GetImageBase()
 #if defined(_WIN32) || defined(_WIN64)
     static const auto base = std::bit_cast<uintptr_t>(GetModuleHandle(nullptr));
 #else
-    static const auto base = std::bit_cast<uintptr_t>(_dyld_get_image_header(0));
+    // Image 0 is an inserted library under DYLD_INSERT_LIBRARIES. Hook RVAs are
+    // from the game, so the base has to be the MH_EXECUTE header.
+    static const auto base = []() -> uintptr_t {
+        const uint32_t count = _dyld_image_count();
+        for (uint32_t i = 0; i < count; ++i)
+        {
+            const auto* header = reinterpret_cast<const mach_header_64*>(_dyld_get_image_header(i));
+            if (header && header->filetype == MH_EXECUTE)
+            {
+                return reinterpret_cast<uintptr_t>(header);
+            }
+        }
+        return std::bit_cast<uintptr_t>(_dyld_get_image_header(0));
+    }();
 #endif
     return base;
 }
@@ -45,30 +78,94 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
     // macOS: Use built-in address table to avoid dependency on RED4ext's limited addresses
     // This is necessary because RED4ext only has 9 addresses configured, but the SDK
     // and mods like TweakXL need many more.
-    static const uintptr_t imageBase = std::bit_cast<uintptr_t>(_dyld_get_image_header(0));
-    
-    // Address table for Cyberpunk 2077 macOS ARM64 v2.3.1
-    // Most of these are placeholders (0x0) - they need to be reverse engineered
+    static const uintptr_t imageBase = []() {
+        const uint32_t count = _dyld_image_count();
+        for (uint32_t i = 0; i < count; ++i)
+        {
+            const auto* header = reinterpret_cast<const mach_header_64*>(_dyld_get_image_header(i));
+            if (header && header->filetype == MH_EXECUTE)
+            {
+                return reinterpret_cast<uintptr_t>(header);
+            }
+        }
+        return std::bit_cast<uintptr_t>(_dyld_get_image_header(0));
+    }();
+
+    // Local stand-ins that stay. These are not game RVAs. The async-id global
+    // is unconfirmed. CString, DynArray, and CNamePool resolve to Mac RVAs below.
+    // Hashes still missing, not invented: CClass_InitializeProperties 2257327441,
+    // CClass_GetProperties 1652956141.
+    // Memory_Vault_Unk1 (0x19EC1367) stays unmapped.
+    // ISerializable_Counter is the TweakXL-owned counter, not a game global.
+    // IScriptable_DestructValueHolder returns when the holder at +0x38 is null.
+    if (aHash == 0xDDBD19E8)
+    {
+        return reinterpret_cast<uintptr_t>(&tweakxl_rtti_async_id);
+    }
+    if (aHash == 2630817091)
+    {
+        return reinterpret_cast<uintptr_t>(&tweakxl_serializable_counter);
+    }
+    if (aHash == 55710513)
+    {
+        return reinterpret_cast<uintptr_t>(&tweakxl_destruct_value_holder);
+    }
+    // Local Vault stand-in. This build has no Windows Memory::Vault global.
+    // Pool allocation goes through tweakxl_vault_alloc and the Mac pool symbols.
+    if (aHash == 0x1B530DEC)
+    {
+        return reinterpret_cast<uintptr_t>(tweakxl_memory_vault());
+    }
+    // CClass virtuals. Same slot as live IScriptable. Mac offset is Windows plus 8.
+    if (aHash == 0xE4AA0CAD) return tweakxl_class_vslot(0x68);
+    if (aHash == 0x65293F06) return tweakxl_class_vslot(0x70);
+    if (aHash == 0x11D11B0C) return tweakxl_class_vslot(0x88);
+    if (aHash == 0x4BDF1BB2) return tweakxl_class_vslot(0x90);
+    if (aHash == 0xA26D374E) return tweakxl_class_vslot(0x98);
+    if (aHash == 0x48C020CA) return tweakxl_class_vslot(0xA0);
+    if (aHash == 0x15F21D6F) return tweakxl_class_vslot(0xA8);
+    if (aHash == 0xA0911974) return tweakxl_class_vslot(0xB8);
+    if (aHash == 0xD2081231) return tweakxl_class_vslot(0xC8);
+    if (aHash == 0xD14E1230) return tweakxl_class_vslot(0xD0);
+    if (aHash == 0x37750EBF) return tweakxl_class_vslot(0xD8);
+    // SDK vault signatures. The thunks call the exported PoolStorageProxy functions.
+    if (aHash == 0x902A14E0) return reinterpret_cast<uintptr_t>(&tweakxl_vault_alloc);
+    if (aHash == 0x516917DD) return reinterpret_cast<uintptr_t>(&tweakxl_vault_alloc_aligned);
+    if (aHash == 0x770A17AC) return reinterpret_cast<uintptr_t>(&tweakxl_vault_realloc);
+    if (aHash == 0x56961AA9) return reinterpret_cast<uintptr_t>(&tweakxl_vault_realloc_aligned);
+    if (aHash == 0x33421332) return reinterpret_cast<uintptr_t>(&tweakxl_vault_free);
+
+    // Same rows as AddressResolverOverride.hpp. This mac Resolve does not call
+    // that override; the rows live here so SDK hashes reach the game.
     static const std::unordered_map<uint32_t, uintptr_t> macOSAddressTable = {
-        // Main function (hash: 240386859 = 0x0E54032B) - Entry point from LC_MAIN
-        { 240386859, 0x31E18 },
-        
-        // TweakDB functions (need reverse engineering)
-        { 3062572522, 0x0 }, // TweakDB_Init
-        { 3602585178, 0x0 }, // TweakDB_Load
-        { 3512345737, 0x0 }, // TweakDB_TryLoad
-        { 838931066, 0x0 },  // TweakDB_CreateRecord
-        { 326438016, 0x0 },  // TweakDBID_Derive
-        
-        // StatsDataSystem functions (need reverse engineering)
-        { 1299190886, 0x0 }, // StatsDataSystem_InitializeRecords
-        { 3652194890, 0x0 }, // StatsDataSystem_InitializeParams
-        { 1444748215, 0x0 }, // StatsDataSystem_GetStatRange
-        { 3123320294, 0x0 }, // StatsDataSystem_GetStatFlags
-        { 2954893634, 0x0 }, // StatsDataSystem_CheckStatFlag
-        
-        // SDK internal functions (need reverse engineering)
-        { 405668637, 0x0 },  // CBaseFunction_InternalExecute
+        { 240386859, 0x31E18 },       // Main
+        { 1247874916, 0x2188E8C },    // CRTTISystem_Get
+        { 3062572522, 0x35F1BAC },    // TweakDB_Init
+        { 3602585178, 0x2B75570 },    // TweakDB_Load
+        { 3512345737, 0x2B7CC9C },    // TweakDB_TryLoad
+        { 838931066, 0x26B8DB8 },     // TweakDB_CreateRecord
+        { 914361828, 0x2B73C7C },     // TweakDB_Get
+        { 3357477547, 0x2CDB8 },      // CString_ctor_str
+        { 2065762423, 0x2940C },      // CString_ctor_span
+        { 3904113489, 0x2B110 },      // CString_copy
+        { 1409615660, 0x29228 },      // CString_dtor
+        { 2057311186, 0x286E8 },      // DynArray_Realloc
+        { 1759447004, 0x3452D7C },    // CNamePool_Get
+        { 10488987, 0x3452DDC },      // CNamePool_AddCstr
+        { 3649309656, 0x3452DA0 },    // CNamePool_AddPair
+        // Handle_DecWeakRef (hash: 859509764). void(SharedPtrBase*). Identical copy at 0x914668.
+        { 859509764, 0x21048C4 },
+        // ResourceDepot (hash: 1704595399). Global ResourceDepot* (data, not code). Accessor 0x21C6820.
+        { 1704595399, 0x7D6C538 },
+        { 1518341917, 0x2197AAC },  // CClass_CreateInstance (rtti::ClassType::CreateObject)
+        { 404169501,  0x2173120 },  // CBaseFunction_InternalExecute
+        { 882511585,  0x6FFAEA0 },  // CStack_vtbl (data: vptr value, slot 0)
+        { 3791200470, 0x2172BF4 },  // CBaseFunction_ExecuteScripted (Gate 5 path)
+        { 3121353053, 0x2104788 },  // Handle_ctor (Gate 5 path)
+        { 961751128,  0x908B798 },  // OpcodeHandlers (data: handler table; Gate 5 path)
+        { 2920426135, 0x2173864 },  // CClassStaticFunction_ctor
+        { 1613572595, 0x2173760 },  // CClassFunction_ctor (Mac pointer-to-member ABI)
+        { 4201325776, 0x21739E8 },  // CGlobalFunction_ctor
     };
     
     auto it = macOSAddressTable.find(aHash);
@@ -88,7 +185,8 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         std::cerr << "=======================================" << std::endl;
         firstWarning = false;
     }
-    std::cerr << "[SDK AddressResolver] Missing hash 0x" << std::hex << aHash << std::dec << std::endl;
+    std::cerr << "[SDK AddressResolver] Unknown hash 0x" << std::hex << aHash << std::dec
+              << " (" << aHash << ")" << std::endl;
     
     // Return a valid but harmless address (pointing to a ret instruction or similar)
     // For now, return 0 - the caller must handle null gracefully
