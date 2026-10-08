@@ -23,22 +23,15 @@ struct __declspec(align(0x10)) RenderMorphTargetMeshBlobTextureData
 #pragma warning(suppress : 4324)
     alignas(16) StaticArray<Vector4, 3> targetDiffOffset; // 40
 #if defined(__APPLE__)
-// mac-layout (generated from the reflection dump)
-    uint8_t unk_80[0x80];
-    StaticArray<uint32_t, 3> targetDiffsDataOffset; // 80
-    uint8_t unk_90[0x90 - (0x80 + sizeof(targetDiffsDataOffset))];
-    StaticArray<uint32_t, 3> targetDiffsDataSize; // 90
-    uint8_t unk_A0[0xA0 - (0x90 + sizeof(targetDiffsDataSize))];
-    StaticArray<uint16_t, 3> targetDiffsWidth; // A0
-    uint8_t unk_AC[0xAC - (0xA0 + sizeof(targetDiffsWidth))];
-    StaticArray<uint8_t, 3> targetDiffsMipLevelCounts; // AC
-#else
+    // R22. MSVC rounds an alignas(16) member up to 16 bytes (the game has targetDiffsDataOffset at 0x80), clang keeps the member at the size of
+    // the type (52 bytes), so the next member would sit at 0x74. The R21 generated block here was wrong (a 0x80 byte pad).
+    uint8_t unk_74[0x80 - (0x40 + sizeof(targetDiffOffset))];
+#endif
     StaticArray<uint32_t, 3> targetDiffsDataOffset; // 80
     StaticArray<uint32_t, 3> targetDiffsDataSize; // 90
     StaticArray<uint16_t, 3> targetDiffsWidth; // A0
     StaticArray<uint8_t, 3> targetDiffsMipLevelCounts; // AC
     uint8_t unkB4[0xC0 - 0xB4]; // B4
-#endif
 };
 RED4EXT_ASSERT_SIZE(RenderMorphTargetMeshBlobTextureData, 0xC0);
 } // namespace rend

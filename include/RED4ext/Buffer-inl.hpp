@@ -107,11 +107,27 @@ RED4EXT_INLINE RED4ext::RawBuffer::operator bool() const noexcept
 
 RED4EXT_INLINE RED4ext::SharedPtr<RED4ext::DeferredDataBufferToken> RED4ext::DeferredDataBuffer::LoadAsync()
 {
+#if defined(__APPLE__)
+    // Mac ABI (R22): the result comes back through x8 and the Windows out argument is gone (body twin of Windows 0xB0762C at 0x226258C). The
+    // game writes the JobHandle at result+8 (`add x0,x19,#8; bl JobHandle::operator=`) and never touches result+0, so the result is a
+    // 16 byte object whose first member is skipped here.
+    struct LoadResult
+    {
+        void* unk00{nullptr};
+        JobHandle job;
+    };
+    using LoadBufferAsync_t = LoadResult (*)(DeferredDataBuffer*, int64_t);
+    static UniversalRelocFunc<LoadBufferAsync_t> func(Detail::AddressHashes::DeferredDataBuffer_LoadAsync);
+
+    auto result = func(this, 0);
+    JobHandle loadingJob = std::move(result.job);
+#else
     using LoadBufferAsync_t = JobHandle* (*)(DeferredDataBuffer*, JobHandle*, int64_t);
     static UniversalRelocFunc<LoadBufferAsync_t> func(Detail::AddressHashes::DeferredDataBuffer_LoadAsync);
 
     JobHandle loadingJob;
     func(this, &loadingJob, 0);
+#endif
 
     return MakeShared<DeferredDataBufferToken>(*this, loadingJob);
 }
