@@ -16,8 +16,16 @@
 
 RED4EXT_INLINE void RED4ext::JobInternals::SetLocalThreadParam(uint8_t aParam)
 {
+#if defined(__APPLE__)
+    // TLS::Get() is null on macOS. The game keeps the job parameter in a thread-local variable behind this function.
+    using func_t = void (*)(uint8_t);
+    static UniversalRelocFunc<func_t> func(Detail::AddressHashes::MacJobSetLocalThreadParam);
+
+    func(aParam);
+#else
     auto tls = TLS::Get();
     tls->jobParam = aParam;
+#endif
 }
 
 RED4EXT_INLINE RED4ext::JobFamily::JobFamily(const char* aName) noexcept
@@ -96,10 +104,18 @@ RED4EXT_INLINE void RED4ext::JobHandle::Join(const JobHandle& aOther)
 
 RED4EXT_INLINE void RED4ext::JobHandle::AcquireInternalHandle(uintptr_t aUnk)
 {
+#if defined(__APPLE__)
+    // The macOS function takes the job name as its second argument (the Windows one stores an empty string).
+    using func_t = JobInternalHandle* (*)(void*, const char*, uintptr_t);
+    static UniversalRelocFunc<func_t> func(Detail::AddressHashes::JobInternalHandle_Acquire);
+
+    internal = func(nullptr, "", aUnk);
+#else
     using func_t = JobInternalHandle* (*)(void*, uintptr_t);
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::JobInternalHandle_Acquire);
 
     internal = func(nullptr, aUnk);
+#endif
 }
 
 RED4EXT_INLINE void RED4ext::JobHandle::CopyInternalHandle(const JobHandle& aOther)
@@ -138,7 +154,12 @@ RED4EXT_INLINE RED4ext::JobQueue::JobQueue(JobParamSet aParams, uintptr_t aUnk)
     using func_t = JobQueue* (*)(JobQueue*, uint8_t, uint8_t, uint64_t);
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::JobQueue_ctor_FromParams);
 
+#if defined(__APPLE__)
+    // The game's own three argument wrapper (Windows 0x218B34, Mac 0x9D420C) passes 0xFF as the job parameter.
+    func(this, aParams.unk00, 0xFF, aUnk);
+#else
     func(this, aParams.unk00, aParams.unk01, aUnk);
+#endif
 }
 
 RED4EXT_INLINE RED4ext::JobQueue::~JobQueue()
@@ -156,6 +177,13 @@ RED4EXT_INLINE void RED4ext::JobQueue::Wait(const JobHandle& aJob)
 
 [[nodiscard]] RED4EXT_INLINE RED4ext::JobHandle RED4ext::JobQueue::Capture()
 {
+#if defined(__APPLE__)
+    // The macOS function returns the handle through the hidden result pointer (x8) and has no out argument.
+    using func_t = JobHandle (*)(JobQueue*);
+    static UniversalRelocFunc<func_t> func(Detail::AddressHashes::JobQueue_Capture);
+
+    return func(this);
+#else
     using func_t = JobHandle* (*)(JobQueue*, JobHandle*);
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::JobQueue_Capture);
 
@@ -163,6 +191,7 @@ RED4EXT_INLINE void RED4ext::JobQueue::Wait(const JobHandle& aJob)
     func(this, &handle);
 
     return handle;
+#endif
 }
 
 RED4EXT_INLINE void RED4ext::JobQueue::DispatchJob(const JobInstance& aJob)

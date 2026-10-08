@@ -185,12 +185,35 @@ struct JobClosure : JobInstance
     {
         // In this case the target is the closure itself.
         // We move the closure to our storage to extend its lifetime until the job is executed.
+#if defined(__APPLE__)
+        // The closure is created and freed by this header only (the game's job runtime never frees it), so any allocator
+        // works. The SDK's Jobs2Data pool lookup crashes on macOS (no such pool in the pool registry) and the engine
+        // pools trap on threads the engine does not own.
+        return new ClosureType(std::move(aClosure));
+#else
         return Memory::New<AllocatorType, ClosureType>(std::move(aClosure));
+#endif
     }
 
     static void HandleTarget(ClosurePtr aTarget, const JobGroup& aGroup)
     {
+#if defined(__APPLE__)
+        // The macOS runner does not fill params.unk02. The game reads the parameter from the group's handle:
+        // group+0x20 -> JobHandle, handle->internal+0x21, and resets it to 0xFF when the job returns.
+        {
+            uint8_t param = 0xFF;
+            auto* handle = *reinterpret_cast<const JobHandle* const*>(reinterpret_cast<const uint8_t*>(&aGroup) + 0x20);
+
+            if (handle && handle->internal)
+            {
+                param = *(reinterpret_cast<const uint8_t*>(handle->internal) + 0x21);
+            }
+
+            JobInternals::SetLocalThreadParam(param);
+        }
+#else
         JobInternals::SetLocalThreadParam(aGroup.params.unk02);
+#endif
 
         if constexpr (Detail::IsClosure<ClosureType, void, const JobGroup&>)
         {
@@ -202,7 +225,11 @@ struct JobClosure : JobInstance
         }
 
         JobInternals::SetLocalThreadParam(255);
+#if defined(__APPLE__)
+        delete aTarget;
+#else
         Memory::Delete<AllocatorType>(aTarget);
+#endif
     }
 
     inline static JobFamily& GetFamily()
