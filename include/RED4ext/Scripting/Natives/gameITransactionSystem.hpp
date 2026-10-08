@@ -118,9 +118,18 @@ struct ITransactionSystem : IGameSystem
     virtual void sub_4B8() = 0;                                                                                  // 4B8
     virtual void sub_4C0() = 0;                                                                                  // 4C0
     virtual void sub_4C8() = 0;                                                                                  // 4C8
+#if defined(__APPLE__)
+    // macOS (R22): the Itanium ABI lays overloaded virtuals out in declaration order, MSVC reverses them. The live Mac vtable (Steam 2.3.1) has
+    // MatchVisualTag at 0x4D8 and MatchVisualTagByItemID at 0x4E0 (Windows 0x4D8 and 0x4D0 plus the second destructor slot), so the two are
+    // declared in the opposite order here.
+    virtual bool MatchVisualTag(const Handle<IScriptable>& aItem, CName aTag, bool aUseDefaultAppearance) = 0; // 4D8
+    virtual bool MatchVisualTagByItemID(const ItemID& aItemID, const Handle<IScriptable>& aOwner,
+                                        CName aTag) = 0;                                                       // 4E0
+#else
     virtual bool MatchVisualTagByItemID(const ItemID& aItemID, const Handle<IScriptable>& aOwner,
                                         CName aTag) = 0;                                                       // 4D0
     virtual bool MatchVisualTag(const Handle<IScriptable>& aItem, CName aTag, bool aUseDefaultAppearance) = 0; // 4D8
+#endif
     virtual void sub_4E0() = 0;                                                                                // 4E0
     virtual void sub_4E8() = 0;                                                                                // 4E8
 };
