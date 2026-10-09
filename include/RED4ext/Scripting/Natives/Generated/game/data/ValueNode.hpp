@@ -21,9 +21,17 @@ struct ValueNode : game::data::DataNode
     static constexpr const char* NAME = "gamedataValueNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_118[0x118 - ::RED4ext::Detail::DataSize<game::data::DataNode>];
+    Handle<game::data::ValueDataNode> data; // 118
+    uint8_t unk_128[0x128 - (0x118 + sizeof(data))];
+    Handle<game::data::GroupNode> group; // 128
+#else
     uint8_t unk98[0x118 - 0x98]; // 98
     Handle<game::data::ValueDataNode> data; // 118
     Handle<game::data::GroupNode> group; // 128
+#endif
 };
 RED4EXT_ASSERT_SIZE(ValueNode, 0x138);
 } // namespace game::data

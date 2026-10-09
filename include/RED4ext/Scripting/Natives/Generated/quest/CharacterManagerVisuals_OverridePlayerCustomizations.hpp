@@ -19,7 +19,13 @@ struct CharacterManagerVisuals_OverridePlayerCustomizations : quest::ICharacterM
     static constexpr const char* NAME = "questCharacterManagerVisuals_OverridePlayerCustomizations";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_70[0x70 - ::RED4ext::Detail::DataSize<quest::ICharacterManagerVisuals_NodeSubType>];
     DynArray<game::ui::ForcePlayerCustomizationData> customizationData; // 70
+#else
+    DynArray<game::ui::ForcePlayerCustomizationData> customizationData; // 70
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerVisuals_OverridePlayerCustomizations, 0x80);
 } // namespace quest

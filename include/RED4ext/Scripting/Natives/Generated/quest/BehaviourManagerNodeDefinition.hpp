@@ -22,9 +22,19 @@ struct BehaviourManagerNodeDefinition : quest::SignalStoppingNodeDefinition
     static constexpr const char* NAME = "questBehaviourManagerNodeDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<quest::SignalStoppingNodeDefinition>];
+    game::EntityReference puppet; // 48
+    uint8_t unk_80[0x80 - (0x48 + sizeof(puppet))];
+    Handle<work::IWorkspotQuestAction> type; // 80
+    uint8_t unk_90[0x90 - (0x80 + sizeof(type))];
+    Handle<quest::IBehaviourManager_NodeType> newType; // 90
+#else
     game::EntityReference puppet; // 48
     Handle<work::IWorkspotQuestAction> type; // 80
     Handle<quest::IBehaviourManager_NodeType> newType; // 90
+#endif
 };
 RED4EXT_ASSERT_SIZE(BehaviourManagerNodeDefinition, 0xA0);
 } // namespace quest

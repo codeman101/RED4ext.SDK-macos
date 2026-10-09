@@ -18,7 +18,13 @@ struct BaseObjectNodeDefinition : quest::DisableableNodeDefinition
     static constexpr const char* NAME = "questBaseObjectNodeDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<quest::DisableableNodeDefinition>];
     NodeRef reference; // 48
+#else
+    NodeRef reference; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(BaseObjectNodeDefinition, 0x50);
 } // namespace quest

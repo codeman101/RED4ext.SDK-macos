@@ -17,7 +17,10 @@ struct ICharacterCustomizationComponent : ent::IComponent
     static constexpr const char* NAME = "gameuiICharacterCustomizationComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+#else
     uint8_t unk90[0x98 - 0x90]; // 90
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ICharacterCustomizationComponent, 0x98);
 } // namespace game::ui

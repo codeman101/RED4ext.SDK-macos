@@ -19,7 +19,13 @@ struct CharacterManagerParameters_SetAsCrowdObstacle : quest::ICharacterManagerP
     static constexpr const char* NAME = "questCharacterManagerParameters_SetAsCrowdObstacle";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_70[0x70 - ::RED4ext::Detail::DataSize<quest::ICharacterManagerParameters_NodeSubType>];
     DynArray<quest::SetAsCrowdObstacle_NodeTypeParams> params; // 70
+#else
+    DynArray<quest::SetAsCrowdObstacle_NodeTypeParams> params; // 70
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerParameters_SetAsCrowdObstacle, 0x80);
 } // namespace quest

@@ -17,7 +17,11 @@ struct RuntimeMappin : game::mappins::IMappin
     static constexpr const char* NAME = "gamemappinsRuntimeMappin";
     static constexpr const char* ALIAS = "RuntimeMappin";
 
+#if defined(__APPLE__)
+    uint8_t unk88[0xFC - 0x88]; // 88
+#else
     uint8_t unk88[0x108 - 0x88]; // 88
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(RuntimeMappin, 0x108);
 } // namespace game::mappins
