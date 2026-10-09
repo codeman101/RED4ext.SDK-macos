@@ -126,7 +126,10 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
 
     // Same rows as AddressResolverOverride.hpp. This mac Resolve does not call
     // that override; the rows live here so SDK hashes reach the game.
-    static const std::unordered_map<uint32_t, uintptr_t> macOSAddressTable = {
+    // The table is never destroyed (a heap object behind a reference). A function-local static map is destroyed by exit() before RED4ext's
+    // atexit handler unloads the plugins, and every SDK-relocated call made from Unload (a SharedPtr or Handle release, for example) then
+    // looked a hash up in a map whose bucket array was already freed (r27 quit crash: ~SharedPtr -> Resolve(Handle_DecWeakRef), fault at 8 * (hash % 97)).
+    static const std::unordered_map<uint32_t, uintptr_t>& macOSAddressTable = *new std::unordered_map<uint32_t, uintptr_t>{
         { 240386859, 0x31E18 },       // Main
         { 1247874916, 0x2188E8C },    // CRTTISystem_Get
         { 3062572522, 0x35F1BAC },    // TweakDB_Init
@@ -156,7 +159,7 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         { 1613572595, 0x2173760 },  // CClassFunction_ctor (Mac pointer-to-member ABI)
         { 4201325776, 0x21739E8 },  // CGlobalFunction_ctor
     };
-    
+
     auto it = macOSAddressTable.find(aHash);
     if (it != macOSAddressTable.end() && it->second != 0)
     {
