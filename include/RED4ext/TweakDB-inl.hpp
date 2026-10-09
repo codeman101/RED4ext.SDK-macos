@@ -343,17 +343,20 @@ RED4EXT_INLINE int32_t RED4ext::TweakDB::CreateFlatValue(const CStackType& aStac
     }
 #endif
 
-    uintptr_t flatAlignment = (std::max)(static_cast<uintptr_t>(aStackType.type->GetAlignment()), static_cast<uintptr_t>(8));
-    uintptr_t flatValueSize = RED4ext::AlignUp(static_cast<uintptr_t>(8) /* vftable */ + static_cast<uintptr_t>(aStackType.type->GetSize()), flatAlignment);
-    uintptr_t flatDataBufferEnd_Aligned = RED4ext::AlignUp(flatDataBufferEnd, flatAlignment);
+    const uintptr_t flatAlignment = (std::max)(static_cast<uintptr_t>(aStackType.type->GetAlignment()), static_cast<uintptr_t>(8));
+    const uintptr_t flatValueSize = RED4ext::AlignUp(static_cast<uintptr_t>(8) /* vftable */ + static_cast<uintptr_t>(aStackType.type->GetSize()), flatAlignment);
+    const uintptr_t flatAddressAligned = RED4ext::AlignUp(flatDataBufferEnd, flatAlignment);
+    const uintptr_t newFlatDataBufferEnd = flatAddressAligned + flatValueSize;
 
-    if (AllocateFlatValue(reinterpret_cast<void*>(flatDataBufferEnd_Aligned), aStackType))
+    if (newFlatDataBufferEnd > (flatDataBuffer + flatDataBufferCapacity) ||
+        !AllocateFlatValue(reinterpret_cast<void*>(flatAddressAligned), aStackType))
     {
-        flatDataBufferEnd = flatDataBufferEnd_Aligned + flatValueSize;
-        return reinterpret_cast<FlatValue*>(flatDataBufferEnd_Aligned)->ToTDBOffset();
+        return -1;
     }
 
-    return -1;
+    flatDataBufferEnd = newFlatDataBufferEnd;
+
+    return reinterpret_cast<FlatValue*>(flatAddressAligned)->ToTDBOffset();
 }
 
 RED4EXT_INLINE bool RED4ext::TweakDB::AllocateFlatValue(void* aBuffer, const CStackType& aStackType)
