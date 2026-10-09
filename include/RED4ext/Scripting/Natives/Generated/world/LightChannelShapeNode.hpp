@@ -21,7 +21,7 @@ struct LightChannelShapeNode : world::GeometryShapeNode
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
     uint8_t unk_4D[0x4D - ::RED4ext::Detail::DataSize<world::GeometryShapeNode>];
-    rend::LightChannel channels; // 4D
+    rend::LightChannel channels __attribute__((packed)); // 4D (a 2 byte enum at an odd offset: the game packs it)
     uint8_t unk_50[0x50 - (0x4D + sizeof(channels))];
     float streamingDistanceFactor; // 50
 #else

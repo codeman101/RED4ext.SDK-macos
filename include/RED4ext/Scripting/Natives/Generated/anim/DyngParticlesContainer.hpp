@@ -26,7 +26,13 @@ struct DyngParticlesContainer
     uint8_t unk14[0x18 - 0x14]; // 14
     anim::VectorLink externalForceWsLink; // 18
     DynArray<anim::DyngParticle> particles; // 38
+#if defined(__APPLE__)
+    // R25. 0xB8 bytes in the Mac game (dump), 0xC0 on Windows. The derived DangleConstraint_SimulationDyng puts dyngConstraint at 0x140 right
+    // behind this member, which a 0xC0 byte member made a negative padding array.
+    uint8_t unk48[0xB8 - 0x48]; // 48
+#else
     uint8_t unk48[0xC0 - 0x48]; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(DyngParticlesContainer, 0xC0);
 } // namespace anim

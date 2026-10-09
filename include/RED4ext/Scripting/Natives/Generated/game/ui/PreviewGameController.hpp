@@ -19,6 +19,11 @@ struct PreviewGameController : game::ui::MenuGameController
     static constexpr const char* NAME = "gameuiPreviewGameController";
     static constexpr const char* ALIAS = "inkPreviewGameController";
 
+#if defined(__APPLE__)
+    // R25. sceneName and cameraRef are not reflected (the dump cannot check them); yawSpeed and yawDefault are at their Windows offsets in
+    // the game (0x110, 0x114), and so is the script area that MenuGameController stands for, so the first member is placed with the base's data size.
+    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+#endif
     CName sceneName; // F0
     NodeRef cameraRef; // F8
     uint8_t unk100[0x110 - 0x100]; // 100
