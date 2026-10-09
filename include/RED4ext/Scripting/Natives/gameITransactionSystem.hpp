@@ -22,11 +22,16 @@ struct ITransactionSystem : IGameSystem
     virtual void sub_1B8() = 0;                                                                                  // 1B8
     virtual void sub_1C0() = 0;                                                                                  // 1C0
     virtual void sub_1C8() = 0;                                                                                  // 1C8
-    virtual CName* GetItemAppearance(CName& aAppearance, IScriptable* aOwner, const ItemID& aItemID) = 0;        // 1D0
 #if defined(__APPLE__)
+    // macOS (R25): GetItemAppearance returns the CName in x0 (no out parameter) and takes the 16 byte ItemID by value in x2:x3; the slot is
+    // 0x1D8 (Windows 0x1D0 plus the second destructor slot). Code twin: Windows 0xA41AC8 (out CName* in rdx, ItemID* in r9) = Mac 0x3889E20
+    // (ItemID in x2:x3 captured by the same lambda, result of [vt+0x288] returned in x0). Fix found in jackmaxwil/RED4ext.SDK-macos
+    // include/RED4ext/Scripting/Natives/gameITransactionSystem.hpp, MIT. No plugin calls it.
+    virtual CName GetItemAppearance(IScriptable* aOwner, ItemID aItemID) = 0;                                    // 1D0
     // macOS (R22): the 16 byte ItemID is passed by value in x2:x3 (the Windows ABI passes it through a hidden pointer, which the reference expresses).
     virtual void ResetItemAppearance(IScriptable* aOwner, ItemID aItemID) = 0;                                   // 1D8
 #else
+    virtual CName* GetItemAppearance(CName& aAppearance, IScriptable* aOwner, const ItemID& aItemID) = 0;        // 1D0
     virtual void ResetItemAppearance(IScriptable* aOwner, const ItemID& aItemID) = 0;                            // 1D8
 #endif
     virtual void sub_1E0() = 0;                                                                                  // 1E0
