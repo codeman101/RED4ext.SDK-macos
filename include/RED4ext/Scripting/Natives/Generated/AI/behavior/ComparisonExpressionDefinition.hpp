@@ -22,7 +22,7 @@ struct ComparisonExpressionDefinition : AI::behavior::PassiveExpressionDefinitio
     static constexpr const char* ALIAS = NAME;
 
     Handle<AI::behavior::ExpressionSocket> leftHandSide; // 40
-    EComparisonType operator; // 50
+    EComparisonType operator_; // 50
     uint8_t unk54[0x58 - 0x54]; // 54
     Handle<AI::behavior::ExpressionSocket> rightHandSide; // 58
 };

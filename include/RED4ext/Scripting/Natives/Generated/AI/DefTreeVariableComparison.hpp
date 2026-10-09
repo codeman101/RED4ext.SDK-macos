@@ -33,7 +33,7 @@ struct DefTreeVariableComparison : LibTreeDefTreeVariableBoolBase
     uint8_t unk_60[0x60 - (0x58 + sizeof(referenceType))];
     Variant referenceValue; // 60
     uint8_t unk_78[0x78 - (0x60 + sizeof(referenceValue))];
-    EComparisonType operator; // 78
+    EComparisonType operator_; // 78
 #else
     uint16_t referenceVariableId; // 48
     uint8_t unk4A[0x50 - 0x4A]; // 4A
@@ -41,7 +41,7 @@ struct DefTreeVariableComparison : LibTreeDefTreeVariableBoolBase
     CName referenceVariableShortName; // 58
     CName referenceType; // 60
     Variant referenceValue; // 68
-    EComparisonType operator; // 80
+    EComparisonType operator_; // 80
     uint8_t unk84[0x88 - 0x84]; // 84
 #endif
 };
