@@ -310,6 +310,11 @@ struct DynArray
         return size == 0;
     }
 
+    [[nodiscard]] uint32_t Capacity() const noexcept
+    {
+        return capacity;
+    }
+
     T* Data()
     {
         return entries;
