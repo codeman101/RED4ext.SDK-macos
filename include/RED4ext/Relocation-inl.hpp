@@ -136,7 +136,7 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         { 914361828, 0x2B73C7C },     // TweakDB_Get
         { 3357477547, 0x2CDB8 },      // CString_ctor_str
         { 2065762423, 0x2940C },      // CString_ctor_span
-        { 3904113489, 0x2B110 },      // CString_copy
+        { 3904113489, 0x2AACC },      // CString_copy. R25: the copy ASSIGN (Windows twin 0x2503FC), was the copy constructor 0x2B110
         { 1409615660, 0x29228 },      // CString_dtor
         { 2057311186, 0x286E8 },      // DynArray_Realloc
         { 1759447004, 0x3452D7C },    // CNamePool_Get
