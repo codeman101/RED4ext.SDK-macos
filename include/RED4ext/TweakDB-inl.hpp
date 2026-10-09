@@ -462,6 +462,11 @@ RED4EXT_INLINE void RED4ext::TweakDB::UpsizeFlatDataBuffer(uint32_t aCapacity)
     auto* oldFlatDataBuffer = reinterpret_cast<void*>(flatDataBuffer);
     const uint32_t oldCapacity = flatDataBufferCapacity;
     memcpy(result.memory, oldFlatDataBuffer, currentSize);
+    // R25. Zero the new tail. TweakXL's TweakDBBuffer::SyncBufferData reads a zero qword as the 8-byte alignment pad before a 16-byte
+    // aligned flat; stale pool bytes there would be taken for the vtable of a flat. The game's own buffer is zeroed, the pool block of
+    // an upsize is not guaranteed to be. Fix found in jackmaxwil/RED4ext.SDK-macos include/RED4ext/TweakDB-inl.hpp, MIT.
+    if (result.size > currentSize)
+        memset(static_cast<uint8_t*>(result.memory) + currentSize, 0, result.size - currentSize);
     SetFlatDataBuffer(result.memory, currentSize, static_cast<uint32_t>(result.size));
 
     // Delay freeing. The first upsize leaks the game's original buffer, same as Windows.
@@ -479,6 +484,9 @@ RED4EXT_INLINE void RED4ext::TweakDB::UpsizeFlatDataBuffer(uint32_t aCapacity)
     auto currentSize = static_cast<uint32_t>(flatDataBufferEnd - flatDataBuffer);
     auto* oldFlatDataBuffer = reinterpret_cast<void*>(flatDataBuffer);
     memcpy(result.memory, oldFlatDataBuffer, currentSize);
+    // R25. Zero the new tail (see the macOS branch above).
+    if (result.size > currentSize)
+        memset(static_cast<uint8_t*>(result.memory) + currentSize, 0, result.size - currentSize);
     SetFlatDataBuffer(result.memory, currentSize, static_cast<uint32_t>(result.size));
 
     // Race condition when freeing old buffer
