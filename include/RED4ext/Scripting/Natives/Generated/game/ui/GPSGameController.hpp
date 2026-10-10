@@ -18,8 +18,14 @@ struct GPSGameController : game::ui::HUDGameController
     static constexpr const char* NAME = "gameuiGPSGameController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_100[0x100 - ::RED4ext::Detail::DataSize<game::ui::HUDGameController>];
+    game::gps::Settings gpsSettings; // 100
+#else
     uint8_t unkF8[0x100 - 0xF8]; // F8
     game::gps::Settings gpsSettings; // 100
+#endif
 };
 RED4EXT_ASSERT_SIZE(GPSGameController, 0x138);
 } // namespace game::ui

@@ -17,9 +17,15 @@ struct BraindanceDissolveComponent : ent::IComponent
     static constexpr const char* NAME = "gameBraindanceDissolveComponent";
     static constexpr const char* ALIAS = "BraindanceDissolveComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_C0[0xC0 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    float dissolveRadius; // C0
+#else
     uint8_t unk90[0xC0 - 0x90]; // 90
     float dissolveRadius; // C0
     uint8_t unkC4[0xC8 - 0xC4]; // C4
+#endif
 };
 RED4EXT_ASSERT_SIZE(BraindanceDissolveComponent, 0xC8);
 } // namespace game

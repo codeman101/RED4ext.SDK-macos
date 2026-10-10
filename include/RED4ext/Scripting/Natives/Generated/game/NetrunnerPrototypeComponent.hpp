@@ -19,8 +19,14 @@ struct NetrunnerPrototypeComponent : ent::IComponent
     static constexpr const char* NAME = "gameNetrunnerPrototypeComponent";
     static constexpr const char* ALIAS = "NetrunnerPrototypeComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    DynArray<game::NetrunnerPrototypeStruct> structs; // 90
+#else
     DynArray<game::NetrunnerPrototypeStruct> structs; // 90
     uint8_t unkA0[0x118 - 0xA0]; // A0
+#endif
 };
 RED4EXT_ASSERT_SIZE(NetrunnerPrototypeComponent, 0x118);
 } // namespace game

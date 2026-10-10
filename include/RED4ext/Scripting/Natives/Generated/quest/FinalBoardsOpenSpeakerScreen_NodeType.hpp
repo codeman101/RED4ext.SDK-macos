@@ -18,9 +18,17 @@ struct FinalBoardsOpenSpeakerScreen_NodeType : quest::IUIManagerNodeType
     static constexpr const char* NAME = "questFinalBoardsOpenSpeakerScreen_NodeType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<quest::IUIManagerNodeType>];
+    bool openSpeakerScreen; // 34
+    uint8_t unk_38[0x38 - (0x34 + sizeof(openSpeakerScreen))];
+    CString speakerName; // 38
+#else
     bool openSpeakerScreen; // 38
     uint8_t unk39[0x40 - 0x39]; // 39
     CString speakerName; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(FinalBoardsOpenSpeakerScreen_NodeType, 0x60);
 } // namespace quest

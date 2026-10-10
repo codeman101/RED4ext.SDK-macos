@@ -17,8 +17,14 @@ struct BaseVehicleHUDGameController : game::ui::HUDGameController
     static constexpr const char* NAME = "gameuiBaseVehicleHUDGameController";
     static constexpr const char* ALIAS = "BaseVehicleHUDGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F8[0xF8 - ::RED4ext::Detail::DataSize<game::ui::HUDGameController>];
+    bool mounted; // F8
+#else
     bool mounted; // F8
     uint8_t unkF9[0x110 - 0xF9]; // F9
+#endif
 };
 RED4EXT_ASSERT_SIZE(BaseVehicleHUDGameController, 0x110);
 } // namespace game::ui

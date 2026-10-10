@@ -18,9 +18,17 @@ struct Tagged_ConditionType : quest::IObjectConditionType
     static constexpr const char* NAME = "questTagged_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IObjectConditionType>];
+    game::EntityReference objectRef; // 38
+    uint8_t unk_70[0x70 - (0x38 + sizeof(objectRef))];
+    bool inverted; // 70
+#else
     game::EntityReference objectRef; // 38
     bool inverted; // 70
     uint8_t unk71[0x78 - 0x71]; // 71
+#endif
 };
 RED4EXT_ASSERT_SIZE(Tagged_ConditionType, 0x78);
 } // namespace quest

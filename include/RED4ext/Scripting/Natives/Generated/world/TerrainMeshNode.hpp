@@ -21,9 +21,17 @@ struct TerrainMeshNode : world::Node
     static constexpr const char* NAME = "worldTerrainMeshNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<world::Node>];
+    Handle<CMesh> mesh; // 48
+    uint8_t unk_58[0x58 - (0x48 + sizeof(mesh))];
+    RaRef<CMesh> meshRef; // 58
+#else
     uint8_t unk38[0x48 - 0x38]; // 38
     Handle<CMesh> mesh; // 48
     RaRef<CMesh> meshRef; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(TerrainMeshNode, 0x60);
 } // namespace world

@@ -22,7 +22,9 @@ struct PhysicsJointLimitBase
     float stiffness; // 10
     float damping; // 14
     float contactDistance; // 18
+#if !defined(__APPLE__)
     uint8_t unk1C[0x20 - 0x1C]; // 1C
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(PhysicsJointLimitBase, 0x20);
 } // namespace physics

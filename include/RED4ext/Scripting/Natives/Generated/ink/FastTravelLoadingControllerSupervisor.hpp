@@ -20,9 +20,15 @@ struct FastTravelLoadingControllerSupervisor : game::ui::WidgetGameController
     static constexpr const char* NAME = "inkFastTravelLoadingControllerSupervisor";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_100[0x100 - ::RED4ext::Detail::DataSize<game::ui::WidgetGameController>];
+    Ref<world::Effect> glitchEffect; // 100
+#else
     uint8_t unkE0[0x100 - 0xE0]; // E0
     Ref<world::Effect> glitchEffect; // 100
     uint8_t unk118[0x178 - 0x118]; // 118
+#endif
 };
 RED4EXT_ASSERT_SIZE(FastTravelLoadingControllerSupervisor, 0x178);
 } // namespace ink

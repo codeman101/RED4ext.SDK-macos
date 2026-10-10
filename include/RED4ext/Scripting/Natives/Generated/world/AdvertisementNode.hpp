@@ -22,6 +22,25 @@ struct AdvertisementNode : world::StaticMeshNode
     static constexpr const char* NAME = "worldAdvertisementNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_5C[0x5C - ::RED4ext::Detail::DataSize<world::StaticMeshNode>];
+    Vector3 meshInitialScale; // 5C
+    uint8_t unk_68[0x68 - (0x5C + sizeof(meshInitialScale))];
+    AdvertisementFormat format; // 68
+    uint8_t unk_6C[0x6C - (0x68 + sizeof(format))];
+    TweakDBID adGroupTDBID; // 6C
+    uint8_t unk_7C[0x7C - (0x6C + sizeof(adGroupTDBID))];
+    bool enableOverride; // 7C
+    uint8_t unk_80[0x80 - (0x7C + sizeof(enableOverride))];
+    TweakDBID adOverrideTDBID; // 80
+    uint8_t unk_88[0x88 - (0x80 + sizeof(adOverrideTDBID))];
+    uint32_t adVersion; // 88
+    uint8_t unk_8C[0x8C - (0x88 + sizeof(adVersion))];
+    float glitchValue; // 8C
+    uint8_t unk_A8[0xA8 - (0x8C + sizeof(glitchValue))];
+    DynArray<world::AdvertisementLightData> lightsData; // A8
+#else
     Vector3 meshInitialScale; // 60
     AdvertisementFormat format; // 6C
     uint8_t unk6D[0x70 - 0x6D]; // 6D
@@ -35,6 +54,7 @@ struct AdvertisementNode : world::StaticMeshNode
     uint8_t unk94[0xB0 - 0x94]; // 94
     DynArray<world::AdvertisementLightData> lightsData; // B0
     uint8_t unkC0[0xC8 - 0xC0]; // C0
+#endif
 };
 RED4EXT_ASSERT_SIZE(AdvertisementNode, 0xC8);
 } // namespace world

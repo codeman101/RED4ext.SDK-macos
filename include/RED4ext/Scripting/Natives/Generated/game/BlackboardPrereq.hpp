@@ -19,9 +19,17 @@ struct BlackboardPrereq : game::IComparisonPrereq
     static constexpr const char* NAME = "gameBlackboardPrereq";
     static constexpr const char* ALIAS = "BlackboardPrereq";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<game::IComparisonPrereq>];
+    game::BlackboardPropertyBindingDefinition blackboardValue; // 48
+    uint8_t unk_80[0x80 - (0x48 + sizeof(blackboardValue))];
+    Variant value; // 80
+#else
     game::BlackboardPropertyBindingDefinition blackboardValue; // 48
     Variant value; // 80
     uint8_t unk98[0xA0 - 0x98]; // 98
+#endif
 };
 RED4EXT_ASSERT_SIZE(BlackboardPrereq, 0xA0);
 } // namespace game

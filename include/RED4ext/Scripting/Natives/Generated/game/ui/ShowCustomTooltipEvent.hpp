@@ -18,8 +18,16 @@ struct ShowCustomTooltipEvent : red::Event
     static constexpr const char* NAME = "gameuiShowCustomTooltipEvent";
     static constexpr const char* ALIAS = "ShowCustomTooltipEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    CString text; // 40
+    uint8_t unk_60[0x60 - (0x40 + sizeof(text))];
+    CString inputAction; // 60
+#else
     CString text; // 40
     CString inputAction; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(ShowCustomTooltipEvent, 0x80);
 } // namespace game::ui

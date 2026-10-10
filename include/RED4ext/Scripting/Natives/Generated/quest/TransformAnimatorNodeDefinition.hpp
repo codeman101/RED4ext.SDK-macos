@@ -22,9 +22,19 @@ struct TransformAnimatorNodeDefinition : quest::SignalStoppingNodeDefinition
     static constexpr const char* NAME = "questTransformAnimatorNodeDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<quest::SignalStoppingNodeDefinition>];
+    game::EntityReference objectRef; // 48
+    uint8_t unk_80[0x80 - (0x48 + sizeof(objectRef))];
+    CName animationName; // 80
+    uint8_t unk_88[0x88 - (0x80 + sizeof(animationName))];
+    Handle<quest::TransformAnimatorNode_ActionType> action; // 88
+#else
     game::EntityReference objectRef; // 48
     CName animationName; // 80
     Handle<quest::TransformAnimatorNode_ActionType> action; // 88
+#endif
 };
 RED4EXT_ASSERT_SIZE(TransformAnimatorNodeDefinition, 0x98);
 } // namespace quest

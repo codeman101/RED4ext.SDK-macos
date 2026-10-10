@@ -19,10 +19,20 @@ struct Rumble_NodeType : quest::IGameManagerNonSignalStoppingNodeType
     static constexpr const char* NAME = "questRumble_NodeType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IGameManagerNonSignalStoppingNodeType>];
+    CName rumbleEvent; // 38
+    uint8_t unk_40[0x40 - (0x38 + sizeof(rumbleEvent))];
+    game::EntityReference objectRef; // 40
+    uint8_t unk_78[0x78 - (0x40 + sizeof(objectRef))];
+    bool isPlayer; // 78
+#else
     CName rumbleEvent; // 38
     game::EntityReference objectRef; // 40
     bool isPlayer; // 78
     uint8_t unk79[0x80 - 0x79]; // 79
+#endif
 };
 RED4EXT_ASSERT_SIZE(Rumble_NodeType, 0x80);
 } // namespace quest

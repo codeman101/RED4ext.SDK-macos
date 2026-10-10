@@ -22,7 +22,7 @@ struct NaryOperatorExpressionDefinition : AI::behavior::PassiveExpressionDefinit
     static constexpr const char* NAME = "AIbehaviorNaryOperatorExpressionDefinition";
     static constexpr const char* ALIAS = NAME;
 
-    AI::behavior::NaryExpressionOperators operator; // 40
+    AI::behavior::NaryExpressionOperators operator_; // 40
     uint8_t unk44[0x48 - 0x44]; // 44
     DynArray<Handle<AI::behavior::ExpressionSocket>> operands; // 48
 };

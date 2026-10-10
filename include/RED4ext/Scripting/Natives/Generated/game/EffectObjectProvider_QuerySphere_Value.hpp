@@ -21,11 +21,21 @@ struct EffectObjectProvider_QuerySphere_Value : game::EffectObjectProvider
     static constexpr const char* NAME = "gameEffectObjectProvider_QuerySphere_Value";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::EffectObjectProvider>];
+    float radius; // 40
+    uint8_t unk_48[0x48 - (0x40 + sizeof(radius))];
+    Handle<physics::FilterData> filterData; // 48
+    uint8_t unk_58[0x58 - (0x48 + sizeof(filterData))];
+    physics::QueryPreset queryPreset; // 58
+#else
     float radius; // 40
     uint8_t unk44[0x48 - 0x44]; // 44
     Handle<physics::FilterData> filterData; // 48
     physics::QueryPreset queryPreset; // 58
     uint8_t unk60[0x70 - 0x60]; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectProvider_QuerySphere_Value, 0x70);
 } // namespace game

@@ -24,6 +24,23 @@ struct __declspec(align(0x10)) PhysicalDestructionComponent : ent::IVisualCompon
     static constexpr const char* NAME = "entPhysicalDestructionComponent";
     static constexpr const char* ALIAS = "PhysicalDestructionComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_1E8[0x1E8 - ::RED4ext::Detail::DataSize<ent::IVisualComponent>];
+    physics::DestructionParams destructionParams; // 1E8
+    uint8_t unk_238[0x238 - (0x1E8 + sizeof(destructionParams))];
+    DynArray<physics::DestructionLevelData> destructionLevelData; // 238
+    uint8_t unk_298[0x298 - (0x238 + sizeof(destructionLevelData))];
+    RaRef<CMesh> mesh; // 298
+    uint8_t unk_300[0x300 - (0x298 + sizeof(mesh))];
+    CName audioMetadata; // 300
+    uint8_t unk_308[0x308 - (0x300 + sizeof(audioMetadata))];
+    CName meshAppearance; // 308
+    uint8_t unk_328[0x328 - (0x308 + sizeof(meshAppearance))];
+    float forceAutoHideDistance; // 328
+    uint8_t unk_334[0x334 - (0x328 + sizeof(forceAutoHideDistance))];
+    uint16_t systemsToNotifyFlags; // 334
+#else
     uint8_t unk140[0x1E8 - 0x140]; // 140
     physics::DestructionParams destructionParams; // 1E8
     DynArray<physics::DestructionLevelData> destructionLevelData; // 238
@@ -37,6 +54,7 @@ struct __declspec(align(0x10)) PhysicalDestructionComponent : ent::IVisualCompon
     uint8_t unk32C[0x334 - 0x32C]; // 32C
     uint16_t systemsToNotifyFlags; // 334
     uint8_t unk336[0x340 - 0x336]; // 336
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalDestructionComponent, 0x340);
 } // namespace ent

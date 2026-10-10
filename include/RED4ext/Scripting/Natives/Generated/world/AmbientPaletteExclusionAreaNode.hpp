@@ -19,7 +19,13 @@ struct AmbientPaletteExclusionAreaNode : world::AreaShapeNode
     static constexpr const char* NAME = "worldAmbientPaletteExclusionAreaNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<world::AreaShapeNode>];
     DynArray<audio::AmbientPaletteEntry> exclusionPaletteEntries; // 60
+#else
+    DynArray<audio::AmbientPaletteEntry> exclusionPaletteEntries; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(AmbientPaletteExclusionAreaNode, 0x70);
 } // namespace world

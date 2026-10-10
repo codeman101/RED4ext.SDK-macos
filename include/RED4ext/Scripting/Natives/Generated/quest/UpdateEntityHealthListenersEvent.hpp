@@ -18,7 +18,13 @@ struct UpdateEntityHealthListenersEvent : red::Event
     static constexpr const char* NAME = "questUpdateEntityHealthListenersEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     game::EntityReference entityRef; // 40
+#else
+    game::EntityReference entityRef; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(UpdateEntityHealthListenersEvent, 0x78);
 } // namespace quest

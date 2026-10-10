@@ -17,8 +17,14 @@ struct MachineConsumableParameterFloat : game::state::MachineActionParameterFloa
     static constexpr const char* NAME = "gamestateMachineConsumableParameterFloat";
     static constexpr const char* ALIAS = "ConsumableParameterFloat";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_14[0x14 - ::RED4ext::Detail::DataSize<game::state::MachineActionParameterFloat>];
+    bool consumed; // 14
+#else
     bool consumed; // 18
     uint8_t unk19[0x20 - 0x19]; // 19
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineConsumableParameterFloat, 0x20);
 } // namespace game::state

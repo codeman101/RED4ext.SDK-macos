@@ -21,9 +21,19 @@ struct WorkspotStartedEvent : red::Event
     static constexpr const char* NAME = "workWorkspotStartedEvent";
     static constexpr const char* ALIAS = "WorkspotStartedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    world::GlobalNodeID nodeId; // 40
+    uint8_t unk_48[0x48 - (0x40 + sizeof(nodeId))];
+    DynArray<CName> tags; // 48
+    uint8_t unk_58[0x58 - (0x48 + sizeof(tags))];
+    TweakDBID statusEffectID; // 58
+#else
     world::GlobalNodeID nodeId; // 40
     DynArray<CName> tags; // 48
     TweakDBID statusEffectID; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(WorkspotStartedEvent, 0x60);
 } // namespace work

@@ -22,12 +22,24 @@ struct __declspec(align(0x10)) InstancedOccluderNode : world::Node
     static constexpr const char* NAME = "worldInstancedOccluderNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<world::Node>];
+    Box worldBounds; // 50
+    uint8_t unk_70[0x70 - (0x50 + sizeof(worldBounds))];
+    RaRef<CMesh> mesh; // 70
+    uint8_t unk_78[0x78 - (0x70 + sizeof(mesh))];
+    uint8_t autohideDistanceScale; // 78
+    uint8_t unk_79[0x79 - (0x78 + sizeof(autohideDistanceScale))];
+    vis::WorldOccluderType occluderType; // 79
+#else
     uint8_t unk38[0x50 - 0x38]; // 38
     Box worldBounds; // 50
     RaRef<CMesh> mesh; // 70
     uint8_t autohideDistanceScale; // 78
     vis::WorldOccluderType occluderType; // 79
     uint8_t unk7A[0x80 - 0x7A]; // 7A
+#endif
 };
 RED4EXT_ASSERT_SIZE(InstancedOccluderNode, 0x80);
 } // namespace world

@@ -28,7 +28,9 @@ struct IComponent : IScriptable
     uint8_t unk82[0x8B - 0x82];                // 82
     bool isEnabled;                            // 8B
     bool isReplicable;                         // 8C
+#if !defined(__APPLE__)
     uint8_t unk8D[0x90 - 0x8D];                // 8D
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(IComponent, 0x90);
 RED4EXT_ASSERT_OFFSET(IComponent, isEnabled, 0x8B);

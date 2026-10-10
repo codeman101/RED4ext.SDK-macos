@@ -17,7 +17,9 @@ struct ISceneManagerNodeType : quest::IRetNodeType
     static constexpr const char* NAME = "questISceneManagerNodeType";
     static constexpr const char* ALIAS = NAME;
 
+#if !defined(__APPLE__)
     uint8_t unk30[0x38 - 0x30]; // 30
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ISceneManagerNodeType, 0x38);
 } // namespace quest

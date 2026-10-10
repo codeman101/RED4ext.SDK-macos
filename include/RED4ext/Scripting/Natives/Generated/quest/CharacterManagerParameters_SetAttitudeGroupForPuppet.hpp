@@ -18,7 +18,13 @@ struct CharacterManagerParameters_SetAttitudeGroupForPuppet : quest::ICharacterM
     static constexpr const char* NAME = "questCharacterManagerParameters_SetAttitudeGroupForPuppet";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_70[0x70 - ::RED4ext::Detail::DataSize<quest::ICharacterManagerParameters_NodeSubType>];
     CName groupName; // 70
+#else
+    CName groupName; // 70
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerParameters_SetAttitudeGroupForPuppet, 0x78);
 } // namespace quest

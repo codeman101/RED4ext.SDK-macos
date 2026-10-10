@@ -28,7 +28,9 @@ struct TextAnimationController : ink::WidgetLogicController
     uint8_t unkC4[0xC8 - 0xC4]; // C4
     CName animationName; // C8
     bool useDefaultAnimation; // D0
+#if !defined(__APPLE__)
     uint8_t unkD1[0xF0 - 0xD1]; // D1
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(TextAnimationController, 0xF0);
 } // namespace ink

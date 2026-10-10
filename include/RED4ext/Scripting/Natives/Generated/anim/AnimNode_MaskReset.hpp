@@ -20,10 +20,18 @@ struct AnimNode_MaskReset : anim::AnimNode_OnePoseInput
     static constexpr const char* NAME = "animAnimNode_MaskReset";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_68[0x68 - ::RED4ext::Detail::DataSize<anim::AnimNode_OnePoseInput>];
+    DynArray<anim::TransformIndex> transforms; // 68
+    uint8_t unk_88[0x88 - (0x68 + sizeof(transforms))];
+    anim::FloatLink weightNode; // 88
+#else
     uint8_t unk60[0x68 - 0x60]; // 60
     DynArray<anim::TransformIndex> transforms; // 68
     uint8_t unk78[0x88 - 0x78]; // 78
     anim::FloatLink weightNode; // 88
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_MaskReset, 0xA8);
 } // namespace anim

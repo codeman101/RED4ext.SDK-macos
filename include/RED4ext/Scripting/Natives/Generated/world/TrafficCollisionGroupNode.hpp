@@ -19,7 +19,13 @@ struct TrafficCollisionGroupNode : world::Node
     static constexpr const char* NAME = "worldTrafficCollisionGroupNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<world::Node>];
     DynArray<world::CollisionGroupEntry> collisionEntries; // 38
+#else
+    DynArray<world::CollisionGroupEntry> collisionEntries; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(TrafficCollisionGroupNode, 0x48);
 } // namespace world

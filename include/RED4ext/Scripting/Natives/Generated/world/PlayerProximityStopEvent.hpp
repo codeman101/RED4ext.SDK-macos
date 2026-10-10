@@ -18,7 +18,13 @@ struct PlayerProximityStopEvent : red::Event
     static constexpr const char* NAME = "worldPlayerProximityStopEvent";
     static constexpr const char* ALIAS = "PlayerProximityStopEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     CName profile; // 40
+#else
+    CName profile; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(PlayerProximityStopEvent, 0x48);
 } // namespace world

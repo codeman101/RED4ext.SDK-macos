@@ -16,7 +16,9 @@ struct LibTreeDefTreeVariableBoolBase : LibTreeDefTreeVariable
     static constexpr const char* ALIAS = NAME;
 
     bool defaultValue; // 40
+#if !defined(__APPLE__)
     uint8_t unk41[0x48 - 0x41]; // 41
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(LibTreeDefTreeVariableBoolBase, 0x48);
 } // namespace RED4ext

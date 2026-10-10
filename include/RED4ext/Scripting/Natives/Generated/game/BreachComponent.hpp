@@ -17,10 +17,18 @@ struct __declspec(align(0x10)) BreachComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "gameBreachComponent";
     static constexpr const char* ALIAS = "BreachComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_120[0x120 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    float radius; // 120
+    uint8_t unk_140[0x140 - (0x120 + sizeof(radius))];
+    float healthPercentageOverride; // 140
+#else
     float radius; // 120
     uint8_t unk124[0x140 - 0x124]; // 124
     float healthPercentageOverride; // 140
     uint8_t unk144[0x170 - 0x144]; // 144
+#endif
 };
 RED4EXT_ASSERT_SIZE(BreachComponent, 0x170);
 } // namespace game

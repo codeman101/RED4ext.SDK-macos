@@ -18,8 +18,14 @@ struct VisibleObjectTypeEvent : red::Event
     static constexpr const char* NAME = "senseVisibleObjectTypeEvent";
     static constexpr const char* ALIAS = "VisibleObjectTypeEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    game::data::SenseObjectType type; // 40
+#else
     game::data::SenseObjectType type; // 40
     uint8_t unk44[0x48 - 0x44]; // 44
+#endif
 };
 RED4EXT_ASSERT_SIZE(VisibleObjectTypeEvent, 0x48);
 } // namespace sense

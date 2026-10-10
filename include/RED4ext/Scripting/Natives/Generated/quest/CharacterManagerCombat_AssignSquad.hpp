@@ -20,10 +20,20 @@ struct CharacterManagerCombat_AssignSquad : quest::ICharacterManagerCombat_NodeS
     static constexpr const char* NAME = "questCharacterManagerCombat_AssignSquad";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_6C[0x6C - ::RED4ext::Detail::DataSize<quest::ICharacterManagerCombat_NodeSubType>];
+    TweakDBID presetID; // 6C
+    uint8_t unk_78[0x78 - (0x6C + sizeof(presetID))];
+    game::EntityReference puppetRef; // 78
+    uint8_t unk_B0[0xB0 - (0x78 + sizeof(puppetRef))];
+    AI::SquadType squadType; // B0
+#else
     TweakDBID presetID; // 70
     game::EntityReference puppetRef; // 78
     AI::SquadType squadType; // B0
     uint8_t unkB4[0xB8 - 0xB4]; // B4
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerCombat_AssignSquad, 0xB8);
 } // namespace quest

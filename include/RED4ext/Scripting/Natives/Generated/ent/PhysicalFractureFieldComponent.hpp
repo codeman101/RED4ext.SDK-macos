@@ -18,8 +18,14 @@ struct __declspec(align(0x10)) PhysicalFractureFieldComponent : ent::PhysicalTri
     static constexpr const char* NAME = "entPhysicalFractureFieldComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_188[0x188 - ::RED4ext::Detail::DataSize<ent::PhysicalTriggerComponent>];
+    physics::FractureFieldParams fractureFieldParams; // 188
+#else
     physics::FractureFieldParams fractureFieldParams; // 190
     uint8_t unk1A8[0x1B0 - 0x1A8]; // 1A8
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalFractureFieldComponent, 0x1B0);
 } // namespace ent

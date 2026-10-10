@@ -22,10 +22,20 @@ struct __declspec(align(0x10)) PhysicalTriggerAreaNode : world::Node
     static constexpr const char* NAME = "worldPhysicalTriggerAreaNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_32[0x32 - ::RED4ext::Detail::DataSize<world::Node>];
+    physics::SimulationType simulationType; // 32
+    uint8_t unk_38[0x38 - (0x32 + sizeof(simulationType))];
+    Handle<physics::FilterData> filterData; // 38
+    uint8_t unk_50[0x50 - (0x38 + sizeof(filterData))];
+    physics::TriggerShape shape; // 50
+#else
     physics::SimulationType simulationType; // 38
     uint8_t unk39[0x40 - 0x39]; // 39
     Handle<physics::FilterData> filterData; // 40
     physics::TriggerShape shape; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalTriggerAreaNode, 0x80);
 } // namespace world

@@ -18,7 +18,13 @@ struct HACK_UseSensePresetEvent : red::Event
     static constexpr const char* NAME = "gameHACK_UseSensePresetEvent";
     static constexpr const char* ALIAS = "HACK_UseSensePresetEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     TweakDBID sensePreset; // 40
+#else
+    TweakDBID sensePreset; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(HACK_UseSensePresetEvent, 0x48);
 } // namespace game

@@ -18,7 +18,13 @@ struct AnimNode_ConditionalSegmentBegin : anim::AnimNode_OnePoseInput
     static constexpr const char* NAME = "animAnimNode_ConditionalSegmentBegin";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<anim::AnimNode_OnePoseInput>];
     anim::ConditionalSegmentCondition condition; // 60
+#else
+    anim::ConditionalSegmentCondition condition; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_ConditionalSegmentBegin, 0x90);
 } // namespace anim

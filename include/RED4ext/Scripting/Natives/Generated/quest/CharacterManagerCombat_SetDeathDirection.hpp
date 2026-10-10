@@ -18,8 +18,14 @@ struct CharacterManagerCombat_SetDeathDirection : quest::ICharacterManagerCombat
     static constexpr const char* NAME = "questCharacterManagerCombat_SetDeathDirection";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_6C[0x6C - ::RED4ext::Detail::DataSize<quest::ICharacterManagerCombat_NodeSubType>];
+    game::events::DeathDirection direction; // 6C
+#else
     game::events::DeathDirection direction; // 70
     uint8_t unk74[0x78 - 0x74]; // 74
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerCombat_SetDeathDirection, 0x78);
 } // namespace quest

@@ -19,7 +19,13 @@ struct CharacterCustomizationSystem_OnAppearanceSwitchedEvent : red::Event
     static constexpr const char* NAME = "gameuiCharacterCustomizationSystem_OnAppearanceSwitchedEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     DynArray<game::ui::SwitchPair> pairs; // 40
+#else
+    DynArray<game::ui::SwitchPair> pairs; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCustomizationSystem_OnAppearanceSwitchedEvent, 0x50);
 } // namespace game::ui

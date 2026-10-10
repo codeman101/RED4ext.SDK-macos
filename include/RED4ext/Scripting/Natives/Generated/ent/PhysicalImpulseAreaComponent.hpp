@@ -18,8 +18,16 @@ struct __declspec(align(0x10)) PhysicalImpulseAreaComponent : ent::PhysicalTrigg
     static constexpr const char* NAME = "entPhysicalImpulseAreaComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_188[0x188 - ::RED4ext::Detail::DataSize<ent::PhysicalTriggerComponent>];
+    Vector3 impulse; // 188
+    uint8_t unk_194[0x194 - (0x188 + sizeof(impulse))];
+    float impulseRadius; // 194
+#else
     Vector3 impulse; // 190
     float impulseRadius; // 19C
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalImpulseAreaComponent, 0x1A0);
 } // namespace ent

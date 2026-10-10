@@ -18,9 +18,17 @@ struct __declspec(align(0x10)) EffectObjectProvider_Laser : game::EffectObjectPr
     static constexpr const char* NAME = "gameEffectObjectProvider_Laser";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<game::EffectObjectProvider_PhysicalRay>];
+    uint32_t inputTracesPerSecond; // F0
+    uint8_t unk_100[0x100 - (0xF0 + sizeof(inputTracesPerSecond))];
+    Vector4 inputRayOffset; // 100
+#else
     uint32_t inputTracesPerSecond; // F0
     uint8_t unkF4[0x100 - 0xF4]; // F4
     Vector4 inputRayOffset; // 100
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectProvider_Laser, 0x110);
 } // namespace game

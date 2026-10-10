@@ -18,7 +18,13 @@ struct AnimNode_Root : anim::AnimNode_Container
     static constexpr const char* NAME = "animAnimNode_Root";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<anim::AnimNode_Container>];
     anim::PoseLink outputNode; // 58
+#else
+    anim::PoseLink outputNode; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_Root, 0x70);
 } // namespace anim

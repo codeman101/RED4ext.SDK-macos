@@ -18,7 +18,9 @@ struct CMaterialParameter : ISerializable
 
     CName parameterName; // 30
     uint32_t register_; // 38 -- register
+#if !defined(__APPLE__)
     uint8_t unk3C[0x40 - 0x3C]; // 3C
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(CMaterialParameter, 0x40);
 } // namespace RED4ext

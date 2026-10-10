@@ -21,7 +21,13 @@ struct TriggerAreaNode : world::AreaShapeNode
     static constexpr const char* NAME = "worldTriggerAreaNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<world::AreaShapeNode>];
     DynArray<Handle<world::ITriggerAreaNotifer>> notifiers; // 60
+#else
+    DynArray<Handle<world::ITriggerAreaNotifer>> notifiers; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(TriggerAreaNode, 0x70);
 } // namespace world

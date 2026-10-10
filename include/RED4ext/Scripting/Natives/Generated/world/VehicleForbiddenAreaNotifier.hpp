@@ -22,6 +22,25 @@ struct VehicleForbiddenAreaNotifier : world::ITriggerAreaNotifer
     static constexpr const char* NAME = "worldVehicleForbiddenAreaNotifier";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_C8[0xC8 - ::RED4ext::Detail::DataSize<world::ITriggerAreaNotifer>];
+    bool innerAreaBoundToOuterArea; // C8
+    uint8_t unk_D0[0xD0 - (0xC8 + sizeof(innerAreaBoundToOuterArea))];
+    Handle<AreaShapeOutline> innerAreaOutline; // D0
+    uint8_t unk_E0[0xE0 - (0xD0 + sizeof(innerAreaOutline))];
+    DynArray<NodeRef> parkingSpots; // E0
+    uint8_t unk_F0[0xF0 - (0xE0 + sizeof(parkingSpots))];
+    float innerAreaSpeedLimit; // F0
+    uint8_t unk_F4[0xF4 - (0xF0 + sizeof(innerAreaSpeedLimit))];
+    float areaSpeedLimit; // F4
+    uint8_t unk_F8[0xF8 - (0xF4 + sizeof(areaSpeedLimit))];
+    bool enableNullArea; // F8
+    uint8_t unk_F9[0xF9 - (0xF8 + sizeof(enableNullArea))];
+    bool dismount; // F9
+    uint8_t unk_FA[0xFA - (0xF9 + sizeof(dismount))];
+    bool enableSummoning; // FA
+#else
     uint8_t unkB8[0xC8 - 0xB8]; // B8
     bool innerAreaBoundToOuterArea; // C8
     uint8_t unkC9[0xD0 - 0xC9]; // C9
@@ -33,6 +52,7 @@ struct VehicleForbiddenAreaNotifier : world::ITriggerAreaNotifer
     bool dismount; // F9
     bool enableSummoning; // FA
     uint8_t unkFB[0x100 - 0xFB]; // FB
+#endif
 };
 RED4EXT_ASSERT_SIZE(VehicleForbiddenAreaNotifier, 0x100);
 } // namespace world

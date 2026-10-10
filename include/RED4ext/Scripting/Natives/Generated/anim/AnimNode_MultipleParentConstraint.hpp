@@ -27,6 +27,27 @@ struct AnimNode_MultipleParentConstraint : anim::AnimNode_OnePoseInput
     static constexpr const char* NAME = "animAnimNode_MultipleParentConstraint";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<anim::AnimNode_OnePoseInput>];
+    DynArray<Handle<anim::IAnimNodeSourceChannel_QsTransform>> parentsTransform; // 60
+    uint8_t unk_70[0x70 - (0x60 + sizeof(parentsTransform))];
+    DynArray<Handle<anim::IAnimNodeSourceChannel_Float>> parentsWeight; // 70
+    uint8_t unk_80[0x80 - (0x70 + sizeof(parentsWeight))];
+    bool areSourceChannelsResaved; // 80
+    uint8_t unk_88[0x88 - (0x80 + sizeof(areSourceChannelsResaved))];
+    DynArray<anim::AnimNode_MultipleParentConstraint_ParentInfo> parentsTransforms; // 88
+    uint8_t unk_98[0x98 - (0x88 + sizeof(parentsTransforms))];
+    anim::TransformIndex transformIndex; // 98
+    uint8_t unk_B0[0xB0 - (0x98 + sizeof(transformIndex))];
+    anim::EInterpolationType interpolationType; // B0
+    uint8_t unk_B4[0xB4 - (0xB0 + sizeof(interpolationType))];
+    anim::ConstraintWeightMode weightMode; // B4
+    uint8_t unk_B8[0xB8 - (0xB4 + sizeof(weightMode))];
+    float weight; // B8
+    uint8_t unk_C0[0xC0 - (0xB8 + sizeof(weight))];
+    anim::NamedTrackIndex weightFloatTrack; // C0
+#else
     DynArray<Handle<anim::IAnimNodeSourceChannel_QsTransform>> parentsTransform; // 60
     DynArray<Handle<anim::IAnimNodeSourceChannel_Float>> parentsWeight; // 70
     bool areSourceChannelsResaved; // 80
@@ -38,6 +59,7 @@ struct AnimNode_MultipleParentConstraint : anim::AnimNode_OnePoseInput
     float weight; // B8
     uint8_t unkBC[0xC0 - 0xBC]; // BC
     anim::NamedTrackIndex weightFloatTrack; // C0
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_MultipleParentConstraint, 0xD8);
 } // namespace anim

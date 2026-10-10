@@ -18,7 +18,13 @@ struct AnimNode_MathExpressionQuaternion : anim::AnimNode_QuaternionValue
     static constexpr const char* NAME = "animAnimNode_MathExpressionQuaternion";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_QuaternionValue>];
     anim::MathExpressionNodeData expressionData; // 48
+#else
+    anim::MathExpressionNodeData expressionData; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_MathExpressionQuaternion, 0x88);
 } // namespace anim

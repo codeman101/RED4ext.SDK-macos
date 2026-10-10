@@ -17,8 +17,14 @@ struct CustomMoveEvent : game::ActionEvent
     static constexpr const char* NAME = "moveCustomMoveEvent";
     static constexpr const char* ALIAS = "CustomMoveEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_68[0x68 - ::RED4ext::Detail::DataSize<game::ActionEvent>];
+    int32_t test; // 68
+#else
     int32_t test; // 68
     uint8_t unk6C[0x70 - 0x6C]; // 6C
+#endif
 };
 RED4EXT_ASSERT_SIZE(CustomMoveEvent, 0x70);
 } // namespace move

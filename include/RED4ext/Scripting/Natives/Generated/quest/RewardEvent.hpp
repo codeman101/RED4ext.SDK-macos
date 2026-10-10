@@ -18,7 +18,13 @@ struct RewardEvent : red::Event
     static constexpr const char* NAME = "questRewardEvent";
     static constexpr const char* ALIAS = "RewardEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     TweakDBID rewardName; // 40
+#else
+    TweakDBID rewardName; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(RewardEvent, 0x48);
 } // namespace quest

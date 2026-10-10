@@ -16,8 +16,14 @@ struct CMaterialParameterColor : CMaterialParameter
     static constexpr const char* NAME = "CMaterialParameterColor";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_3C[0x3C - ::RED4ext::Detail::DataSize<CMaterialParameter>];
+    Color color; // 3C
+#else
     Color color; // 40
     uint8_t unk44[0x48 - 0x44]; // 44
+#endif
 };
 RED4EXT_ASSERT_SIZE(CMaterialParameterColor, 0x48);
 } // namespace RED4ext

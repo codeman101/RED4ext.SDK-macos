@@ -17,9 +17,15 @@ struct MotionPlannerComponent : move::IMotionPlannerComponent
     static constexpr const char* NAME = "moveMotionPlannerComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_1F0[0x1F0 - ::RED4ext::Detail::DataSize<move::IMotionPlannerComponent>];
+    bool snapToGround; // 1F0
+#else
     uint8_t unk90[0x1F0 - 0x90]; // 90
     bool snapToGround; // 1F0
     uint8_t unk1F1[0x1F8 - 0x1F1]; // 1F1
+#endif
 };
 RED4EXT_ASSERT_SIZE(MotionPlannerComponent, 0x1F8);
 } // namespace move

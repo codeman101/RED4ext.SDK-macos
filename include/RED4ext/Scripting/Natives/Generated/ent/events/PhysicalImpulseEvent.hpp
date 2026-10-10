@@ -18,12 +18,26 @@ struct PhysicalImpulseEvent : red::Event
     static constexpr const char* NAME = "enteventsPhysicalImpulseEvent";
     static constexpr const char* ALIAS = "PhysicalImpulseEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    uint32_t bodyIndex; // 40
+    uint8_t unk_44[0x44 - (0x40 + sizeof(bodyIndex))];
+    Vector3 worldImpulse; // 44
+    uint8_t unk_50[0x50 - (0x44 + sizeof(worldImpulse))];
+    Vector3 worldPosition; // 50
+    uint8_t unk_5C[0x5C - (0x50 + sizeof(worldPosition))];
+    float radius; // 5C
+    uint8_t unk_60[0x60 - (0x5C + sizeof(radius))];
+    uint32_t shapeIndex; // 60
+#else
     uint32_t bodyIndex; // 40
     Vector3 worldImpulse; // 44
     Vector3 worldPosition; // 50
     float radius; // 5C
     uint32_t shapeIndex; // 60
     uint8_t unk64[0x68 - 0x64]; // 64
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhysicalImpulseEvent, 0x68);
 } // namespace ent::events

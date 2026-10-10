@@ -18,9 +18,19 @@ struct AnimNode_FloatClamp : anim::AnimNode_FloatValue
     static constexpr const char* NAME = "animAnimNode_FloatClamp";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_44[0x44 - ::RED4ext::Detail::DataSize<anim::AnimNode_FloatValue>];
+    float min; // 44
+    uint8_t unk_48[0x48 - (0x44 + sizeof(min))];
+    float max; // 48
+    uint8_t unk_50[0x50 - (0x48 + sizeof(max))];
+    anim::FloatLink inputNode; // 50
+#else
     float min; // 48
     float max; // 4C
     anim::FloatLink inputNode; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_FloatClamp, 0x70);
 } // namespace anim

@@ -18,8 +18,14 @@ struct CharacterCustomizationPersonalLinkController : game::ui::ICharacterCustom
     static constexpr const char* NAME = "gameuiCharacterCustomizationPersonalLinkController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<game::ui::ICharacterCustomizationComponent>];
+    CName simpleLinkGroup; // 90
+#else
     CName simpleLinkGroup; // 98
     uint8_t unkA0[0xC8 - 0xA0]; // A0
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCustomizationPersonalLinkController, 0xC8);
 } // namespace game::ui

@@ -18,7 +18,13 @@ struct CharacterLifePath_ConditionType : quest::ICharacterConditionType
     static constexpr const char* NAME = "questCharacterLifePath_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_74[0x74 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
+    TweakDBID lifePathID; // 74
+#else
     TweakDBID lifePathID; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterLifePath_ConditionType, 0x80);
 } // namespace quest

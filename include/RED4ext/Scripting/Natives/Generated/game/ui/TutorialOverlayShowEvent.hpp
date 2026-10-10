@@ -18,8 +18,14 @@ struct TutorialOverlayShowEvent : red::Event
     static constexpr const char* NAME = "gameuiTutorialOverlayShowEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    CName itemName; // 40
+#else
     CName itemName; // 40
     uint8_t unk48[0x70 - 0x48]; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(TutorialOverlayShowEvent, 0x70);
 } // namespace game::ui

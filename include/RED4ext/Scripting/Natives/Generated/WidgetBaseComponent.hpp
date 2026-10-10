@@ -15,7 +15,11 @@ struct __declspec(align(0x10)) WidgetBaseComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "WidgetBaseComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+    uint8_t unk120[0x198 - 0x120]; // 120
+#else
     uint8_t unk120[0x1A0 - 0x120]; // 120
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(WidgetBaseComponent, 0x1A0);
 } // namespace RED4ext

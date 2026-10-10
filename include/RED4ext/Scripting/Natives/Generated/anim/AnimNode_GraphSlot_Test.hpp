@@ -20,9 +20,17 @@ struct AnimNode_GraphSlot_Test : anim::AnimNode_GraphSlot
     static constexpr const char* NAME = "animAnimNode_GraphSlot_Test";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_B0[0xB0 - ::RED4ext::Detail::DataSize<anim::AnimNode_GraphSlot>];
+    Ref<anim::AnimGraph> graph_TEST; // B0
+    uint8_t unk_C8[0xC8 - (0xB0 + sizeof(graph_TEST))];
+    bool copyAnimInputsAtAttachTime; // C8
+#else
     Ref<anim::AnimGraph> graph_TEST; // B0
     bool copyAnimInputsAtAttachTime; // C8
     uint8_t unkC9[0x120 - 0xC9]; // C9
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_GraphSlot_Test, 0x120);
 } // namespace anim

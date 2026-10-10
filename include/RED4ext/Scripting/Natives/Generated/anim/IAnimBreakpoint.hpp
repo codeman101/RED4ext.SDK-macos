@@ -18,7 +18,9 @@ struct IAnimBreakpoint
 
     uint8_t unk00[0x8 - 0x0]; // 0
     bool enabled; // 08
+#if !defined(__APPLE__)
     uint8_t unk09[0x10 - 0x9]; // 9
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(IAnimBreakpoint, 0x10);
 } // namespace anim

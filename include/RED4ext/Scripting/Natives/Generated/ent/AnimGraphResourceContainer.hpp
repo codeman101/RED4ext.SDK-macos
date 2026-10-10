@@ -19,7 +19,13 @@ struct AnimGraphResourceContainer : ent::IComponent
     static constexpr const char* NAME = "entAnimGraphResourceContainer";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_90[0x90 - ::RED4ext::Detail::DataSize<ent::IComponent>];
     DynArray<ent::AnimGraphResourceContainerEntry> animGraphLookupTable; // 90
+#else
+    DynArray<ent::AnimGraphResourceContainerEntry> animGraphLookupTable; // 90
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimGraphResourceContainer, 0xA0);
 } // namespace ent

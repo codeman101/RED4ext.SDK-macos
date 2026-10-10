@@ -19,10 +19,18 @@ struct __declspec(align(0x10)) ItemPreviewGameController : game::ui::PreviewGame
     static constexpr const char* NAME = "gameuiItemPreviewGameController";
     static constexpr const char* ALIAS = "inkItemPreviewGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_158[0x158 - ::RED4ext::Detail::DataSize<game::ui::PreviewGameController>];
+    ink::WidgetReference root; // 158
+    uint8_t unk_170[0x170 - (0x158 + sizeof(root))];
+    ink::ImageWidgetReference image; // 170
+#else
     uint8_t unk118[0x158 - 0x118]; // 118
     ink::WidgetReference root; // 158
     ink::ImageWidgetReference image; // 170
     uint8_t unk188[0x1C0 - 0x188]; // 188
+#endif
 };
 RED4EXT_ASSERT_SIZE(ItemPreviewGameController, 0x1C0);
 } // namespace game::ui

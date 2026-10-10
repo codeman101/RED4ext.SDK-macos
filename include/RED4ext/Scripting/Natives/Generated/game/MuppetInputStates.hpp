@@ -18,9 +18,15 @@ struct MuppetInputStates : game::MuppetComponent
     static constexpr const char* NAME = "gameMuppetInputStates";
     static constexpr const char* ALIAS = "MuppetInputStates";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_A0[0xA0 - ::RED4ext::Detail::DataSize<game::MuppetComponent>];
+    net::Time replicationTime; // A0
+#else
     uint8_t unk90[0xA0 - 0x90]; // 90
     net::Time replicationTime; // A0
     uint8_t unkA8[0xB0 - 0xA8]; // A8
+#endif
 };
 RED4EXT_ASSERT_SIZE(MuppetInputStates, 0xB0);
 } // namespace game

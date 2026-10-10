@@ -17,7 +17,7 @@ struct GroupingCountableMetadata : audio::EmitterMetadata
     static constexpr const char* NAME = "audioGroupingCountableMetadata";
     static constexpr const char* ALIAS = NAME;
 
-    bool void; // 38
+    bool void_; // 38
     uint8_t unk39[0x40 - 0x39]; // 39
 };
 RED4EXT_ASSERT_SIZE(GroupingCountableMetadata, 0x40);

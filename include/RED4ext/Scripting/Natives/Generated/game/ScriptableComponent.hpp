@@ -17,9 +17,15 @@ struct ScriptableComponent : game::Component
     static constexpr const char* NAME = "gameScriptableComponent";
     static constexpr const char* ALIAS = "ScriptableComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_B0[0xB0 - ::RED4ext::Detail::DataSize<game::Component>];
+    uint32_t priority; // B0
+#else
     uint8_t unkA8[0xB0 - 0xA8]; // A8
     uint32_t priority; // B0
     uint8_t unkB4[0xB8 - 0xB4]; // B4
+#endif
 };
 RED4EXT_ASSERT_SIZE(ScriptableComponent, 0xB8);
 } // namespace game

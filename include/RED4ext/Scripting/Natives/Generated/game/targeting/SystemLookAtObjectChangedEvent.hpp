@@ -20,7 +20,13 @@ struct SystemLookAtObjectChangedEvent : red::Event
     static constexpr const char* NAME = "gametargetingSystemLookAtObjectChangedEvent";
     static constexpr const char* ALIAS = "LookAtObjectChangedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     WeakHandle<game::Object> lookatObject; // 40
+#else
+    WeakHandle<game::Object> lookatObject; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(SystemLookAtObjectChangedEvent, 0x50);
 } // namespace game::targeting

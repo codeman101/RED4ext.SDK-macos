@@ -20,9 +20,17 @@ struct DamageReceivedEvent : red::Event
     static constexpr const char* NAME = "gameeventsDamageReceivedEvent";
     static constexpr const char* ALIAS = "gameDamageReceivedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Handle<game::events::HitEvent> hitEvent; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(hitEvent))];
+    float totalDamageReceived; // 50
+#else
     Handle<game::events::HitEvent> hitEvent; // 40
     float totalDamageReceived; // 50
     uint8_t unk54[0x58 - 0x54]; // 54
+#endif
 };
 RED4EXT_ASSERT_SIZE(DamageReceivedEvent, 0x58);
 } // namespace game::events

@@ -18,7 +18,13 @@ struct ContentSwitch_ConditionType : quest::ISystemConditionType
     static constexpr const char* NAME = "questContentSwitch_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::ISystemConditionType>];
     CName switchName; // 38
+#else
+    CName switchName; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(ContentSwitch_ConditionType, 0x40);
 } // namespace quest

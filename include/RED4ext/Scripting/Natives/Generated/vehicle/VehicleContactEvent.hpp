@@ -20,8 +20,14 @@ struct VehicleContactEvent : red::Event
     static constexpr const char* NAME = "vehicleVehicleContactEvent";
     static constexpr const char* ALIAS = "VehicleContactEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F8[0xF8 - ::RED4ext::Detail::DataSize<red::Event>];
+    WeakHandle<game::Object> otherVehicle; // F8
+#else
     uint8_t unk40[0xF8 - 0x40]; // 40
     WeakHandle<game::Object> otherVehicle; // F8
+#endif
 };
 RED4EXT_ASSERT_SIZE(VehicleContactEvent, 0x108);
 } // namespace vehicle

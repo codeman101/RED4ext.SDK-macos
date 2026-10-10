@@ -18,8 +18,14 @@ struct LocationAreaNode : world::TriggerAreaNode
     static constexpr const char* NAME = "worldLocationAreaNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_70[0x70 - ::RED4ext::Detail::DataSize<world::TriggerAreaNode>];
+    CString locationName; // 70
+#else
     CString locationName; // 70
     uint8_t unk90[0x98 - 0x90]; // 90
+#endif
 };
 RED4EXT_ASSERT_SIZE(LocationAreaNode, 0x98);
 } // namespace world

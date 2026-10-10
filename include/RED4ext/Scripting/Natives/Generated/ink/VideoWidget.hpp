@@ -21,6 +21,19 @@ struct __declspec(align(0x10)) VideoWidget : ink::LeafWidget
     static constexpr const char* NAME = "inkVideoWidget";
     static constexpr const char* ALIAS = "inkVideo";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_230[0x230 - ::RED4ext::Detail::DataSize<ink::LeafWidget>];
+    RaRef<Bink> videoResource; // 230
+    uint8_t unk_258[0x258 - (0x230 + sizeof(videoResource))];
+    CName overriddenPlayerName; // 258
+    uint8_t unk_268[0x268 - (0x258 + sizeof(overriddenPlayerName))];
+    bool isParallaxEnabled; // 268
+    uint8_t unk_26A[0x26A - (0x268 + sizeof(isParallaxEnabled))];
+    bool loop; // 26A
+    uint8_t unk_272[0x272 - (0x26A + sizeof(loop))];
+    bool prefetchVideo; // 272
+#else
     uint8_t unk200[0x238 - 0x200]; // 200
     RaRef<Bink> videoResource; // 238
     uint8_t unk240[0x260 - 0x240]; // 240
@@ -32,6 +45,7 @@ struct __declspec(align(0x10)) VideoWidget : ink::LeafWidget
     uint8_t unk273[0x27A - 0x273]; // 273
     bool prefetchVideo; // 27A
     uint8_t unk27B[0x2B0 - 0x27B]; // 27B
+#endif
 };
 RED4EXT_ASSERT_SIZE(VideoWidget, 0x2B0);
 } // namespace ink

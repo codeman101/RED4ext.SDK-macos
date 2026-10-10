@@ -18,8 +18,14 @@ struct ChangeGameDifficulty_NodeSubType : quest::IGameManagerNonSignalStoppingNo
     static constexpr const char* NAME = "questChangeGameDifficulty_NodeSubType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<quest::IGameManagerNonSignalStoppingNodeType>];
+    game::Difficulty difficulty; // 34
+#else
     game::Difficulty difficulty; // 38
     uint8_t unk3C[0x40 - 0x3C]; // 3C
+#endif
 };
 RED4EXT_ASSERT_SIZE(ChangeGameDifficulty_NodeSubType, 0x40);
 } // namespace quest

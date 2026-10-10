@@ -18,8 +18,14 @@ struct __declspec(align(0x10)) MachineeventImpulse : game::state::MachineeventBa
     static constexpr const char* NAME = "gamestateMachineeventImpulse";
     static constexpr const char* ALIAS = "PSMImpulse";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<game::state::MachineeventBaseEvent>];
+    Vector4 impulse; // 50
+#else
     uint8_t unk48[0x50 - 0x48]; // 48
     Vector4 impulse; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineeventImpulse, 0x60);
 } // namespace game::state

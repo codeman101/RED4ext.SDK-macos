@@ -21,9 +21,17 @@ struct AnimNode_SetDrivenKey : anim::AnimNode_Base
     static constexpr const char* NAME = "animAnimNode_SetDrivenKey";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_Base>];
+    Handle<anim::AnimNode_SetDrivenKey_InternalsISetDrivenKeyEntryProvider> provider; // 48
+    uint8_t unk_68[0x68 - (0x48 + sizeof(provider))];
+    anim::PoseLink inputLink; // 68
+#else
     Handle<anim::AnimNode_SetDrivenKey_InternalsISetDrivenKeyEntryProvider> provider; // 48
     uint8_t unk58[0x70 - 0x58]; // 58
     anim::PoseLink inputLink; // 70
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_SetDrivenKey, 0x88);
 } // namespace anim

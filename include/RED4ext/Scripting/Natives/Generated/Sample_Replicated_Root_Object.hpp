@@ -16,7 +16,9 @@ struct Sample_Replicated_Root_Object
 
     uint8_t unk00[0x10 - 0x0]; // 0
     bool bool_; // 10 -- bool
+#if !defined(__APPLE__)
     uint8_t unk11[0x18 - 0x11]; // 11
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(Sample_Replicated_Root_Object, 0x18);
 } // namespace RED4ext

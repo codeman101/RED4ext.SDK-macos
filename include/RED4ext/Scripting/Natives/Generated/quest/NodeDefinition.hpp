@@ -18,7 +18,10 @@ struct NodeDefinition : graph::GraphNodeDefinition
     static constexpr const char* ALIAS = NAME;
 
     uint16_t id; // 40
+#if defined(__APPLE__)
+#else
     uint8_t unk42[0x48 - 0x42]; // 42
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(NodeDefinition, 0x48);
 } // namespace quest

@@ -31,7 +31,9 @@ struct DangleConstraint_Simulation : ISerializable
     bool parentRotationAltersTransformsOfDangleAndItsChildren; // 61
     bool parentRotationAltersTransformsOfNonDanglesAndItsChildren; // 62
     bool dangleAltersTransformsOfItsChildren; // 63
+#if !defined(__APPLE__)
     uint8_t unk64[0x78 - 0x64]; // 64
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(DangleConstraint_Simulation, 0x78);
 } // namespace anim

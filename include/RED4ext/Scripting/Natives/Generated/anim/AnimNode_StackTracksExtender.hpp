@@ -20,8 +20,16 @@ struct AnimNode_StackTracksExtender : anim::AnimNode_OnePoseInput
     static constexpr const char* NAME = "animAnimNode_StackTracksExtender";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<anim::AnimNode_OnePoseInput>];
+    CName tag; // 60
+    uint8_t unk_68[0x68 - (0x60 + sizeof(tag))];
+    DynArray<anim::FloatTrackInfo> newTracks; // 68
+#else
     CName tag; // 60
     DynArray<anim::FloatTrackInfo> newTracks; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_StackTracksExtender, 0x78);
 } // namespace anim

@@ -18,8 +18,14 @@ struct NetrunnerPrototypeNodeSetupEvent : red::Event
     static constexpr const char* NAME = "gameNetrunnerPrototypeNodeSetupEvent";
     static constexpr const char* ALIAS = "NetrunnerPrototypeNodeSetupEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Vector3 scale; // 40
+#else
     Vector3 scale; // 40
     uint8_t unk4C[0x50 - 0x4C]; // 4C
+#endif
 };
 RED4EXT_ASSERT_SIZE(NetrunnerPrototypeNodeSetupEvent, 0x50);
 } // namespace game

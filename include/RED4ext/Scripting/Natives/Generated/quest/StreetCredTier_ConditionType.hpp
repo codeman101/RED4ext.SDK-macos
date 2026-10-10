@@ -19,9 +19,17 @@ struct StreetCredTier_ConditionType : quest::IStatsConditionType
     static constexpr const char* NAME = "questStreetCredTier_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<quest::IStatsConditionType>];
+    EComparisonType comparisonType; // 48
+    uint8_t unk_4C[0x4C - (0x48 + sizeof(comparisonType))];
+    TweakDBID tierID; // 4C
+#else
     EComparisonType comparisonType; // 48
     TweakDBID tierID; // 4C
     uint8_t unk54[0x58 - 0x54]; // 54
+#endif
 };
 RED4EXT_ASSERT_SIZE(StreetCredTier_ConditionType, 0x58);
 } // namespace quest

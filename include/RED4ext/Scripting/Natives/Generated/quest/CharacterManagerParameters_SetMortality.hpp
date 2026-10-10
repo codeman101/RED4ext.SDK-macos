@@ -19,11 +19,21 @@ struct CharacterManagerParameters_SetMortality : quest::ICharacterManagerParamet
     static constexpr const char* NAME = "questCharacterManagerParameters_SetMortality";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_6C[0x6C - ::RED4ext::Detail::DataSize<quest::ICharacterManagerParameters_NodeSubType>];
+    game::GodModeType state; // 6C
+    uint8_t unk_70[0x70 - (0x6C + sizeof(state))];
+    bool resetToDefault; // 70
+    uint8_t unk_78[0x78 - (0x70 + sizeof(resetToDefault))];
+    CName source; // 78
+#else
     game::GodModeType state; // 70
     bool resetToDefault; // 74
     uint8_t unk75[0x78 - 0x75]; // 75
     CName source; // 78
     uint8_t unk80[0x88 - 0x80]; // 80
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerParameters_SetMortality, 0x88);
 } // namespace quest

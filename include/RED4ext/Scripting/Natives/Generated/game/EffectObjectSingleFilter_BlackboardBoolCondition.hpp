@@ -21,8 +21,16 @@ struct EffectObjectSingleFilter_BlackboardBoolCondition : game::EffectObjectSing
     static constexpr const char* NAME = "gameEffectObjectSingleFilter_BlackboardBoolCondition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::EffectObjectSingleFilter>];
+    game::EffectInputParameter_Bool parameter; // 40
+    uint8_t unk_58[0x58 - (0x40 + sizeof(parameter))];
+    Handle<game::EffectObjectSingleFilter> filter; // 58
+#else
     game::EffectInputParameter_Bool parameter; // 40
     Handle<game::EffectObjectSingleFilter> filter; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectSingleFilter_BlackboardBoolCondition, 0x68);
 } // namespace game

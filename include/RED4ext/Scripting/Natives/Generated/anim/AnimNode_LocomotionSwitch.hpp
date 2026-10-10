@@ -19,8 +19,14 @@ struct AnimNode_LocomotionSwitch : anim::AnimNode_Switch
     static constexpr const char* NAME = "animAnimNode_LocomotionSwitch";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_D0[0xD0 - ::RED4ext::Detail::DataSize<anim::AnimNode_Switch>];
+    DynArray<CName> audioTagsPerInput; // D0
+#else
     DynArray<CName> audioTagsPerInput; // D0
     uint8_t unkE0[0x100 - 0xE0]; // E0
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_LocomotionSwitch, 0x100);
 } // namespace anim

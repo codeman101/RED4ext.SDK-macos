@@ -18,8 +18,14 @@ struct AnimNode_FloatLatch : anim::AnimNode_FloatValue
     static constexpr const char* NAME = "animAnimNode_FloatLatch";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_FloatValue>];
+    anim::FloatLink input; // 48
+#else
     anim::FloatLink input; // 48
     uint8_t unk68[0x78 - 0x68]; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_FloatLatch, 0x78);
 } // namespace anim

@@ -17,8 +17,14 @@ struct MachineConsumableParameterBool : game::state::MachineActionParameterBool
     static constexpr const char* NAME = "gamestateMachineConsumableParameterBool";
     static constexpr const char* ALIAS = "ConsumableParameterBool";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_11[0x11 - ::RED4ext::Detail::DataSize<game::state::MachineActionParameterBool>];
+    bool consumed; // 11
+#else
     bool consumed; // 18
     uint8_t unk19[0x20 - 0x19]; // 19
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineConsumableParameterBool, 0x20);
 } // namespace game::state

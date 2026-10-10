@@ -18,11 +18,21 @@ struct AnimNode_RagdollControl : anim::AnimNode_Base
     static constexpr const char* NAME = "animAnimNode_RagdollControl";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<anim::AnimNode_Base>];
+    float blendInDuration; // 58
+    uint8_t unk_5C[0x5C - (0x58 + sizeof(blendInDuration))];
+    float blendOutDuration; // 5C
+    uint8_t unk_60[0x60 - (0x5C + sizeof(blendOutDuration))];
+    anim::PoseLink inputPoseNode; // 60
+#else
     uint8_t unk48[0x58 - 0x48]; // 48
     float blendInDuration; // 58
     float blendOutDuration; // 5C
     anim::PoseLink inputPoseNode; // 60
     uint8_t unk78[0xE8 - 0x78]; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_RagdollControl, 0xE8);
 } // namespace anim

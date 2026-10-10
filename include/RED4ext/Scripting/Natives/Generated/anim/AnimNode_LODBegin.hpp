@@ -17,8 +17,14 @@ struct AnimNode_LODBegin : anim::AnimNode_OnePoseInput
     static constexpr const char* NAME = "animAnimNode_LODBegin";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<anim::AnimNode_OnePoseInput>];
+    uint32_t levelOfDetail; // 60
+#else
     uint32_t levelOfDetail; // 60
     uint8_t unk64[0x68 - 0x64]; // 64
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_LODBegin, 0x68);
 } // namespace anim

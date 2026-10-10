@@ -18,8 +18,14 @@ struct LevelUpProficiency : game::PlayerScriptableSystemRequest
     static constexpr const char* NAME = "questLevelUpProficiency";
     static constexpr const char* ALIAS = "LevelUpProficiency";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<game::PlayerScriptableSystemRequest>];
+    game::data::ProficiencyType proficiencyType; // 58
+#else
     game::data::ProficiencyType proficiencyType; // 58
     uint8_t unk5C[0x60 - 0x5C]; // 5C
+#endif
 };
 RED4EXT_ASSERT_SIZE(LevelUpProficiency, 0x60);
 } // namespace quest

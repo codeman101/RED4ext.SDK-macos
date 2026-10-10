@@ -17,8 +17,14 @@ struct ContentBlockTriggerAreaNotifier : world::ITriggerAreaNotifer
     static constexpr const char* NAME = "questContentBlockTriggerAreaNotifier";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_B2[0xB2 - ::RED4ext::Detail::DataSize<world::ITriggerAreaNotifer>];
+    bool resetTokenSpawnTimer; // B2
+#else
     bool resetTokenSpawnTimer; // B8
     uint8_t unkB9[0xC0 - 0xB9]; // B9
+#endif
 };
 RED4EXT_ASSERT_SIZE(ContentBlockTriggerAreaNotifier, 0xC0);
 } // namespace quest

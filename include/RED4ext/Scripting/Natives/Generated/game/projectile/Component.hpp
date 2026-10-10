@@ -27,6 +27,37 @@ struct __declspec(align(0x10)) Component : ent::IPlacedComponent
     static constexpr const char* NAME = "gameprojectileComponent";
     static constexpr const char* ALIAS = "ProjectileComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_799[0x799 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    bool deriveOwnerVelocity; // 799
+    uint8_t unk_79C[0x79C - (0x799 + sizeof(deriveOwnerVelocity))];
+    game::projectile::OnCollisionAction onCollisionAction; // 79C
+    uint8_t unk_7A0[0x7A0 - (0x79C + sizeof(onCollisionAction))];
+    bool useSweepCollision; // 7A0
+    uint8_t unk_7A4[0x7A4 - (0x7A0 + sizeof(useSweepCollision))];
+    float sweepCollisionRadius; // 7A4
+    uint8_t unk_7AC[0x7AC - (0x7A4 + sizeof(sweepCollisionRadius))];
+    bool collisionsFilterClosest; // 7AC
+    uint8_t unk_7C0[0x7C0 - (0x7AC + sizeof(collisionsFilterClosest))];
+    game::projectile::VelocityParams derivedVelocityParams; // 7C0
+    uint8_t unk_7F0[0x7F0 - (0x7C0 + sizeof(derivedVelocityParams))];
+    Handle<physics::FilterData> filterData; // 7F0
+    uint8_t unk_800[0x800 - (0x7F0 + sizeof(filterData))];
+    physics::QueryPreset queryPreset; // 800
+    uint8_t unk_810[0x810 - (0x800 + sizeof(queryPreset))];
+    game::EffectRef gameEffectRef; // 810
+    uint8_t unk_868[0x868 - (0x810 + sizeof(gameEffectRef))];
+    RaRef<world::Effect> previewEffect; // 868
+    uint8_t unk_870[0x870 - (0x868 + sizeof(previewEffect))];
+    RaRef<world::Effect> bouncePreviewEffect; // 870
+    uint8_t unk_878[0x878 - (0x870 + sizeof(bouncePreviewEffect))];
+    RaRef<world::Effect> explosionPreviewEffect; // 878
+    uint8_t unk_880[0x880 - (0x878 + sizeof(explosionPreviewEffect))];
+    float explosionPreviewTime; // 880
+    uint8_t unk_890[0x890 - (0x880 + sizeof(explosionPreviewTime))];
+    Quaternion rotationOffset; // 890
+#else
     uint8_t unk120[0x7A9 - 0x120]; // 120
     bool deriveOwnerVelocity; // 7A9
     uint8_t unk7AA[0x7AC - 0x7AA]; // 7AA
@@ -51,6 +82,7 @@ struct __declspec(align(0x10)) Component : ent::IPlacedComponent
     uint8_t unk894[0x8A0 - 0x894]; // 894
     Quaternion rotationOffset; // 8A0
     uint8_t unk8B0[0x920 - 0x8B0]; // 8B0
+#endif
 };
 RED4EXT_ASSERT_SIZE(Component, 0x920);
 } // namespace game::projectile

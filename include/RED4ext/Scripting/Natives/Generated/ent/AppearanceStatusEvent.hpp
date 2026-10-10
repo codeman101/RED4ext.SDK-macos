@@ -18,8 +18,14 @@ struct AppearanceStatusEvent : red::Event
     static constexpr const char* NAME = "entAppearanceStatusEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    ent::AppearanceStatus status; // 40
+#else
     ent::AppearanceStatus status; // 40
     uint8_t unk41[0x50 - 0x41]; // 41
+#endif
 };
 RED4EXT_ASSERT_SIZE(AppearanceStatusEvent, 0x50);
 } // namespace ent

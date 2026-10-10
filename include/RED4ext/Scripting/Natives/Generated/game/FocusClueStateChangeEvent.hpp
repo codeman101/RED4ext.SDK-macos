@@ -17,9 +17,17 @@ struct FocusClueStateChangeEvent : red::Event
     static constexpr const char* NAME = "gameFocusClueStateChangeEvent";
     static constexpr const char* ALIAS = "FocusClueStateChangeEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    int32_t clueIndex; // 40
+    uint8_t unk_44[0x44 - (0x40 + sizeof(clueIndex))];
+    bool isEnabled; // 44
+#else
     int32_t clueIndex; // 40
     bool isEnabled; // 44
     uint8_t unk45[0x48 - 0x45]; // 45
+#endif
 };
 RED4EXT_ASSERT_SIZE(FocusClueStateChangeEvent, 0x48);
 } // namespace game

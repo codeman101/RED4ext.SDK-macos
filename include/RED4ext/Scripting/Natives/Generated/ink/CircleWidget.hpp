@@ -17,9 +17,15 @@ struct __declspec(align(0x10)) CircleWidget : ink::BaseShapeWidget
     static constexpr const char* NAME = "inkCircleWidget";
     static constexpr const char* ALIAS = "inkCircle";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_224[0x224 - ::RED4ext::Detail::DataSize<ink::BaseShapeWidget>];
+    uint32_t segmentsNumber; // 224
+#else
     uint8_t unk230[0x234 - 0x230]; // 230
     uint32_t segmentsNumber; // 234
     uint8_t unk238[0x240 - 0x238]; // 238
+#endif
 };
 RED4EXT_ASSERT_SIZE(CircleWidget, 0x240);
 } // namespace ink

@@ -18,7 +18,13 @@ struct ContextualLookAtRemoveEvent : ent::LookAtRemoveEvent
     static constexpr const char* NAME = "entContextualLookAtRemoveEvent";
     static constexpr const char* ALIAS = "ContextualLookAtRemoveEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<ent::LookAtRemoveEvent>];
     CName contextName; // 58
+#else
+    CName contextName; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(ContextualLookAtRemoveEvent, 0x60);
 } // namespace ent

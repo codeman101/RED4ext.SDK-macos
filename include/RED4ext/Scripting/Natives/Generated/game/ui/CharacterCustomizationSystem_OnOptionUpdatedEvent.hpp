@@ -20,7 +20,13 @@ struct CharacterCustomizationSystem_OnOptionUpdatedEvent : red::Event
     static constexpr const char* NAME = "gameuiCharacterCustomizationSystem_OnOptionUpdatedEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     WeakHandle<game::ui::CharacterCustomizationOption> option; // 40
+#else
+    WeakHandle<game::ui::CharacterCustomizationOption> option; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCustomizationSystem_OnOptionUpdatedEvent, 0x50);
 } // namespace game::ui

@@ -19,9 +19,15 @@ struct CharacterManagerVisuals_EntityAppearanceOperationBase : quest::ICharacter
     static constexpr const char* NAME = "questCharacterManagerVisuals_EntityAppearanceOperationBase";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_70[0x70 - ::RED4ext::Detail::DataSize<quest::ICharacterManagerVisuals_NodeSubType>];
+    DynArray<quest::CharacterManagerVisuals_EntityAppearanceOperationBaseEntityAppearanceEntry> appearanceEntries; // 70
+#else
     uint8_t unk70[0x78 - 0x70]; // 70
     DynArray<quest::CharacterManagerVisuals_EntityAppearanceOperationBaseEntityAppearanceEntry> appearanceEntries; // 78
     uint8_t unk88[0xD8 - 0x88]; // 88
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerVisuals_EntityAppearanceOperationBase, 0xD8);
 } // namespace quest

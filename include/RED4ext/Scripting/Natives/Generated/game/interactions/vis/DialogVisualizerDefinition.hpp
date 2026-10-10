@@ -21,6 +21,19 @@ struct DialogVisualizerDefinition : game::interactions::vis::IVisualizerDefiniti
     static constexpr const char* NAME = "gameinteractionsvisDialogVisualizerDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<game::interactions::vis::IVisualizerDefinition>];
+    CString displayNameOverride; // 48
+    uint8_t unk_68[0x68 - (0x48 + sizeof(displayNameOverride))];
+    bool useLookAt; // 68
+    uint8_t unk_6C[0x6C - (0x68 + sizeof(useLookAt))];
+    bool disableAfterSelectingChoice; // 6C
+    uint8_t unk_70[0x70 - (0x6C + sizeof(disableAfterSelectingChoice))];
+    Handle<game::interactions::vis::IVisualizerTimeProvider> timeProvider; // 70
+    uint8_t unk_80[0x80 - (0x70 + sizeof(timeProvider))];
+    uint8_t hubPriority; // 80
+#else
     CString displayNameOverride; // 48
     bool useLookAt; // 68
     uint8_t unk69[0x6C - 0x69]; // 69
@@ -29,6 +42,7 @@ struct DialogVisualizerDefinition : game::interactions::vis::IVisualizerDefiniti
     Handle<game::interactions::vis::IVisualizerTimeProvider> timeProvider; // 70
     uint8_t hubPriority; // 80
     uint8_t unk81[0xA8 - 0x81]; // 81
+#endif
 };
 RED4EXT_ASSERT_SIZE(DialogVisualizerDefinition, 0xA8);
 } // namespace game::interactions::vis

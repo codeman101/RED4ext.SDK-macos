@@ -18,8 +18,16 @@ struct PlayVOEvent : ink::anim::Event
     static constexpr const char* NAME = "inkanimPlayVOEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<ink::anim::Event>];
+    CString VOLine; // 48
+    uint8_t unk_68[0x68 - (0x48 + sizeof(VOLine))];
+    CString speakerName; // 68
+#else
     CString VOLine; // 48
     CString speakerName; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(PlayVOEvent, 0x88);
 } // namespace ink::anim

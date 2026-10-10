@@ -20,8 +20,14 @@ struct CameraManagerComponent : game::Component
     static constexpr const char* NAME = "vehicleCameraManagerComponent";
     static constexpr const char* ALIAS = "VehicleCameraManagerComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_A8[0xA8 - ::RED4ext::Detail::DataSize<game::Component>];
+    RaRef<ent::EntityTemplate> cinematicCameraEntityTemplate; // A8
+#else
     RaRef<ent::EntityTemplate> cinematicCameraEntityTemplate; // A8
     uint8_t unkB0[0xD0 - 0xB0]; // B0
+#endif
 };
 RED4EXT_ASSERT_SIZE(CameraManagerComponent, 0xD0);
 } // namespace vehicle

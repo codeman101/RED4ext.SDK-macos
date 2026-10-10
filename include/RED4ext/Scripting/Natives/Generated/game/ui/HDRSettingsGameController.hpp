@@ -22,11 +22,21 @@ struct HDRSettingsGameController : game::ui::MenuGameController
     static constexpr const char* NAME = "gameuiHDRSettingsGameController";
     static constexpr const char* ALIAS = "HDRSettingsGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    Ref<CBitmapTexture> callibrationScreen; // F0
+    uint8_t unk_108[0x108 - (0xF0 + sizeof(callibrationScreen))];
+    RaRef<ink::TextureAtlas> callibrationScreenAtlas; // 108
+    uint8_t unk_120[0x120 - (0x108 + sizeof(callibrationScreenAtlas))];
+    ink::WidgetReference callibrationScreenTarget; // 120
+#else
     Ref<CBitmapTexture> callibrationScreen; // F0
     RaRef<ink::TextureAtlas> callibrationScreenAtlas; // 108
     uint8_t unk110[0x120 - 0x110]; // 110
     ink::WidgetReference callibrationScreenTarget; // 120
     uint8_t unk138[0x148 - 0x138]; // 138
+#endif
 };
 RED4EXT_ASSERT_SIZE(HDRSettingsGameController, 0x148);
 } // namespace game::ui

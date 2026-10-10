@@ -18,8 +18,14 @@ struct CharacterRoleFinished_ConditionType : quest::ICharacterConditionType
     static constexpr const char* NAME = "questCharacterRoleFinished_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_74[0x74 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
+    AI::FiniteRoleType role; // 74
+#else
     AI::FiniteRoleType role; // 78
     uint8_t unk7C[0x80 - 0x7C]; // 7C
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterRoleFinished_ConditionType, 0x80);
 } // namespace quest

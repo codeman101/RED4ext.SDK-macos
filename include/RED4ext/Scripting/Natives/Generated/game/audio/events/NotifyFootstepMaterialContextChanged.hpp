@@ -18,8 +18,16 @@ struct NotifyFootstepMaterialContextChanged : red::Event
     static constexpr const char* NAME = "gameaudioeventsNotifyFootstepMaterialContextChanged";
     static constexpr const char* ALIAS = "NotifyFootstepMaterialContextChangedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    CName footwareType; // 40
+    uint8_t unk_48[0x48 - (0x40 + sizeof(footwareType))];
+    CName surfaceFlavourName; // 48
+#else
     CName footwareType; // 40
     CName surfaceFlavourName; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(NotifyFootstepMaterialContextChanged, 0x50);
 } // namespace game::audio::events

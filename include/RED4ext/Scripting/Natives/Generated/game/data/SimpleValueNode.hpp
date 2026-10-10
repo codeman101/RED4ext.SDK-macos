@@ -19,10 +19,18 @@ struct SimpleValueNode : game::data::ValueDataNode
     static constexpr const char* NAME = "gamedataSimpleValueNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_94[0x94 - ::RED4ext::Detail::DataSize<game::data::ValueDataNode>];
+    game::data::SimpleValueNodeValueType type; // 94
+    uint8_t unk_98[0x98 - (0x94 + sizeof(type))];
+    CString data; // 98
+#else
     game::data::SimpleValueNodeValueType type; // 98
     uint8_t unk9C[0xA0 - 0x9C]; // 9C
     CString data; // A0
     uint8_t unkC0[0xD0 - 0xC0]; // C0
+#endif
 };
 RED4EXT_ASSERT_SIZE(SimpleValueNode, 0xD0);
 } // namespace game::data

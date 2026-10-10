@@ -20,7 +20,13 @@ struct OpenMessage_NodeType : quest::IPhoneManagerNodeType
     static constexpr const char* NAME = "questOpenMessage_NodeType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IPhoneManagerNodeType>];
     Handle<game::JournalPath> msg; // 38
+#else
+    Handle<game::JournalPath> msg; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(OpenMessage_NodeType, 0x48);
 } // namespace quest

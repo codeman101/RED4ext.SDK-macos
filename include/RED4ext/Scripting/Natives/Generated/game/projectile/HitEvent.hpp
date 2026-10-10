@@ -19,7 +19,13 @@ struct HitEvent : red::Event
     static constexpr const char* NAME = "gameprojectileHitEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     DynArray<game::projectile::HitInstance> hitInstances; // 40
+#else
+    DynArray<game::projectile::HitInstance> hitInstances; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(HitEvent, 0x50);
 } // namespace game::projectile

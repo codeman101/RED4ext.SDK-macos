@@ -41,7 +41,9 @@ struct __declspec(align(0x10)) ImageWidget : ink::LeafWidget
     ink::Margin nineSliceScale; // 228
     ink::EHorizontalAlign tileHAlign; // 238
     ink::EVerticalAlign tileVAlign; // 239
+#if !defined(__APPLE__)
     uint8_t unk23A[0x340 - 0x23A]; // 23A
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ImageWidget, 0x340);
 } // namespace ink

@@ -17,11 +17,21 @@ struct RoachRaceCloudSpawnerController : game::ui::arcade::ArcadeSpawnerControll
     static constexpr const char* NAME = "gameuiarcadeRoachRaceCloudSpawnerController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_D0[0xD0 - ::RED4ext::Detail::DataSize<game::ui::arcade::ArcadeSpawnerController>];
+    float minCloudRelativeVelocity; // D0
+    uint8_t unk_D4[0xD4 - (0xD0 + sizeof(minCloudRelativeVelocity))];
+    float maxCloudRelativeVelocity; // D4
+    uint8_t unk_D8[0xD8 - (0xD4 + sizeof(maxCloudRelativeVelocity))];
+    float cloudSpawnTime; // D8
+#else
     uint8_t unkD0[0xD4 - 0xD0]; // D0
     float minCloudRelativeVelocity; // D4
     float maxCloudRelativeVelocity; // D8
     float cloudSpawnTime; // DC
     uint8_t unkE0[0xE8 - 0xE0]; // E0
+#endif
 };
 RED4EXT_ASSERT_SIZE(RoachRaceCloudSpawnerController, 0xE8);
 } // namespace game::ui::arcade

@@ -17,8 +17,14 @@ struct ParkedEvent : red::Event
     static constexpr const char* NAME = "vehicleParkedEvent";
     static constexpr const char* ALIAS = "VehicleParkedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    bool park; // 40
+#else
     bool park; // 40
     uint8_t unk41[0x48 - 0x41]; // 41
+#endif
 };
 RED4EXT_ASSERT_SIZE(ParkedEvent, 0x48);
 } // namespace vehicle

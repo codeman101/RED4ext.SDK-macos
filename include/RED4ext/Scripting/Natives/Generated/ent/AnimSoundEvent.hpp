@@ -18,7 +18,13 @@ struct AnimSoundEvent : ent::SoundEvent
     static constexpr const char* NAME = "entAnimSoundEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_78[0x78 - ::RED4ext::Detail::DataSize<ent::SoundEvent>];
     CName metadataContext; // 78
+#else
+    CName metadataContext; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimSoundEvent, 0x80);
 } // namespace ent

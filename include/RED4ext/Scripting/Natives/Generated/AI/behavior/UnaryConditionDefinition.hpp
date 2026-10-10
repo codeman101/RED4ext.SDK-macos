@@ -20,7 +20,13 @@ struct UnaryConditionDefinition : AI::behavior::ConditionDefinition
     static constexpr const char* NAME = "AIbehaviorUnaryConditionDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<AI::behavior::ConditionDefinition>];
     Handle<AI::behavior::ConditionDefinition> child; // 38
+#else
+    Handle<AI::behavior::ConditionDefinition> child; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(UnaryConditionDefinition, 0x48);
 } // namespace AI::behavior

@@ -19,8 +19,16 @@ struct AnimNode_MathExpressionPose : anim::AnimNode_OnePoseInput
     static constexpr const char* NAME = "animAnimNode_MathExpressionPose";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<anim::AnimNode_OnePoseInput>];
+    anim::MathExpressionNodeData expressionData; // 60
+    uint8_t unk_A0[0xA0 - (0x60 + sizeof(expressionData))];
+    anim::NamedTrackIndex outputFloatTrack; // A0
+#else
     anim::MathExpressionNodeData expressionData; // 60
     anim::NamedTrackIndex outputFloatTrack; // A0
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_MathExpressionPose, 0xB8);
 } // namespace anim

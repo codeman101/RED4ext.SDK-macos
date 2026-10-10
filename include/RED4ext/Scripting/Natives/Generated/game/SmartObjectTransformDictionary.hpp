@@ -19,9 +19,15 @@ struct SmartObjectTransformDictionary : ISerializable
     static constexpr const char* NAME = "gameSmartObjectTransformDictionary";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_110[0x110 - ::RED4ext::Detail::DataSize<ISerializable>];
+    DynArray<game::SmartObjectTransformDictionaryTransformEntry> transforms; // 110
+#else
     uint8_t unk30[0x50 - 0x30]; // 30
     DynArray<game::SmartObjectTransformDictionaryTransformEntry> transforms; // 50
     uint8_t unk60[0xC0 - 0x60]; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(SmartObjectTransformDictionary, 0xC0);
 } // namespace game

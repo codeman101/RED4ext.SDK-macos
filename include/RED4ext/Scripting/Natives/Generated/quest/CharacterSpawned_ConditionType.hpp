@@ -20,7 +20,13 @@ struct CharacterSpawned_ConditionType : quest::ICharacterConditionType
     static constexpr const char* NAME = "questCharacterSpawned_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_78[0x78 - ::RED4ext::Detail::DataSize<quest::ICharacterConditionType>];
     Handle<quest::ComparisonParam> comparisonParams; // 78
+#else
+    Handle<quest::ComparisonParam> comparisonParams; // 78
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterSpawned_ConditionType, 0x88);
 } // namespace quest

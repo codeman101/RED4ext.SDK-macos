@@ -17,8 +17,14 @@ struct RewindableSectionEvent : red::Event
     static constexpr const char* NAME = "scnRewindableSectionEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    bool active; // 40
+#else
     bool active; // 40
     uint8_t unk41[0x48 - 0x41]; // 41
+#endif
 };
 RED4EXT_ASSERT_SIZE(RewindableSectionEvent, 0x48);
 } // namespace scn

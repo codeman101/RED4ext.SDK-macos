@@ -21,11 +21,23 @@ struct ItemChangedEvent : red::Event
     static constexpr const char* NAME = "gameItemChangedEvent";
     static constexpr const char* ALIAS = "ItemChangedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    ItemID itemID; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(itemID))];
+    Handle<game::ItemData> itemData; // 50
+    uint8_t unk_60[0x60 - (0x50 + sizeof(itemData))];
+    int32_t difference; // 60
+    uint8_t unk_64[0x64 - (0x60 + sizeof(difference))];
+    int32_t currentQuantity; // 64
+#else
     ItemID itemID; // 40
     Handle<game::ItemData> itemData; // 50
     int32_t difference; // 60
     int32_t currentQuantity; // 64
     uint8_t unk68[0x70 - 0x68]; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(ItemChangedEvent, 0x70);
 } // namespace game

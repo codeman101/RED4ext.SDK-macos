@@ -18,8 +18,14 @@ struct CharacterManagerVisuals_SetBrokenNoseStage : quest::ICharacterManagerVisu
     static constexpr const char* NAME = "questCharacterManagerVisuals_SetBrokenNoseStage";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_6C[0x6C - ::RED4ext::Detail::DataSize<quest::ICharacterManagerVisuals_NodeSubType>];
+    game::ui::CharacterCustomization_BrokenNoseStage brokenNoseStage; // 6C
+#else
     game::ui::CharacterCustomization_BrokenNoseStage brokenNoseStage; // 70
     uint8_t unk74[0x78 - 0x74]; // 74
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterManagerVisuals_SetBrokenNoseStage, 0x78);
 } // namespace quest

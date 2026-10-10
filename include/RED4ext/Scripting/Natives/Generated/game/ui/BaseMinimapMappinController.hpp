@@ -23,7 +23,9 @@ struct BaseMinimapMappinController : game::ui::MappinBaseController
     ink::WidgetReference fixedOrientationWidget; // 1F0
     ink::WidgetReference clampArrowWidget; // 208
     game::ui::EIconOrientation iconOrientation; // 220
+#if !defined(__APPLE__)
     uint8_t unk224[0x228 - 0x224]; // 224
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(BaseMinimapMappinController, 0x228);
 } // namespace game::ui

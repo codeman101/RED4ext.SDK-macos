@@ -18,7 +18,13 @@ struct TriggerNotifier_Entity : world::ITriggerAreaNotifer
     static constexpr const char* NAME = "entTriggerNotifier_Entity";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_B8[0xB8 - ::RED4ext::Detail::DataSize<world::ITriggerAreaNotifer>];
     NodeRef entityRef; // B8
+#else
+    NodeRef entityRef; // B8
+#endif
 };
 RED4EXT_ASSERT_SIZE(TriggerNotifier_Entity, 0xC0);
 } // namespace ent

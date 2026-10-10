@@ -20,9 +20,17 @@ struct __declspec(align(0x10)) SetUpAndLaunchEvent : game::projectile::LaunchEve
     static constexpr const char* NAME = "gameprojectileSetUpAndLaunchEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_198[0x198 - ::RED4ext::Detail::DataSize<game::projectile::LaunchEvent>];
+    Handle<game::projectile::TrajectoryParams> trajectoryParams; // 198
+    uint8_t unk_1A8[0x1A8 - (0x198 + sizeof(trajectoryParams))];
+    float lerpMultiplier; // 1A8
+#else
     Handle<game::projectile::TrajectoryParams> trajectoryParams; // 1A0
     float lerpMultiplier; // 1B0
     uint8_t unk1B4[0x1C0 - 0x1B4]; // 1B4
+#endif
 };
 RED4EXT_ASSERT_SIZE(SetUpAndLaunchEvent, 0x1C0);
 } // namespace game::projectile

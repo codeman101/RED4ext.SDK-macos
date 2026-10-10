@@ -18,11 +18,19 @@ struct __declspec(align(0x10)) ShooterBossController : game::ui::arcade::Shooter
     static constexpr const char* NAME = "gameuiarcadeShooterBossController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_266[0x266 - ::RED4ext::Detail::DataSize<game::ui::arcade::ShooterAIBase>];
+    bool customBoundSize; // 266
+    uint8_t unk_26C[0x26C - (0x266 + sizeof(customBoundSize))];
+    Vector2 bossSize; // 26C
+#else
     uint8_t unk260[0x26E - 0x260]; // 260
     bool customBoundSize; // 26E
     uint8_t unk26F[0x274 - 0x26F]; // 26F
     Vector2 bossSize; // 274
     uint8_t unk27C[0x280 - 0x27C]; // 27C
+#endif
 };
 RED4EXT_ASSERT_SIZE(ShooterBossController, 0x280);
 } // namespace game::ui::arcade

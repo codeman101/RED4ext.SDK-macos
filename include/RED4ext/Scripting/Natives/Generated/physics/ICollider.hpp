@@ -32,7 +32,9 @@ struct __declspec(align(0x10)) ICollider : ISerializable
     float volumeModifier; // 80
     bool isImported; // 84
     bool isQueryShapeOnly; // 85
+#if !defined(__APPLE__)
     uint8_t unk86[0x90 - 0x86]; // 86
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ICollider, 0x90);
 } // namespace physics

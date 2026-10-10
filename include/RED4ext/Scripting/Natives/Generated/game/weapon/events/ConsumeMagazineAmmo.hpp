@@ -17,8 +17,14 @@ struct ConsumeMagazineAmmo : red::Event
     static constexpr const char* NAME = "gameweaponeventsConsumeMagazineAmmo";
     static constexpr const char* ALIAS = "WeaponConsumeMagazineAmmoEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    uint16_t amount; // 40
+#else
     uint16_t amount; // 40
     uint8_t unk42[0x48 - 0x42]; // 42
+#endif
 };
 RED4EXT_ASSERT_SIZE(ConsumeMagazineAmmo, 0x48);
 } // namespace game::weapon::events

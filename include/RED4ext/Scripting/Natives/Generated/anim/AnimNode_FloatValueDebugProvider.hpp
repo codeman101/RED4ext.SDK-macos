@@ -21,7 +21,7 @@ struct AnimNode_FloatValueDebugProvider
     float progress; // 08
     float speed; // 0C
     bool isEnabled; // 10
-    bool auto; // 11
+    bool auto_; // 11
     bool wrap; // 12
     uint8_t unk13[0x38 - 0x13]; // 13
 };

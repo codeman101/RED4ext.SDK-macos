@@ -21,7 +21,13 @@ struct EffectTriggerNode : world::AreaShapeNode
     static constexpr const char* NAME = "gameEffectTriggerNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<world::AreaShapeNode>];
     DynArray<Handle<game::EffectTriggerEffectDesc>> effectDescs; // 60
+#else
+    DynArray<Handle<game::EffectTriggerEffectDesc>> effectDescs; // 60
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectTriggerNode, 0x70);
 } // namespace game

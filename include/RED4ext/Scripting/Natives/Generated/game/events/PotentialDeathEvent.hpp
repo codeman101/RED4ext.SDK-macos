@@ -20,7 +20,13 @@ struct PotentialDeathEvent : red::Event
     static constexpr const char* NAME = "gameeventsPotentialDeathEvent";
     static constexpr const char* ALIAS = "gamePotentialDeathEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     WeakHandle<game::Object> instigator; // 40
+#else
+    WeakHandle<game::Object> instigator; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(PotentialDeathEvent, 0x50);
 } // namespace game::events

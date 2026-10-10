@@ -20,7 +20,13 @@ struct EnemyPushedToSquad : AI::AIEvent
     static constexpr const char* NAME = "AIEnemyPushedToSquad";
     static constexpr const char* ALIAS = "EnemyPushedToSquad";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<AI::AIEvent>];
     WeakHandle<ent::Entity> threat; // 50
+#else
+    WeakHandle<ent::Entity> threat; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(EnemyPushedToSquad, 0x60);
 } // namespace AI

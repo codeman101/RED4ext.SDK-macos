@@ -19,8 +19,16 @@ struct ForceVisionModuleQuestEvent : red::Event
     static constexpr const char* NAME = "gameForceVisionModuleQuestEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    CName moduleName; // 40
+    uint8_t unk_48[0x48 - (0x40 + sizeof(moduleName))];
+    DynArray<CName> meshComponentNames; // 48
+#else
     CName moduleName; // 40
     DynArray<CName> meshComponentNames; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(ForceVisionModuleQuestEvent, 0x58);
 } // namespace game

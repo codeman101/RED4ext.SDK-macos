@@ -19,9 +19,17 @@ struct __declspec(align(0x10)) DismembermentAudioEvent : red::Event
     static constexpr const char* NAME = "entDismembermentAudioEvent";
     static constexpr const char* ALIAS = "DismembermentAudioEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    ent::AudioDismembermentPart bodyPart; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(bodyPart))];
+    Vector4 position; // 50
+#else
     ent::AudioDismembermentPart bodyPart; // 40
     uint8_t unk44[0x50 - 0x44]; // 44
     Vector4 position; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(DismembermentAudioEvent, 0x60);
 } // namespace ent

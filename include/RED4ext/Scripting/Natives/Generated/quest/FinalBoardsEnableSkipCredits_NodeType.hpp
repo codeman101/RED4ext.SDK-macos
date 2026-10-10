@@ -17,8 +17,14 @@ struct FinalBoardsEnableSkipCredits_NodeType : quest::IUIManagerNodeType
     static constexpr const char* NAME = "questFinalBoardsEnableSkipCredits_NodeType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<quest::IUIManagerNodeType>];
+    bool enableSkipping; // 34
+#else
     bool enableSkipping; // 38
     uint8_t unk39[0x40 - 0x39]; // 39
+#endif
 };
 RED4EXT_ASSERT_SIZE(FinalBoardsEnableSkipCredits_NodeType, 0x40);
 } // namespace quest

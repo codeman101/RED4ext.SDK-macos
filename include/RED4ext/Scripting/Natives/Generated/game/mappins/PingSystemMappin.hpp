@@ -18,9 +18,15 @@ struct PingSystemMappin : game::mappins::RuntimeMappin
     static constexpr const char* NAME = "gamemappinsPingSystemMappin";
     static constexpr const char* ALIAS = "PingSystemMappin";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_110[0x110 - ::RED4ext::Detail::DataSize<game::mappins::RuntimeMappin>];
+    game::data::PingType pingType; // 110
+#else
     uint8_t unk108[0x118 - 0x108]; // 108
     game::data::PingType pingType; // 118
     uint8_t unk11C[0x120 - 0x11C]; // 11C
+#endif
 };
 RED4EXT_ASSERT_SIZE(PingSystemMappin, 0x120);
 } // namespace game::mappins

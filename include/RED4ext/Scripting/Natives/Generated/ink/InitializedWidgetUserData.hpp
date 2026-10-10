@@ -17,7 +17,9 @@ struct InitializedWidgetUserData : ink::UserData
     static constexpr const char* NAME = "inkInitializedWidgetUserData";
     static constexpr const char* ALIAS = NAME;
 
+#if !defined(__APPLE__)
     uint8_t unk40[0x48 - 0x40]; // 40
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(InitializedWidgetUserData, 0x48);
 } // namespace ink

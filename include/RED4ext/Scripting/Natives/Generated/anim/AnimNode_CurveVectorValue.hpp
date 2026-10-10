@@ -20,8 +20,16 @@ struct AnimNode_CurveVectorValue : anim::AnimNode_VectorValue
     static constexpr const char* NAME = "animAnimNode_CurveVectorValue";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_VectorValue>];
+    CurveData<Vector4> curveData; // 48
+    uint8_t unk_80[0x80 - (0x48 + sizeof(curveData))];
+    anim::FloatLink argument; // 80
+#else
     CurveData<Vector4> curveData; // 48
     anim::FloatLink argument; // 80
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_CurveVectorValue, 0xA0);
 } // namespace anim

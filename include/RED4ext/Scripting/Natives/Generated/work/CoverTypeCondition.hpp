@@ -17,8 +17,14 @@ struct CoverTypeCondition : work::IWorkspotCondition
     static constexpr const char* NAME = "workCoverTypeCondition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_35[0x35 - ::RED4ext::Detail::DataSize<work::IWorkspotCondition>];
+    bool isHighCover; // 35
+#else
     bool isHighCover; // 38
     uint8_t unk39[0x40 - 0x39]; // 39
+#endif
 };
 RED4EXT_ASSERT_SIZE(CoverTypeCondition, 0x40);
 } // namespace work

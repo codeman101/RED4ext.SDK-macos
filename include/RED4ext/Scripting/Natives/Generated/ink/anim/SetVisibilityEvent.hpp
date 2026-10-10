@@ -17,8 +17,14 @@ struct SetVisibilityEvent : ink::anim::Event
     static constexpr const char* NAME = "inkanimSetVisibilityEvent";
     static constexpr const char* ALIAS = "inkAnimSetVisibilityEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_44[0x44 - ::RED4ext::Detail::DataSize<ink::anim::Event>];
+    bool isVisible; // 44
+#else
     bool isVisible; // 48
     uint8_t unk49[0x50 - 0x49]; // 49
+#endif
 };
 RED4EXT_ASSERT_SIZE(SetVisibilityEvent, 0x50);
 } // namespace ink::anim

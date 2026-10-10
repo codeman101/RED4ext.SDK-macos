@@ -21,10 +21,18 @@ struct __declspec(align(0x10)) LightChannelComponent : ent::IVisualComponent
     static constexpr const char* NAME = "entLightChannelComponent";
     static constexpr const char* ALIAS = "LightChannelComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_150[0x150 - ::RED4ext::Detail::DataSize<ent::IVisualComponent>];
+    Handle<GeometryShape> shape; // 150
+    uint8_t unk_160[0x160 - (0x150 + sizeof(shape))];
+    rend::LightChannel channels; // 160
+#else
     uint8_t unk140[0x150 - 0x140]; // 140
     Handle<GeometryShape> shape; // 150
     rend::LightChannel channels; // 160
     uint8_t unk162[0x170 - 0x162]; // 162
+#endif
 };
 RED4EXT_ASSERT_SIZE(LightChannelComponent, 0x170);
 } // namespace ent

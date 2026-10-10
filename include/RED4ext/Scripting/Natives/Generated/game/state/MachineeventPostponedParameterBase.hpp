@@ -18,8 +18,14 @@ struct MachineeventPostponedParameterBase : game::state::MachineeventBaseEvent
     static constexpr const char* NAME = "gamestateMachineeventPostponedParameterBase";
     static constexpr const char* ALIAS = "PSMPostponedParameterBase";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<game::state::MachineeventBaseEvent>];
+    game::state::MachineParameterAspect aspect; // 48
+#else
     game::state::MachineParameterAspect aspect; // 48
     uint8_t unk4C[0x50 - 0x4C]; // 4C
+#endif
 };
 RED4EXT_ASSERT_SIZE(MachineeventPostponedParameterBase, 0x50);
 } // namespace game::state

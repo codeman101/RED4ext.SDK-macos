@@ -21,10 +21,18 @@ struct __declspec(align(0x10)) EnvironmentDamageReceiverComponent : ent::IPlaced
     static constexpr const char* NAME = "gameEnvironmentDamageReceiverComponent";
     static constexpr const char* ALIAS = "EnvironmentDamageReceiverComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_120[0x120 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    DynArray<Handle<game::EnvironmentDamageReceiverShape>> shapes; // 120
+    uint8_t unk_138[0x138 - (0x120 + sizeof(shapes))];
+    float cooldown; // 138
+#else
     DynArray<Handle<game::EnvironmentDamageReceiverShape>> shapes; // 120
     uint8_t unk130[0x138 - 0x130]; // 130
     float cooldown; // 138
     uint8_t unk13C[0x140 - 0x13C]; // 13C
+#endif
 };
 RED4EXT_ASSERT_SIZE(EnvironmentDamageReceiverComponent, 0x140);
 } // namespace game

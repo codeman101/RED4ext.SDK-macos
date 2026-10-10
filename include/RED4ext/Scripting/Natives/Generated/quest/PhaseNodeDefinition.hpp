@@ -24,6 +24,19 @@ struct PhaseNodeDefinition : quest::EmbeddedGraphNodeDefinition
     static constexpr const char* NAME = "questPhaseNodeDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_60[0x60 - ::RED4ext::Detail::DataSize<quest::EmbeddedGraphNodeDefinition>];
+    Handle<quest::GraphDefinition> phaseGraph; // 60
+    uint8_t unk_70[0x70 - (0x60 + sizeof(phaseGraph))];
+    DynArray<quest::QuestPrefabEntry> phaseInstancePrefabs; // 70
+    uint8_t unk_80[0x80 - (0x70 + sizeof(phaseInstancePrefabs))];
+    NodeRef unfreezingTriggerNodeRef; // 80
+    uint8_t unk_88[0x88 - (0x80 + sizeof(unfreezingTriggerNodeRef))];
+    RaRef<quest::QuestPhaseResource> phaseResource; // 88
+    uint8_t unk_90[0x90 - (0x88 + sizeof(phaseResource))];
+    bool saveLock; // 90
+#else
     uint8_t unk48[0x60 - 0x48]; // 48
     Handle<quest::GraphDefinition> phaseGraph; // 60
     DynArray<quest::QuestPrefabEntry> phaseInstancePrefabs; // 70
@@ -31,6 +44,7 @@ struct PhaseNodeDefinition : quest::EmbeddedGraphNodeDefinition
     RaRef<quest::QuestPhaseResource> phaseResource; // 88
     bool saveLock; // 90
     uint8_t unk91[0x98 - 0x91]; // 91
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhaseNodeDefinition, 0x98);
 } // namespace quest

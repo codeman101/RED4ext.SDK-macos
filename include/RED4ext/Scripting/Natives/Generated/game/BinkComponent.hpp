@@ -23,6 +23,21 @@ struct __declspec(align(0x10)) BinkComponent : ent::IVisualComponent
     static constexpr const char* NAME = "gameBinkComponent";
     static constexpr const char* ALIAS = "BinkComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_160[0x160 - ::RED4ext::Detail::DataSize<ent::IVisualComponent>];
+    Handle<game::BinkMeshTargetBinding> meshTargetBinding; // 160
+    uint8_t unk_178[0x178 - (0x160 + sizeof(meshTargetBinding))];
+    RaRef<Bink> binkResource; // 178
+    uint8_t unk_180[0x180 - (0x178 + sizeof(binkResource))];
+    CName videoPlayerName; // 180
+    uint8_t unk_190[0x190 - (0x180 + sizeof(videoPlayerName))];
+    CName audioEvent; // 190
+    uint8_t unk_198[0x198 - (0x190 + sizeof(audioEvent))];
+    bool loopVideo; // 198
+    uint8_t unk_199[0x199 - (0x198 + sizeof(loopVideo))];
+    bool forceVideoFrameRate; // 199
+#else
     uint8_t unk140[0x160 - 0x140]; // 140
     Handle<game::BinkMeshTargetBinding> meshTargetBinding; // 160
     uint8_t unk170[0x178 - 0x170]; // 170
@@ -33,6 +48,7 @@ struct __declspec(align(0x10)) BinkComponent : ent::IVisualComponent
     bool loopVideo; // 198
     bool forceVideoFrameRate; // 199
     uint8_t unk19A[0x1A0 - 0x19A]; // 19A
+#endif
 };
 RED4EXT_ASSERT_SIZE(BinkComponent, 0x1A0);
 } // namespace game

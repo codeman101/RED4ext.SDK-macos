@@ -18,7 +18,9 @@ struct TaskDefinition : ISerializable
     static constexpr const char* ALIAS = NAME;
 
     bool ignoreTaskCompletion; // 30
+#if !defined(__APPLE__)
     uint8_t unk31[0x38 - 0x31]; // 31
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(TaskDefinition, 0x38);
 } // namespace AI::behavior

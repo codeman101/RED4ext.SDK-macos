@@ -17,9 +17,15 @@ struct ITriggerDestructionComponent : ent::IComponent
     static constexpr const char* NAME = "gameITriggerDestructionComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_94[0x94 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    bool startActive; // 94
+#else
     uint8_t unk90[0x94 - 0x90]; // 90
     bool startActive; // 94
     uint8_t unk95[0x98 - 0x95]; // 95
+#endif
 };
 RED4EXT_ASSERT_SIZE(ITriggerDestructionComponent, 0x98);
 } // namespace game

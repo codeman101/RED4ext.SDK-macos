@@ -20,7 +20,9 @@ struct IWidgetController : IScriptable
 
     uint8_t unk40[0x70 - 0x40]; // 40
     CName audioMetadataName; // 70
+#if !defined(__APPLE__)
     uint8_t unk78[0xA8 - 0x78]; // 78
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(IWidgetController, 0xA8);
 } // namespace ink

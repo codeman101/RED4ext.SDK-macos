@@ -17,8 +17,14 @@ struct TextOffsetAnimationController : ink::TextAnimationController
     static constexpr const char* NAME = "inkTextOffsetAnimationController";
     static constexpr const char* ALIAS = "inkTextOffsetController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_174[0x174 - ::RED4ext::Detail::DataSize<ink::TextAnimationController>];
+    float timeToSkip; // 174
+#else
     uint8_t unkF0[0x174 - 0xF0]; // F0
     float timeToSkip; // 174
+#endif
 };
 RED4EXT_ASSERT_SIZE(TextOffsetAnimationController, 0x178);
 } // namespace ink

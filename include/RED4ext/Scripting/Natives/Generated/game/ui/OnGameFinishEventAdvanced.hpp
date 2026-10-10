@@ -20,7 +20,13 @@ struct OnGameFinishEventAdvanced : red::Event
     static constexpr const char* NAME = "gameuiOnGameFinishEventAdvanced";
     static constexpr const char* ALIAS = "GameFinishEventAdvanced";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     Handle<game::ui::SideScrollerMiniGameStateAdvanced> gameState; // 40
+#else
+    Handle<game::ui::SideScrollerMiniGameStateAdvanced> gameState; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(OnGameFinishEventAdvanced, 0x50);
 } // namespace game::ui

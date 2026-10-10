@@ -19,8 +19,14 @@ struct __declspec(align(0x10)) TransformAnimatorComponent : ent::IPlacedComponen
     static constexpr const char* NAME = "gameTransformAnimatorComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_180[0x180 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    DynArray<game::TransformAnimationDefinition> animations; // 180
+#else
     uint8_t unk120[0x180 - 0x120]; // 120
     DynArray<game::TransformAnimationDefinition> animations; // 180
+#endif
 };
 RED4EXT_ASSERT_SIZE(TransformAnimatorComponent, 0x190);
 } // namespace game

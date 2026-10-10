@@ -18,7 +18,13 @@ struct MovePoliciesComponentReplicatedState : net::IComponentState
     static constexpr const char* NAME = "moveMovePoliciesComponentReplicatedState";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_20[0x20 - ::RED4ext::Detail::DataSize<net::IComponentState>];
     move::ReplicatedMovePoliciesState movePolicies; // 20
+#else
+    move::ReplicatedMovePoliciesState movePolicies; // 20
+#endif
 };
 RED4EXT_ASSERT_SIZE(MovePoliciesComponentReplicatedState, 0x60);
 } // namespace move

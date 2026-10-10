@@ -18,11 +18,23 @@ struct OpenPhotoMode_NodeType : quest::IUIManagerNodeType
     static constexpr const char* NAME = "questOpenPhotoMode_NodeType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IUIManagerNodeType>];
+    CString factName; // 38
+    uint8_t unk_58[0x58 - (0x38 + sizeof(factName))];
+    bool forceFppMode; // 58
+    uint8_t unk_59[0x59 - (0x58 + sizeof(forceFppMode))];
+    bool alwaysAllowTPP; // 59
+    uint8_t unk_5A[0x5A - (0x59 + sizeof(alwaysAllowTPP))];
+    bool lockExitUntilScreenshot; // 5A
+#else
     CString factName; // 38
     bool forceFppMode; // 58
     bool alwaysAllowTPP; // 59
     bool lockExitUntilScreenshot; // 5A
     uint8_t unk5B[0x60 - 0x5B]; // 5B
+#endif
 };
 RED4EXT_ASSERT_SIZE(OpenPhotoMode_NodeType, 0x60);
 } // namespace quest

@@ -18,8 +18,14 @@ struct AnimNode_TransformVariable : anim::AnimNode_TransformValue
     static constexpr const char* NAME = "animAnimNode_TransformVariable";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_TransformValue>];
+    CName variableName; // 48
+#else
     CName variableName; // 48
     uint8_t unk50[0x60 - 0x50]; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_TransformVariable, 0x60);
 } // namespace anim

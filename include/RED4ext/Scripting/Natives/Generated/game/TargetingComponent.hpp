@@ -19,12 +19,24 @@ struct __declspec(align(0x10)) TargetingComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "gameTargetingComponent";
     static constexpr const char* ALIAS = "TargetingComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_120[0x120 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    DynArray<TweakDBID> aimAssistData; // 120
+    uint8_t unk_1B0[0x1B0 - (0x120 + sizeof(aimAssistData))];
+    bool isPrimary; // 1B0
+    uint8_t unk_1B1[0x1B1 - (0x1B0 + sizeof(isPrimary))];
+    bool alwaysInTestRange; // 1B1
+    uint8_t unk_1B2[0x1B2 - (0x1B1 + sizeof(alwaysInTestRange))];
+    bool isDirectional; // 1B2
+#else
     DynArray<TweakDBID> aimAssistData; // 120
     uint8_t unk130[0x1B0 - 0x130]; // 130
     bool isPrimary; // 1B0
     bool alwaysInTestRange; // 1B1
     bool isDirectional; // 1B2
     uint8_t unk1B3[0x1C0 - 0x1B3]; // 1B3
+#endif
 };
 RED4EXT_ASSERT_SIZE(TargetingComponent, 0x1C0);
 } // namespace game

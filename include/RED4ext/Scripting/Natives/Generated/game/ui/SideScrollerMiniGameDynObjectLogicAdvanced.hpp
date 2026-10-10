@@ -17,7 +17,9 @@ struct SideScrollerMiniGameDynObjectLogicAdvanced : ink::WidgetLogicController
     static constexpr const char* NAME = "gameuiSideScrollerMiniGameDynObjectLogicAdvanced";
     static constexpr const char* ALIAS = "MinigameDynObjectAdvanced";
 
+#if !defined(__APPLE__)
     uint8_t unk78[0xD0 - 0x78]; // 78
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(SideScrollerMiniGameDynObjectLogicAdvanced, 0xD0);
 } // namespace game::ui

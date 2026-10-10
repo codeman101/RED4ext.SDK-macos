@@ -20,7 +20,13 @@ struct ActionHitReactionState : game::ActionReplicatedState
     static constexpr const char* NAME = "gameActionHitReactionState";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_28[0x28 - ::RED4ext::Detail::DataSize<game::ActionReplicatedState>];
     Handle<anim::AnimFeature_HitReactionsData> animFeature; // 28
+#else
+    Handle<anim::AnimFeature_HitReactionsData> animFeature; // 28
+#endif
 };
 RED4EXT_ASSERT_SIZE(ActionHitReactionState, 0x38);
 } // namespace game

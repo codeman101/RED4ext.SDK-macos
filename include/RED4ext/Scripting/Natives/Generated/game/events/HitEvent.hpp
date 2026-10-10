@@ -26,6 +26,29 @@ struct __declspec(align(0x10)) HitEvent : red::Event
     static constexpr const char* NAME = "gameeventsHitEvent";
     static constexpr const char* ALIAS = "gameHitEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Handle<game::damage::AttackData> attackData; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(attackData))];
+    WeakHandle<game::Object> target; // 50
+    uint8_t unk_60[0x60 - (0x50 + sizeof(target))];
+    Vector4 hitPosition; // 60
+    uint8_t unk_70[0x70 - (0x60 + sizeof(hitPosition))];
+    Vector4 hitDirection; // 70
+    uint8_t unk_80[0x80 - (0x70 + sizeof(hitDirection))];
+    WeakHandle<ent::IPlacedComponent> hitComponent; // 80
+    uint8_t unk_90[0x90 - (0x80 + sizeof(hitComponent))];
+    CName hitColliderTag; // 90
+    uint8_t unk_A0[0xA0 - (0x90 + sizeof(hitColliderTag))];
+    game::QueryResult hitRepresentationResult; // A0
+    uint8_t unk_C8[0xC8 - (0xA0 + sizeof(hitRepresentationResult))];
+    float attackPentration; // C8
+    uint8_t unk_CC[0xCC - (0xC8 + sizeof(attackPentration))];
+    bool hasPiercedTechSurface; // CC
+    uint8_t unk_D0[0xD0 - (0xCC + sizeof(hasPiercedTechSurface))];
+    Handle<game::AttackComputed> attackComputed; // D0
+#else
     Handle<game::damage::AttackData> attackData; // 40
     WeakHandle<game::Object> target; // 50
     Vector4 hitPosition; // 60
@@ -40,6 +63,7 @@ struct __declspec(align(0x10)) HitEvent : red::Event
     uint8_t unkCD[0xD0 - 0xCD]; // CD
     Handle<game::AttackComputed> attackComputed; // D0
     uint8_t unkE0[0xF0 - 0xE0]; // E0
+#endif
 };
 RED4EXT_ASSERT_SIZE(HitEvent, 0xF0);
 } // namespace game::events

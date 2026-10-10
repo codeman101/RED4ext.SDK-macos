@@ -20,11 +20,19 @@ struct __declspec(align(0x10)) ISkinTargetComponent : ent::IVisualComponent
     static constexpr const char* NAME = "entISkinTargetComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_180[0x180 - ::RED4ext::Detail::DataSize<ent::IVisualComponent>];
+    Handle<ent::SkinningBinding> skinning; // 180
+    uint8_t unk_1D0[0x1D0 - (0x180 + sizeof(skinning))];
+    bool useSkinningLOD; // 1D0
+#else
     uint8_t unk140[0x180 - 0x140]; // 140
     Handle<ent::SkinningBinding> skinning; // 180
     uint8_t unk190[0x1D0 - 0x190]; // 190
     bool useSkinningLOD; // 1D0
     uint8_t unk1D1[0x1E0 - 0x1D1]; // 1D1
+#endif
 };
 RED4EXT_ASSERT_SIZE(ISkinTargetComponent, 0x1E0);
 } // namespace ent

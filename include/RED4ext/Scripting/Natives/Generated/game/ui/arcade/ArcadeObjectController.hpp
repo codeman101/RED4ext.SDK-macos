@@ -22,7 +22,9 @@ struct ArcadeObjectController : ink::WidgetLogicController
 
     DynArray<game::ui::arcade::ArcadeColliderData> colliderList; // 78
     ink::WidgetReference image; // 88
+#if !defined(__APPLE__)
     uint8_t unkA0[0x100 - 0xA0]; // A0
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ArcadeObjectController, 0x100);
 } // namespace game::ui::arcade

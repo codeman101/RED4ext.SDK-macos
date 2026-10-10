@@ -25,7 +25,9 @@ struct ListController : ink::WidgetLogicController
     CName itemLibraryID; // 118
     bool cycledNavigation; // 120
     bool beginToggled; // 121
+#if !defined(__APPLE__)
     uint8_t unk122[0x128 - 0x122]; // 122
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(ListController, 0x128);
 } // namespace ink

@@ -18,8 +18,14 @@ struct PhoneCallMode_ConditionType : quest::IPhoneConditionType
     static constexpr const char* NAME = "questPhoneCallMode_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IPhoneConditionType>];
+    quest::PhoneCallMode callMode; // 38
+#else
     quest::PhoneCallMode callMode; // 40
     uint8_t unk44[0x48 - 0x44]; // 44
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhoneCallMode_ConditionType, 0x48);
 } // namespace quest

@@ -18,7 +18,13 @@ struct ContextualLookAtAddEvent : ent::LookAtAddEvent
     static constexpr const char* NAME = "entContextualLookAtAddEvent";
     static constexpr const char* ALIAS = "ContextualLookAtAddEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_D8[0xD8 - ::RED4ext::Detail::DataSize<ent::LookAtAddEvent>];
     CName contextName; // D8
+#else
+    CName contextName; // D8
+#endif
 };
 RED4EXT_ASSERT_SIZE(ContextualLookAtAddEvent, 0xE0);
 } // namespace ent

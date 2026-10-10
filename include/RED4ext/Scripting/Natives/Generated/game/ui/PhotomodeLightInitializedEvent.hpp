@@ -20,7 +20,13 @@ struct PhotomodeLightInitializedEvent : red::Event
     static constexpr const char* NAME = "gameuiPhotomodeLightInitializedEvent";
     static constexpr const char* ALIAS = "PhotomodeLightInitializedEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     WeakHandle<ent::Entity> light; // 40
+#else
+    WeakHandle<ent::Entity> light; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(PhotomodeLightInitializedEvent, 0x50);
 } // namespace game::ui

@@ -40,7 +40,12 @@ struct IPopulationSystem : IGameSystem
     static constexpr const char* NAME = "gameIPopulationSystem";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+    // Mac (R21, checked against the game): the Handle comes back through x8, the id is the only argument (slot 0x1B8).
+    virtual Handle<Entity> FindEntity(uint32_t aDynamicEntityID) = 0; // 1A8
+#else
     virtual void* FindEntity(Handle<Entity>& aOut, uint32_t aDynamicEntityID) = 0; // 1A8
+#endif
     virtual void sub_1B0() = 0;                                                    // 1B0
     virtual void sub_1B8() = 0;                                                    // 1B8
     virtual void sub_1C0() = 0;                                                    // 1C0

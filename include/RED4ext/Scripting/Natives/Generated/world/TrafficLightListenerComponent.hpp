@@ -18,10 +18,18 @@ struct TrafficLightListenerComponent : ent::IComponent
     static constexpr const char* NAME = "worldTrafficLightListenerComponent";
     static constexpr const char* ALIAS = "TrafficLightListenerComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_A8[0xA8 - ::RED4ext::Detail::DataSize<ent::IComponent>];
+    NodeRef intersectionRef; // A8
+    uint8_t unk_B0[0xB0 - (0xA8 + sizeof(intersectionRef))];
+    uint32_t groupIdx; // B0
+#else
     uint8_t unk90[0xA8 - 0x90]; // 90
     NodeRef intersectionRef; // A8
     uint32_t groupIdx; // B0
     uint8_t unkB4[0xB8 - 0xB4]; // B4
+#endif
 };
 RED4EXT_ASSERT_SIZE(TrafficLightListenerComponent, 0xB8);
 } // namespace world

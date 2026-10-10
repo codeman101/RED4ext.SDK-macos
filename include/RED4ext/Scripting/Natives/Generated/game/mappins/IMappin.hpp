@@ -17,7 +17,9 @@ struct IMappin : game::mappins::IVisualObject
     static constexpr const char* NAME = "gamemappinsIMappin";
     static constexpr const char* ALIAS = "IMappin";
 
+#if !defined(__APPLE__)
     uint8_t unk40[0x88 - 0x40]; // 40
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(IMappin, 0x88);
 } // namespace game::mappins

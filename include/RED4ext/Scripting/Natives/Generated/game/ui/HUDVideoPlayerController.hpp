@@ -17,9 +17,15 @@ struct HUDVideoPlayerController : game::ui::HUDGameController
     static constexpr const char* NAME = "gameuiHUDVideoPlayerController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_148[0x148 - ::RED4ext::Detail::DataSize<game::ui::HUDGameController>];
+    bool playOnHud; // 148
+#else
     uint8_t unkF8[0x148 - 0xF8]; // F8
     bool playOnHud; // 148
     uint8_t unk149[0x150 - 0x149]; // 149
+#endif
 };
 RED4EXT_ASSERT_SIZE(HUDVideoPlayerController, 0x150);
 } // namespace game::ui

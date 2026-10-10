@@ -23,6 +23,17 @@ struct __declspec(align(0x10)) Component : ent::IPlacedComponent
     static constexpr const char* NAME = "gameinteractionsComponent";
     static constexpr const char* ALIAS = "InteractionComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_148[0x148 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    Ref<game::interactions::InteractionDescriptorResource> definitionResource; // 148
+    uint8_t unk_1A0[0x1A0 - (0x148 + sizeof(definitionResource))];
+    Vector3 interactionRootOffset; // 1A0
+    uint8_t unk_1B0[0x1B0 - (0x1A0 + sizeof(interactionRootOffset))];
+    DynArray<game::interactions::InteractionDefinitionOverrider> layerOverrides; // 1B0
+    uint8_t unk_1C0[0x1C0 - (0x1B0 + sizeof(layerOverrides))];
+    DynArray<game::interactions::InteractionDefinitionOverrider> layerOverridesTemp; // 1C0
+#else
     uint8_t unk120[0x148 - 0x120]; // 120
     Ref<game::interactions::InteractionDescriptorResource> definitionResource; // 148
     uint8_t unk160[0x1A0 - 0x160]; // 160
@@ -30,6 +41,7 @@ struct __declspec(align(0x10)) Component : ent::IPlacedComponent
     uint8_t unk1AC[0x1B0 - 0x1AC]; // 1AC
     DynArray<game::interactions::InteractionDefinitionOverrider> layerOverrides; // 1B0
     DynArray<game::interactions::InteractionDefinitionOverrider> layerOverridesTemp; // 1C0
+#endif
 };
 RED4EXT_ASSERT_SIZE(Component, 0x1D0);
 } // namespace game::interactions

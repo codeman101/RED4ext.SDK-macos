@@ -18,7 +18,13 @@ struct PatrolNearbyStrategyRequest : vehicle::BaseStrategyRequest
     static constexpr const char* NAME = "vehiclePatrolNearbyStrategyRequest";
     static constexpr const char* ALIAS = "PatrolNearbyStrategyRequest";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_54[0x54 - ::RED4ext::Detail::DataSize<vehicle::BaseStrategyRequest>];
+    Vector2 angleRange; // 54
+#else
     Vector2 angleRange; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(PatrolNearbyStrategyRequest, 0x60);
 } // namespace vehicle

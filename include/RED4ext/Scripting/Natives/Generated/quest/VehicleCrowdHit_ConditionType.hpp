@@ -17,8 +17,14 @@ struct VehicleCrowdHit_ConditionType : quest::IVehicleConditionType
     static constexpr const char* NAME = "questVehicleCrowdHit_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<quest::IVehicleConditionType>];
+    bool lethal; // 34
+#else
     bool lethal; // 38
     uint8_t unk39[0x40 - 0x39]; // 39
+#endif
 };
 RED4EXT_ASSERT_SIZE(VehicleCrowdHit_ConditionType, 0x40);
 } // namespace quest

@@ -20,7 +20,10 @@ struct PuppetNodeType : quest::IRetNodeType
 
     game::EntityReference puppetRef; // 30
     bool isPlayer; // 68
+#if defined(__APPLE__)
+#else
     uint8_t unk69[0x70 - 0x69]; // 69
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(PuppetNodeType, 0x70);
 } // namespace quest

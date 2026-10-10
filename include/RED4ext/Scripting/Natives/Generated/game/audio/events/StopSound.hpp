@@ -18,7 +18,13 @@ struct StopSound : red::Event
     static constexpr const char* NAME = "gameaudioeventsStopSound";
     static constexpr const char* ALIAS = "SoundStopEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     CName soundName; // 40
+#else
+    CName soundName; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(StopSound, 0x48);
 } // namespace game::audio::events

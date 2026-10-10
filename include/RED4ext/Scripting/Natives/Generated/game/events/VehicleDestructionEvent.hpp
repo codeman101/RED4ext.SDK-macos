@@ -22,10 +22,22 @@ struct __declspec(align(0x10)) VehicleDestructionEvent : red::Event
     static constexpr const char* NAME = "gameeventsVehicleDestructionEvent";
     static constexpr const char* ALIAS = "gameVehicleDestructionEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
+    Handle<game::damage::AttackData> attackData; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(attackData))];
+    Vector4 hitPosition; // 50
+    uint8_t unk_60[0x60 - (0x50 + sizeof(hitPosition))];
+    Vector4 hitDirection; // 60
+    uint8_t unk_70[0x70 - (0x60 + sizeof(hitDirection))];
+    WeakHandle<ent::IPlacedComponent> hitComponent; // 70
+#else
     Handle<game::damage::AttackData> attackData; // 40
     Vector4 hitPosition; // 50
     Vector4 hitDirection; // 60
     WeakHandle<ent::IPlacedComponent> hitComponent; // 70
+#endif
 };
 RED4EXT_ASSERT_SIZE(VehicleDestructionEvent, 0x80);
 } // namespace game::events

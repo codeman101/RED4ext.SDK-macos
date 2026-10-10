@@ -17,9 +17,15 @@ struct EnableHUDScaleOverride : ink::InitializedWidgetUserData
     static constexpr const char* NAME = "inkEnableHUDScaleOverride";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_4C[0x4C - ::RED4ext::Detail::DataSize<ink::InitializedWidgetUserData>];
+    float scalingInterpolationValue; // 4C
+#else
     uint8_t unk48[0x50 - 0x48]; // 48
     float scalingInterpolationValue; // 50
     uint8_t unk54[0x58 - 0x54]; // 54
+#endif
 };
 RED4EXT_ASSERT_SIZE(EnableHUDScaleOverride, 0x58);
 } // namespace ink

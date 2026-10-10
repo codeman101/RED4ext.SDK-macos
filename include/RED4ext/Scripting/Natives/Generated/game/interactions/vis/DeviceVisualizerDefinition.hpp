@@ -22,6 +22,21 @@ struct DeviceVisualizerDefinition : game::interactions::vis::IVisualizerDefiniti
     static constexpr const char* NAME = "gameinteractionsvisDeviceVisualizerDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_42[0x42 - ::RED4ext::Detail::DataSize<game::interactions::vis::IVisualizerDefinition>];
+    game::interactions::vis::InteractionType interactionType; // 42
+    uint8_t unk_48[0x48 - (0x42 + sizeof(interactionType))];
+    CString displayNameOverride; // 48
+    uint8_t unk_68[0x68 - (0x48 + sizeof(displayNameOverride))];
+    bool isDynamic; // 68
+    uint8_t unk_69[0x69 - (0x68 + sizeof(isDynamic))];
+    bool useDefaultActionMapping; // 69
+    uint8_t unk_6A[0x6A - (0x69 + sizeof(useDefaultActionMapping))];
+    bool createMappin; // 6A
+    uint8_t unk_70[0x70 - (0x6A + sizeof(createMappin))];
+    Handle<game::interactions::vis::IVisualizerTimeProvider> timeProvider; // 70
+#else
     game::interactions::vis::InteractionType interactionType; // 48
     uint8_t unk49[0x50 - 0x49]; // 49
     CString displayNameOverride; // 50
@@ -31,6 +46,7 @@ struct DeviceVisualizerDefinition : game::interactions::vis::IVisualizerDefiniti
     uint8_t unk73[0x78 - 0x73]; // 73
     Handle<game::interactions::vis::IVisualizerTimeProvider> timeProvider; // 78
     uint8_t unk88[0x90 - 0x88]; // 88
+#endif
 };
 RED4EXT_ASSERT_SIZE(DeviceVisualizerDefinition, 0x90);
 } // namespace game::interactions::vis

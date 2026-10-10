@@ -19,9 +19,17 @@ struct SideScrollerMiniGameController : game::ui::WidgetGameController
     static constexpr const char* NAME = "gameuiSideScrollerMiniGameController";
     static constexpr const char* ALIAS = "MinigameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_E0[0xE0 - ::RED4ext::Detail::DataSize<game::ui::WidgetGameController>];
+    CName gameName; // E0
+    uint8_t unk_100[0x100 - (0xE0 + sizeof(gameName))];
+    ink::WidgetReference gameplayCanvas; // 100
+#else
     CName gameName; // E0
     uint8_t unkE8[0x100 - 0xE8]; // E8
     ink::WidgetReference gameplayCanvas; // 100
+#endif
 };
 RED4EXT_ASSERT_SIZE(SideScrollerMiniGameController, 0x118);
 } // namespace game::ui

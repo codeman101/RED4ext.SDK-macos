@@ -21,6 +21,23 @@ struct __declspec(align(0x10)) WorldWidgetComponent : IWorldWidgetComponent
     static constexpr const char* NAME = "WorldWidgetComponent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_2B8[0x2B8 - ::RED4ext::Detail::DataSize<IWorldWidgetComponent>];
+    Ref<ink::WidgetLibraryResource> cursorResource; // 2B8
+    uint8_t unk_2D0[0x2D0 - (0x2B8 + sizeof(cursorResource))];
+    RaRef<ink::WidgetLibraryResource> widgetResource; // 2D0
+    uint8_t unk_2D8[0x2D8 - (0x2D0 + sizeof(widgetResource))];
+    RaRef<CBitmapTexture> staticTextureResource; // 2D8
+    uint8_t unk_2F0[0x2F0 - (0x2D8 + sizeof(staticTextureResource))];
+    CName itemNameToSpawn; // 2F0
+    uint8_t unk_2F8[0x2F8 - (0x2F0 + sizeof(itemNameToSpawn))];
+    float spawnDistanceOverride; // 2F8
+    uint8_t unk_2FC[0x2FC - (0x2F8 + sizeof(spawnDistanceOverride))];
+    bool limitedSpawnDistanceFromVehicle; // 2FC
+    uint8_t unk_300[0x300 - (0x2FC + sizeof(limitedSpawnDistanceFromVehicle))];
+    world::ui::SceneWidgetProperties sceneWidgetProperties; // 300
+#else
     uint8_t unk2B0[0x2B8 - 0x2B0]; // 2B0
     Ref<ink::WidgetLibraryResource> cursorResource; // 2B8
     RaRef<ink::WidgetLibraryResource> widgetResource; // 2D0
@@ -32,6 +49,7 @@ struct __declspec(align(0x10)) WorldWidgetComponent : IWorldWidgetComponent
     uint8_t unk2FD[0x300 - 0x2FD]; // 2FD
     world::ui::SceneWidgetProperties sceneWidgetProperties; // 300
     uint8_t unk324[0x3A0 - 0x324]; // 324
+#endif
 };
 RED4EXT_ASSERT_SIZE(WorldWidgetComponent, 0x3A0);
 } // namespace RED4ext

@@ -20,9 +20,19 @@ struct FindTeleportPositionTaskDefinition : AI::behavior::TaskDefinition
     static constexpr const char* NAME = "AIbehaviorFindTeleportPositionTaskDefinition";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<AI::behavior::TaskDefinition>];
+    Handle<AI::ArgumentMapping> patrolPath; // 38
+    uint8_t unk_48[0x48 - (0x38 + sizeof(patrolPath))];
+    Handle<AI::ArgumentMapping> teleportPosition; // 48
+    uint8_t unk_58[0x58 - (0x48 + sizeof(teleportPosition))];
+    Handle<AI::ArgumentMapping> teleportRotation; // 58
+#else
     Handle<AI::ArgumentMapping> patrolPath; // 38
     Handle<AI::ArgumentMapping> teleportPosition; // 48
     Handle<AI::ArgumentMapping> teleportRotation; // 58
+#endif
 };
 RED4EXT_ASSERT_SIZE(FindTeleportPositionTaskDefinition, 0x68);
 } // namespace AI::behavior

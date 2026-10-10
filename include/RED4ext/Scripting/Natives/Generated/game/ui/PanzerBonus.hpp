@@ -17,9 +17,15 @@ struct PanzerBonus : game::ui::SideScrollerMiniGameDynObjectLogicAdvanced
     static constexpr const char* NAME = "gameuiPanzerBonus";
     static constexpr const char* ALIAS = "PanzerBonus";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_E0[0xE0 - ::RED4ext::Detail::DataSize<game::ui::SideScrollerMiniGameDynObjectLogicAdvanced>];
+    float fallingSpeed; // E0
+#else
     uint8_t unkD0[0xE0 - 0xD0]; // D0
     float fallingSpeed; // E0
     uint8_t unkE4[0xE8 - 0xE4]; // E4
+#endif
 };
 RED4EXT_ASSERT_SIZE(PanzerBonus, 0xE8);
 } // namespace game::ui

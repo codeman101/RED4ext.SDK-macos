@@ -18,8 +18,14 @@ struct CrosshairContainerController : game::ui::HUDGameController
     static constexpr const char* NAME = "gameuiCrosshairContainerController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_280[0x280 - ::RED4ext::Detail::DataSize<game::ui::HUDGameController>];
+    TweakDBID defaultCrosshair; // 280
+#else
     uint8_t unkF8[0x280 - 0xF8]; // F8
     TweakDBID defaultCrosshair; // 280
+#endif
 };
 RED4EXT_ASSERT_SIZE(CrosshairContainerController, 0x288);
 } // namespace game::ui

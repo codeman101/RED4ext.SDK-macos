@@ -18,7 +18,13 @@ struct ShowLevelUpNotification_NodeType : quest::IUIManagerNodeType
     static constexpr const char* NAME = "questShowLevelUpNotification_NodeType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_34[0x34 - ::RED4ext::Detail::DataSize<quest::IUIManagerNodeType>];
+    quest::LevelUpData levelUpData; // 34
+#else
     quest::LevelUpData levelUpData; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(ShowLevelUpNotification_NodeType, 0x50);
 } // namespace quest

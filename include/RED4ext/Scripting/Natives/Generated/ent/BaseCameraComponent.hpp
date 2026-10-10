@@ -18,7 +18,13 @@ struct __declspec(align(0x10)) BaseCameraComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "entBaseCameraComponent";
     static constexpr const char* ALIAS = "entCameraComponent";
 
+#if defined(__APPLE__)
+    // R25. The members below are at the Windows offsets in the game too (the dump agrees for fov, zoom and the overrides), but the base
+    // ent::IPlacedComponent ends earlier on Mac (clang reuses its tail), so the first pad is sized from the base's data size.
+    uint8_t unk_128[0x128 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+#else
     uint8_t unk120[0x128 - 0x120]; // 120
+#endif
     float fov; // 128
     uint8_t unk12C[0x15C - 0x12C]; // 12C
     float zoom; // 15C
@@ -28,7 +34,12 @@ struct __declspec(align(0x10)) BaseCameraComponent : ent::IPlacedComponent
     float motionBlurScale; // 170
     uint8_t unk174[0x178 - 0x174]; // 174
     SWeaponPlaneParams weaponPlane; // 178
+#if defined(__APPLE__)
+    // R25. The derived camera components start at 0x1D8 in the game (dynamicTextureRes, virtualCameraName: the dump), inside this tail.
+    uint8_t unk194[0x1D8 - 0x194]; // 194
+#else
     uint8_t unk194[0x1E0 - 0x194]; // 194
+#endif
 };
 RED4EXT_ASSERT_SIZE(BaseCameraComponent, 0x1E0);
 } // namespace ent

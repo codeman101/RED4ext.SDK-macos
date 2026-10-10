@@ -18,8 +18,14 @@ struct __declspec(align(0x10)) ProjectilePreviewEvent : game::projectile::Spawne
     static constexpr const char* NAME = "gameprojectileProjectilePreviewEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<game::projectile::SpawnerPreviewEvent>];
+    Transform visualOffset; // 50
+#else
     uint8_t unk48[0x50 - 0x48]; // 48
     Transform visualOffset; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(ProjectilePreviewEvent, 0x70);
 } // namespace game::projectile

@@ -19,7 +19,13 @@ struct EffectExecutor_KatanaBulletBending : game::EffectExecutor_Scripted
     static constexpr const char* NAME = "gameEffectExecutor_KatanaBulletBending";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<game::EffectExecutor_Scripted>];
     DynArray<game::EffectExecutor_KatanaBulletBendingEffectEntry> effects; // 48
+#else
+    DynArray<game::EffectExecutor_KatanaBulletBendingEffectEntry> effects; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectExecutor_KatanaBulletBending, 0x58);
 } // namespace game

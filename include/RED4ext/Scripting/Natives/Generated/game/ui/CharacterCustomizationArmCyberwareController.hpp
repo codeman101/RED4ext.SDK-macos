@@ -22,10 +22,18 @@ struct CharacterCustomizationArmCyberwareController : game::ui::CharacterCustomi
     static constexpr const char* NAME = "gameuiCharacterCustomizationArmCyberwareController";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_D0[0xD0 - ::RED4ext::Detail::DataSize<game::ui::CharacterCustomizationBodyPartsController>];
+    CName defaultGroupName; // D0
+    uint8_t unk_D8[0xD8 - (0xD0 + sizeof(defaultGroupName))];
+    DynArray<RaRef<appearance::AppearanceResource>> additionalCyberArmAppearances; // D8
+#else
     uint8_t unkC0[0xE0 - 0xC0]; // C0
     CName defaultGroupName; // E0
     DynArray<RaRef<appearance::AppearanceResource>> additionalCyberArmAppearances; // E8
     uint8_t unkF8[0x1C8 - 0xF8]; // F8
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCustomizationArmCyberwareController, 0x1C8);
 } // namespace game::ui

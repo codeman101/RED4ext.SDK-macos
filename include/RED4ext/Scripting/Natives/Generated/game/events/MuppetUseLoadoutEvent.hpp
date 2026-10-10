@@ -20,7 +20,13 @@ struct MuppetUseLoadoutEvent : red::Event
     static constexpr const char* NAME = "gameeventsMuppetUseLoadoutEvent";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<red::Event>];
     Handle<game::data::CPOLoadoutBase_Record> adout; // 40
+#else
+    Handle<game::data::CPOLoadoutBase_Record> adout; // 40
+#endif
 };
 RED4EXT_ASSERT_SIZE(MuppetUseLoadoutEvent, 0x50);
 } // namespace game::events

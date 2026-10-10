@@ -18,10 +18,20 @@ struct PresetChangeEvent : sense::VisibilityEvent
     static constexpr const char* NAME = "sensePresetChangeEvent";
     static constexpr const char* ALIAS = "SensePresetChangeEvent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_68[0x68 - ::RED4ext::Detail::DataSize<sense::VisibilityEvent>];
+    TweakDBID presetID; // 68
+    uint8_t unk_70[0x70 - (0x68 + sizeof(presetID))];
+    bool mainPreset; // 70
+    uint8_t unk_71[0x71 - (0x70 + sizeof(mainPreset))];
+    bool reset; // 71
+#else
     TweakDBID presetID; // 68
     bool mainPreset; // 70
     bool reset; // 71
     uint8_t unk72[0x78 - 0x72]; // 72
+#endif
 };
 RED4EXT_ASSERT_SIZE(PresetChangeEvent, 0x78);
 } // namespace sense

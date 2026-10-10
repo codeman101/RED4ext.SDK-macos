@@ -20,6 +20,15 @@ struct __declspec(align(0x10)) SpawnComponent : ent::IPlacedComponent
     static constexpr const char* NAME = "gameprojectileSpawnComponent";
     static constexpr const char* ALIAS = "ProjectileSpawnComponent";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_130[0x130 - ::RED4ext::Detail::DataSize<ent::IPlacedComponent>];
+    DynArray<CName> projectileTemplates; // 130
+    uint8_t unk_150[0x150 - (0x130 + sizeof(projectileTemplates))];
+    Vector3 spawnOffset; // 150
+    uint8_t unk_160[0x160 - (0x150 + sizeof(spawnOffset))];
+    CName slotName; // 160
+#else
     uint8_t unk120[0x130 - 0x120]; // 120
     DynArray<CName> projectileTemplates; // 130
     uint8_t unk140[0x150 - 0x140]; // 140
@@ -27,6 +36,7 @@ struct __declspec(align(0x10)) SpawnComponent : ent::IPlacedComponent
     uint8_t unk15C[0x160 - 0x15C]; // 15C
     CName slotName; // 160
     uint8_t unk168[0x300 - 0x168]; // 168
+#endif
 };
 RED4EXT_ASSERT_SIZE(SpawnComponent, 0x300);
 } // namespace game::projectile

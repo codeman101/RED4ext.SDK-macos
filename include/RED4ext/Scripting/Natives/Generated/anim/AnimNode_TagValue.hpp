@@ -18,10 +18,20 @@ struct AnimNode_TagValue : anim::AnimNode_FloatValue
     static constexpr const char* NAME = "animAnimNode_TagValue";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_FloatValue>];
+    CName tag; // 48
+    uint8_t unk_50[0x50 - (0x48 + sizeof(tag))];
+    float defaultValue; // 50
+    uint8_t unk_54[0x54 - (0x50 + sizeof(defaultValue))];
+    bool oneMinus; // 54
+#else
     CName tag; // 48
     float defaultValue; // 50
     bool oneMinus; // 54
     uint8_t unk55[0x68 - 0x55]; // 55
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_TagValue, 0x68);
 } // namespace anim

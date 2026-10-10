@@ -18,7 +18,9 @@ struct Event : IScriptable
     static constexpr const char* ALIAS = "inkAnimEvent";
 
     float startTime; // 40
+#if !defined(__APPLE__)
     uint8_t unk44[0x48 - 0x44]; // 44
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 RED4EXT_ASSERT_SIZE(Event, 0x48);
 } // namespace ink::anim

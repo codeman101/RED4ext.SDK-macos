@@ -19,11 +19,21 @@ struct AnimNode_GraphSlot : anim::AnimNode_Base
     static constexpr const char* NAME = "animAnimNode_GraphSlot";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_48[0x48 - ::RED4ext::Detail::DataSize<anim::AnimNode_Base>];
+    CName name; // 48
+    uint8_t unk_50[0x50 - (0x48 + sizeof(name))];
+    anim::PoseLink inputLink; // 50
+    uint8_t unk_A8[0xA8 - (0x50 + sizeof(inputLink))];
+    bool dontDeactivateInput; // A8
+#else
     CName name; // 48
     anim::PoseLink inputLink; // 50
     uint8_t unk68[0xA8 - 0x68]; // 68
     bool dontDeactivateInput; // A8
     uint8_t unkA9[0xB0 - 0xA9]; // A9
+#endif
 };
 RED4EXT_ASSERT_SIZE(AnimNode_GraphSlot, 0xB0);
 } // namespace anim

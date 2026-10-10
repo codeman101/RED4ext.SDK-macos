@@ -19,9 +19,17 @@ struct CharacterCustomizationUiPreset : CResource
     static constexpr const char* NAME = "gameuiCharacterCustomizationUiPreset";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_39[0x39 - ::RED4ext::Detail::DataSize<CResource>];
+    bool isMaleVO; // 39
+    uint8_t unk_40[0x40 - (0x39 + sizeof(isMaleVO))];
+    DynArray<game::ui::CharacterCustomizationUiPresetValue> values; // 40
+#else
     bool isMaleVO; // 40
     uint8_t unk41[0x48 - 0x41]; // 41
     DynArray<game::ui::CharacterCustomizationUiPresetValue> values; // 48
+#endif
 };
 RED4EXT_ASSERT_SIZE(CharacterCustomizationUiPreset, 0x58);
 } // namespace game::ui

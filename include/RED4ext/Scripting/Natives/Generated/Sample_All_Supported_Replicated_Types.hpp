@@ -32,13 +32,13 @@ struct Sample_All_Supported_Replicated_Types
     int32_t int32; // 0C
     uint64_t uint64; // 10
     int64_t int64; // 18
-    float float; // 20
+    float float_; // 20
     uint8_t unk24[0x28 - 0x24]; // 24
-    double double; // 28
+    double double_; // 28
     CName name; // 30
     CString string; // 38
-    Sample_Replicated_Enum enum; // 58
-    Sample_Replicated_Struct struct; // 5C
+    Sample_Replicated_Enum enum_; // 58
+    Sample_Replicated_Struct struct_; // 5C
     DynArray<Sample_Replicated_Struct> dynamicArray; // 60
     StaticArray<Sample_Replicated_Struct, 10> staticArray; // 70
     uint8_t unk9C[0xA8 - 0x9C]; // 9C

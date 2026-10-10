@@ -22,10 +22,20 @@ struct EffectObjectProvider_QueryBox : game::EffectObjectProvider
     static constexpr const char* NAME = "gameEffectObjectProvider_QueryBox";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<game::EffectObjectProvider>];
+    Handle<physics::FilterData> filterData; // 40
+    uint8_t unk_50[0x50 - (0x40 + sizeof(filterData))];
+    physics::QueryPreset queryPreset; // 50
+    uint8_t unk_68[0x68 - (0x50 + sizeof(queryPreset))];
+    game::EffectInputParameter_Vector inputPosition; // 68
+#else
     Handle<physics::FilterData> filterData; // 40
     physics::QueryPreset queryPreset; // 50
     uint8_t unk58[0x68 - 0x58]; // 58
     game::EffectInputParameter_Vector inputPosition; // 68
+#endif
 };
 RED4EXT_ASSERT_SIZE(EffectObjectProvider_QueryBox, 0x80);
 } // namespace game

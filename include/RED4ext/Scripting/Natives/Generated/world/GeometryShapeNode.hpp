@@ -21,9 +21,17 @@ struct GeometryShapeNode : world::Node
     static constexpr const char* NAME = "worldGeometryShapeNode";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<world::Node>];
+    Handle<GeometryShape> shape; // 38
+    uint8_t unk_48[0x48 - (0x38 + sizeof(shape))];
+    Color color; // 48
+#else
     Handle<GeometryShape> shape; // 38
     Color color; // 48
     uint8_t unk4C[0x50 - 0x4C]; // 4C
+#endif
 };
 RED4EXT_ASSERT_SIZE(GeometryShapeNode, 0x50);
 } // namespace world

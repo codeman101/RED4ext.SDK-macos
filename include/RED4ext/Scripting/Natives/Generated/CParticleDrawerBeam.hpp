@@ -15,8 +15,14 @@ struct __declspec(align(0x10)) CParticleDrawerBeam : CParticleDrawerFacingBeam
     static constexpr const char* NAME = "CParticleDrawerBeam";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_7C[0x7C - ::RED4ext::Detail::DataSize<CParticleDrawerFacingBeam>];
+    float rotation; // 7C
+#else
     float rotation; // 80
     uint8_t unk84[0x90 - 0x84]; // 84
+#endif
 };
 RED4EXT_ASSERT_SIZE(CParticleDrawerBeam, 0x90);
 } // namespace RED4ext

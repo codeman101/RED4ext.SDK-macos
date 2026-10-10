@@ -20,7 +20,13 @@ struct HostLeftSquad : AI::AIEvent
     static constexpr const char* NAME = "AIHostLeftSquad";
     static constexpr const char* ALIAS = "HostLeftSquad";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_50[0x50 - ::RED4ext::Detail::DataSize<AI::AIEvent>];
     WeakHandle<AI::SquadScriptInterface> squadInterface; // 50
+#else
+    WeakHandle<AI::SquadScriptInterface> squadInterface; // 50
+#endif
 };
 RED4EXT_ASSERT_SIZE(HostLeftSquad, 0x60);
 } // namespace AI

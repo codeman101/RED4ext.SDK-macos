@@ -20,7 +20,13 @@ struct JournalNotification_ConditionType : quest::IUIConditionType
     static constexpr const char* NAME = "questJournalNotification_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IUIConditionType>];
     Handle<game::JournalPath> journalPath; // 38
+#else
+    Handle<game::JournalPath> journalPath; // 38
+#endif
 };
 RED4EXT_ASSERT_SIZE(JournalNotification_ConditionType, 0x48);
 } // namespace quest

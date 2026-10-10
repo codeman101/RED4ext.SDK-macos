@@ -19,9 +19,19 @@ struct ControllerSettingsGameController : game::ui::MenuGameController
     static constexpr const char* NAME = "gameuiControllerSettingsGameController";
     static constexpr const char* ALIAS = "ControllerSettingsGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    DynArray<ink::WidgetReference> defaultWidgets; // F0
+    uint8_t unk_100[0x100 - (0xF0 + sizeof(defaultWidgets))];
+    DynArray<ink::WidgetReference> southpawWidgets; // 100
+    uint8_t unk_110[0x110 - (0x100 + sizeof(southpawWidgets))];
+    DynArray<ink::WidgetReference> legacyWidgets; // 110
+#else
     DynArray<ink::WidgetReference> defaultWidgets; // F0
     DynArray<ink::WidgetReference> southpawWidgets; // 100
     DynArray<ink::WidgetReference> legacyWidgets; // 110
+#endif
 };
 RED4EXT_ASSERT_SIZE(ControllerSettingsGameController, 0x120);
 } // namespace game::ui

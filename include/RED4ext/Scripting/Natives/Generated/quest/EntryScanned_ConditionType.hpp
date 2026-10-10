@@ -19,8 +19,16 @@ struct EntryScanned_ConditionType : quest::IObjectConditionType
     static constexpr const char* NAME = "questEntryScanned_ConditionType";
     static constexpr const char* ALIAS = NAME;
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IObjectConditionType>];
+    game::EntityReference objectRef; // 38
+    uint8_t unk_70[0x70 - (0x38 + sizeof(objectRef))];
+    TweakDBID entryID; // 70
+#else
     game::EntityReference objectRef; // 38
     TweakDBID entryID; // 70
+#endif
 };
 RED4EXT_ASSERT_SIZE(EntryScanned_ConditionType, 0x78);
 } // namespace quest
