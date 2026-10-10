@@ -42,7 +42,13 @@ struct ISerializable
     virtual bool sub_60();                                                              // 60
     virtual bool sub_68();                                                              // 68
     virtual bool sub_70();                                                              // 70
+#if defined(__APPLE__)
+    // Mac: the object comes back as a Handle through x8 (Itanium), and the four arguments are in x1..x4. Windows passes the
+    // hidden result pointer as the first argument, which is what the declaration below models (R19).
+    virtual Handle<ISerializable> sub_78(int64_t a1, uint8_t a2, int64_t a3, int64_t a4); // 78
+#else
     virtual int64_t sub_78(int64_t a1, int64_t a2, uint8_t a3, int64_t a4, int64_t a5); // 78
+#endif
     virtual bool sub_80();                                                              // 80
     virtual void sub_88();                                                              // 88
     virtual bool sub_90();                                                              // 90

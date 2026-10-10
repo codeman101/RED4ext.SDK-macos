@@ -5,6 +5,7 @@
 #endif
 
 #include <cstring>
+#include <new>
 
 #include <RED4ext/Detail/AddressHashes.hpp>
 #include <RED4ext/Relocation.hpp>
@@ -72,6 +73,10 @@ RED4EXT_INLINE RED4ext::CString::CString(CString&& aOther) noexcept
 
 RED4EXT_INLINE RED4ext::CString& RED4ext::CString::operator=(const CString& aRhs)
 {
+    // R25. The Mac row of CString_copy is the copy assign (0x2AACC, the twin of Windows 0x2503FC: it keeps the target's allocator, reserves and
+    // copies into a live string, and does nothing for a self-assignment), the same operation as on Windows, so no Apple branch is needed.
+    // The row used to be the copy constructor 0x2B110, which zeroes the target first and needed a destroy and placement new here.
+    // Fix found in jackmaxwil/RED4ext.SDK-macos include/RED4ext/Relocation-inl.hpp, MIT (CString_copy row).
     static UniversalRelocFunc<CString* (*)(CString*, const CString&)> func(Detail::AddressHashes::CString_copy);
     func(this, aRhs);
     return *this;

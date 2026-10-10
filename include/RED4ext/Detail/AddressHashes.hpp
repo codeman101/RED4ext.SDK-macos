@@ -160,6 +160,11 @@ constexpr std::uint32_t JobDispatcher = 1508445968UL;
 constexpr std::uint32_t JobDispatcher_DispatchJob = 2621709954UL;
 #pragma endregion
 
+#if defined(__APPLE__)
+// macOS only. The game's own setter of the thread-local job parameter (the Windows SDK writes TLS::Get()->jobParam).
+constexpr std::uint32_t MacJobSetLocalThreadParam = 0xC0DE0010UL;
+#endif
+
 #pragma region JobHandle
 constexpr std::uint32_t JobHandle_dtor = 0x9E480A2E;
 constexpr std::uint32_t JobHandle_Join = 0x9C9C097C;

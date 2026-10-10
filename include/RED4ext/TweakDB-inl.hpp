@@ -6,6 +6,11 @@
 
 #include <cstdlib>
 
+#if defined(__APPLE__)
+#include <dlfcn.h>
+#include <iostream>
+#endif
+
 #include <RED4ext/Detail/AddressHashes.hpp>
 #include <RED4ext/RTTISystem.hpp>
 #include <RED4ext/Relocation.hpp>
@@ -323,18 +328,35 @@ RED4EXT_INLINE int32_t RED4ext::TweakDB::CreateFlatValue(const CStackType& aStac
     std::lock_guard<SharedSpinLock> _(mutex00);
 
     UpsizeFlatDataBuffer(MaxFlatDataBufferSize);
-
-    uintptr_t flatAlignment = (std::max)(aStackType.type->GetAlignment(), 8u);
-    uintptr_t flatValueSize = RED4ext::AlignUp(8ull /* vftable */ + aStackType.type->GetSize(), flatAlignment);
-    uintptr_t flatDataBufferEnd_Aligned = RED4ext::AlignUp(flatDataBufferEnd, flatAlignment);
-
-    if (AllocateFlatValue(reinterpret_cast<void*>(flatDataBufferEnd_Aligned), aStackType))
+#if defined(__APPLE__)
+    // A failed lookup or allocation leaves the game's buffer in place. Do not write past it.
+    if (flatDataBufferCapacity < MaxFlatDataBufferSize)
     {
-        flatDataBufferEnd = flatDataBufferEnd_Aligned + flatValueSize;
-        return reinterpret_cast<FlatValue*>(flatDataBufferEnd_Aligned)->ToTDBOffset();
+        static bool logged = false;
+        if (!logged)
+        {
+            logged = true;
+            std::cerr << "[TweakDB] CreateFlatValue refused: capacity 0x" << std::hex << flatDataBufferCapacity
+                      << " < max 0x" << MaxFlatDataBufferSize << std::dec << std::endl;
+        }
+        return -1;
+    }
+#endif
+
+    const uintptr_t flatAlignment = (std::max)(static_cast<uintptr_t>(aStackType.type->GetAlignment()), static_cast<uintptr_t>(8));
+    const uintptr_t flatValueSize = RED4ext::AlignUp(static_cast<uintptr_t>(8) /* vftable */ + static_cast<uintptr_t>(aStackType.type->GetSize()), flatAlignment);
+    const uintptr_t flatAddressAligned = RED4ext::AlignUp(flatDataBufferEnd, flatAlignment);
+    const uintptr_t newFlatDataBufferEnd = flatAddressAligned + flatValueSize;
+
+    if (newFlatDataBufferEnd > (flatDataBuffer + flatDataBufferCapacity) ||
+        !AllocateFlatValue(reinterpret_cast<void*>(flatAddressAligned), aStackType))
+    {
+        return -1;
     }
 
-    return -1;
+    flatDataBufferEnd = newFlatDataBufferEnd;
+
+    return reinterpret_cast<FlatValue*>(flatAddressAligned)->ToTDBOffset();
 }
 
 RED4EXT_INLINE bool RED4ext::TweakDB::AllocateFlatValue(void* aBuffer, const CStackType& aStackType)
@@ -405,6 +427,57 @@ RED4EXT_INLINE void RED4ext::TweakDB::UpsizeFlatDataBuffer(uint32_t aCapacity)
     if (flatDataBufferCapacity >= aCapacity || aCapacity > MaxFlatDataBufferSize)
         return;
 
+#if defined(__APPLE__)
+    // PoolGMPL_TDB_Data is not in the local vault. The game exports the pool proxy.
+    struct Block
+    {
+        void* memory;
+        uint64_t size;
+    };
+    using AllocFn = Block (*)(uint64_t, uint32_t);
+    using FreeFn = void (*)(Block&);
+
+    static AllocFn allocFn = nullptr;
+    static FreeFn freeFn = nullptr;
+    static bool lookedUp = false;
+    if (!lookedUp)
+    {
+        lookedUp = true;
+        // dyld_info prints __ZN... dlsym resolves the Itanium name _ZN...
+        allocFn = reinterpret_cast<AllocFn>(dlsym(
+            RTLD_MAIN_ONLY, "_ZN3red6memory16PoolStorageProxyIN4game17PoolGMPL_TDB_DataEE15AllocateAlignedEyj"));
+        freeFn = reinterpret_cast<FreeFn>(
+            dlsym(RTLD_MAIN_ONLY, "_ZN3red6memory16PoolStorageProxyIN4game17PoolGMPL_TDB_DataEE4FreeERNS0_5BlockE"));
+        if (!allocFn || !freeFn)
+        {
+            std::cerr << "[TweakDB] the game does not export the PoolGMPL_TDB_Data proxy (AllocateAligned " << (allocFn ? "found" : "missing")
+                      << ", Free " << (freeFn ? "found" : "missing") << ")" << std::endl;
+        }
+    }
+    if (!allocFn || !freeFn)
+        return;
+
+    Block result = allocFn(aCapacity, 8);
+    if (result.memory == nullptr)
+        return;
+
+    auto currentSize = static_cast<uint32_t>(flatDataBufferEnd - flatDataBuffer);
+    auto* oldFlatDataBuffer = reinterpret_cast<void*>(flatDataBuffer);
+    const uint32_t oldCapacity = flatDataBufferCapacity;
+    memcpy(result.memory, oldFlatDataBuffer, currentSize);
+    // R25. Zero the new tail. TweakXL's TweakDBBuffer::SyncBufferData reads a zero qword as the 8-byte alignment pad before a 16-byte
+    // aligned flat; stale pool bytes there would be taken for the vtable of a flat. The game's own buffer is zeroed, the pool block of
+    // an upsize is not guaranteed to be. Fix found in jackmaxwil/RED4ext.SDK-macos include/RED4ext/TweakDB-inl.hpp, MIT.
+    if (result.size > currentSize)
+        memset(static_cast<uint8_t*>(result.memory) + currentSize, 0, result.size - currentSize);
+    SetFlatDataBuffer(result.memory, currentSize, static_cast<uint32_t>(result.size));
+
+    // Delay freeing. The first upsize leaks the game's original buffer, same as Windows.
+    static Block lastBlock{nullptr, 0};
+    if (lastBlock.memory != nullptr)
+        freeFn(lastBlock);
+    lastBlock = Block{oldFlatDataBuffer, oldCapacity};
+#else
     Memory::GMPL_TDB_DataAllocator allocator;
 
     auto result = allocator.AllocAligned(aCapacity, 8);
@@ -414,6 +487,9 @@ RED4EXT_INLINE void RED4ext::TweakDB::UpsizeFlatDataBuffer(uint32_t aCapacity)
     auto currentSize = static_cast<uint32_t>(flatDataBufferEnd - flatDataBuffer);
     auto* oldFlatDataBuffer = reinterpret_cast<void*>(flatDataBuffer);
     memcpy(result.memory, oldFlatDataBuffer, currentSize);
+    // R25. Zero the new tail (see the macOS branch above).
+    if (result.size > currentSize)
+        memset(static_cast<uint8_t*>(result.memory) + currentSize, 0, result.size - currentSize);
     SetFlatDataBuffer(result.memory, currentSize, static_cast<uint32_t>(result.size));
 
     // Race condition when freeing old buffer
@@ -426,6 +502,7 @@ RED4EXT_INLINE void RED4ext::TweakDB::UpsizeFlatDataBuffer(uint32_t aCapacity)
     if (lastFlatDataBuffer != nullptr)
         allocator.Free(lastFlatDataBuffer);
     lastFlatDataBuffer = oldFlatDataBuffer;
+#endif
 }
 
 RED4EXT_INLINE const RED4ext::TweakDB::FlatValue* RED4ext::TweakDB::GetDefaultFlatValue(CName aTypeName)

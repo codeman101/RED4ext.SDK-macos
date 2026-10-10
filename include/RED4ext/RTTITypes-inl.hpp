@@ -371,7 +371,7 @@ RED4EXT_INLINE void RED4ext::CClass::InitializeProperties(ScriptInstance aInstan
 
 RED4EXT_INLINE void RED4ext::CClass::GetProperties(DynArray<CProperty*>& aProps)
 {
-    using func_t = CProperty* (*)(CClass*, DynArray<CProperty*>&);
+    using func_t = void (*)(CClass*, DynArray<CProperty*>&);
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CClass_GetProperties);
     func(this, aProps);
 }
@@ -538,9 +538,17 @@ RED4EXT_INLINE bool RED4ext::CEnum::ToString(const ScriptInstance aInstance, CSt
 
 RED4EXT_INLINE bool RED4ext::CEnum::FromString(ScriptInstance aInstance, const CString& aString) const
 {
+#if defined(__APPLE__)
+    // The game function takes a red::StringView {data, size} by value: two registers on Mac (x2, x3), a pointer to the pair on
+    // Windows. It is not a CString&. The string is not NUL terminated.
+    using func_t = bool (*)(const CEnum*, ScriptInstance, const char*, uint64_t);
+    static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CEnum_FromString);
+    return func(this, aInstance, aString.c_str(), aString.Length());
+#else
     using func_t = bool (*)(const CEnum*, ScriptInstance, const CString&);
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CEnum_FromString);
     return func(this, aInstance, aString);
+#endif
 }
 
 RED4EXT_INLINE RED4ext::CBitfield::CBitfield(CName aName, int8_t aActualSize, Flags aFlags)
@@ -658,7 +666,14 @@ RED4EXT_INLINE bool RED4ext::CBitfield::ToString(const ScriptInstance aInstance,
 
 RED4EXT_INLINE bool RED4ext::CBitfield::FromString(ScriptInstance aInstance, const CString& aString) const
 {
+#if defined(__APPLE__)
+    // Same StringView by value as CEnum::FromString.
+    using func_t = bool (*)(const CBitfield*, ScriptInstance, const char*, uint64_t);
+    static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CBitfield_FromString);
+    return func(this, aInstance, aString.c_str(), aString.Length());
+#else
     using func_t = bool (*)(const CBitfield*, ScriptInstance, const CString&);
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CBitfield_FromString);
     return func(this, aInstance, aString);
+#endif
 }

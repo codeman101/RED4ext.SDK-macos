@@ -84,12 +84,21 @@ RED4EXT_INLINE bool RED4ext::ISerializable::sub_70()
     return true;
 }
 
+#if defined(__APPLE__)
+RED4EXT_INLINE RED4ext::Handle<RED4ext::ISerializable> RED4ext::ISerializable::sub_78(int64_t a1, uint8_t a2, int64_t a3, int64_t a4)
+{
+    using func_t = Handle<ISerializable> (*)(ISerializable*, int64_t, uint8_t, int64_t, int64_t);
+    static UniversalRelocFunc<func_t> func(Detail::AddressHashes::ISerializable_sub_78);
+    return func(this, a1, a2, a3, a4);
+}
+#else
 RED4EXT_INLINE int64_t RED4ext::ISerializable::sub_78(int64_t a1, int64_t a2, uint8_t a3, int64_t a4, int64_t a5)
 {
     using func_t = int64_t (*)(ISerializable*, int64_t, int64_t, uint8_t, int64_t, int64_t);
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::ISerializable_sub_78);
     return func(this, a1, a2, a3, a4, a5);
 }
+#endif
 
 RED4EXT_INLINE bool RED4ext::ISerializable::sub_80()
 {
