@@ -35,9 +35,14 @@ enum class EntityStubStatus : uint8_t
 
 struct EntityStub
 {
-    // R17: taken from EntityStubToken, which the same spawner creates. Check against the game before a Mac mapping
-    // for DynamicEntitySystem relies on it.
-    using AllocatorType = Memory::GMPL_SpawnAllocator;
+#if defined(__APPLE__)
+    // macOS: no allocator type, so a UniquePtr<EntityStub> (or Memory::Delete) does not compile and nothing frees a stub through the
+    // SDK. The Mac game destroys a stub with its own destructor (0x101FD2C40) and frees it into PoolGMPL_PS, and the stub system
+    // keeps stubs by entity id (FindStub, the queue DeleteStub fills), so a stub goes back through IEntityStubSystem::DeleteStub.
+    // (R17 had GMPL_Spawn here, a guess; upstream #213 and the Mac binary say PoolGMPL_PS.)
+#else
+    using AllocatorType = Memory::GMPL_PSAllocator; // upstream #213
+#endif
 
     game::IPersistencySystem* persistencySystem;               // 00
     StaticArray<Handle<game::ComponentPS>, 2> componentStates; // 08
