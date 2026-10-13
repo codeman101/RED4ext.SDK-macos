@@ -4,8 +4,8 @@
   "uuid": "A6656ADC-FBE2-36A4-9B9D-B4A9DE645089",
   "stats": {
     "total": 681,
-    "resolved": 677,
-    "unresolved": 4,
+    "resolved": 676,
+    "unresolved": 5,
     "verified": 590
   },
   "Addresses": [
@@ -753,7 +753,7 @@
     },
     {
       "hash": "2508398574",
-      "offset": "1:0x12F080C"
+      "offset": "1:0x0"
     },
     {
       "hash": "2509382878",
