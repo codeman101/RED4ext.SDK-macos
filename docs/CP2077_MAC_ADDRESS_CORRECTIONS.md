@@ -119,8 +119,18 @@ Added to `ALLOW_ZERO` in `scripts/validate_addresses.py`:
 - `1518151849` `CBaseFunction_Handlers`: macOS keeps two native handler tables, one of 16-byte pointer-to-member entries for member
   functions (image RVA `0x900B798`) and one of 8-byte entries for static functions (`0x908B798`); the game picks one by the function's
   static flag. `CBaseFunction::GetHandler` indexes a single 8-byte array, so no one address fits it: this needs an SDK change, not a row.
-- `CommandListContext_Close`, `CommandListContext_AddPendingBarrier`, `CommandListContext_FlushPendingBarriers`: not found yet. The
-  current values are not them (`1:0xF040F8` is another function, and `1:0xF041BC` is inside it).
+- `CommandListContext_Close`, `CommandListContext_AddPendingBarrier`, `CommandListContext_FlushPendingBarriers`: not found, so left as
+  they are rather than guessed.
+  - The class exists on the Mac (`GpuApi::CommandListContext` appears in a template symbol), but the string Windows `Close` uses as an
+    anchor, `FinalFlushBarriers`, is not in the Mac binary, and neither are `FlushBarriers` or `PendingBarrier`. Resource barriers are a
+    D3D12 idea that Metal handles differently, so these functions may be reshaped or gone on the Mac.
+  - On Windows `FlushPendingBarriers` is 0x36 bytes: read the barrier count at `+0x534`, return if zero, pass the list at `+0x528` to a
+    command-list virtual, clear the count. 22 Mac functions read a word at `+0x534`; none has that size or shape. The three that clear
+    it are 0x884 bytes and larger (the flush may be inlined there), and the smallest that also uses `+0x528`, `0x1EDA124`, appends to a
+    list of 8-byte entries (`AddPendingBarrier` appends 0x20-byte barriers on Windows).
+  - The current values are not these functions either: `1:0xF040F8` (shared by `Close` and `AddPendingBarrier`) is a different
+    function, and `1:0xF041BC` is inside it.
+  - If they have no Metal equivalent, they belong in `ALLOW_ZERO`, like `g_DeviceData` and `Allocator_CreateResource`.
 - `15404457` `ResourceReference_Load`: the Windows row points at a string in `.rdata` (`GetPositionRangeCount`), so there is nothing
   to map.
 
