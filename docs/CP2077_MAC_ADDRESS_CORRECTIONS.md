@@ -128,8 +128,13 @@ Added to `ALLOW_ZERO` in `scripts/validate_addresses.py`:
     command-list virtual, clear the count. 22 Mac functions read a word at `+0x534`; none has that size or shape. The three that clear
     it are 0x884 bytes and larger (the flush may be inlined there), and the smallest that also uses `+0x528`, `0x1EDA124`, appends to a
     list of 8-byte entries (`AddPendingBarrier` appends 0x20-byte barriers on Windows).
-  - The current values are not these functions either: `1:0xF040F8` (shared by `Close` and `AddPendingBarrier`) is a different
-    function, and `1:0xF041BC` is inside it.
+  - The current values are not these functions either:
+    - `1:0xF040F8` is listed for both `Close` and `AddPendingBarrier`, and one address cannot be two different functions (the
+      validator's shared-address error). It also matches neither: it is a 0x2B4-byte function that starts by reading `[x0,#0x34]` and
+      comparing `[x0,#0x20]` with 4, and never touches the barrier list at `+0x528`/`+0x534`. Windows `Close` uses the
+      `FinalFlushBarriers` string and calls `FlushPendingBarriers`, and Windows `AddPendingBarrier` reads and writes `+0x528`/`+0x534`.
+    - `1:0xF041BC` (`FlushPendingBarriers`) is 0xC4 bytes into that same function, not a function start (the validator's other error),
+      so it cannot be called as a function.
   - If they have no Metal equivalent, they belong in `ALLOW_ZERO`, like `g_DeviceData` and `Allocator_CreateResource`.
 - `15404457` `ResourceReference_Load`: the Windows row points at a string in `.rdata` (`GetPositionRangeCount`), so there is nothing
   to map.
