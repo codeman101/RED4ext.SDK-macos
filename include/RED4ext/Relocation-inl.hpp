@@ -181,6 +181,13 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         { 3778157291, 0x21732DC },  // CBaseFunction_ExecuteNative. bool(CBaseFunction*, CStack*). Windows 0x20668A0.
         { 2399343890, 0x2198B40 },  // CClass_GetProperty. CProperty*(CClass*, CName). Windows 0x148388.
         { 1652956141, 0x2197928 },  // CClass_GetProperties. void(CClass*, DynArray<CProperty*>&). Windows 0x2519E4.
+        // IScriptable_DestructValueHolder, the one row ~IScriptable needs (the SDK destructor calls it). The comment near the top of this function says
+        // "in the Mac table below", but the row was not in it: once ~IScriptable is no longer a trap, the call would go to address 0 (Unknown hash).
+        // Same row as Codeware / ArchiveXL MacSdkRows.inc (R19, ADDRESS_CHECK.md: OK). Re-checked with tools/addr-match, `rx w 14934c` against `rx m 22384bc`:
+        // both return at once when the holder at +0x38 is null; otherwise they walk the class property list, take the properties with bit 21 of the dword at
+        // +0x28 set (Windows `bt rax,0x15`, Mac `tbz w8,#5` on the byte at +0x2a), destruct each through the property type's Destruct vslot (Windows 0x40,
+        // Mac 0x48), free the holder through the class allocator (GetAllocator vslot Windows 0xB8, Mac 0xC0; Free vslot 0x20 on both) and store 0 at +0x38.
+        { 55710513, 0x22384BC },    // IScriptable_DestructValueHolder. void(IScriptable*). Windows 0x14934C.
         // ---- Audioware rows (B3, branch mac-rs). Each Mac RVA is a function start whose body matches its Windows twin (tools/addr-match, `rx w` / `rx m`
         // and check-rows features: STRONG/OK for all but SetGlobalParameter and wwise_lookup, tiny bodies, hand-checked); the verdicts are in ports/audioware-B3-REPORT.md.
         // 0xC0DExxxx ids are Mac-only. gameCameraComponent::OverrideAudioListeners (0x519A1468) has no row: it is inlined into Activate and Deactivate. ----
