@@ -31,10 +31,10 @@ struct IType
     virtual bool Unserialize(BaseStream* aStream, void* aInstance, int64_t a3) const = 0; // 60
     virtual bool ToString(const void* aInstance, CString& aOut) const;                    // 68
 #ifdef __APPLE__
-    // macOS: the game's FromString takes the text by value as a (pointer, 32-bit length) pair, which arm64 passes in two
-    // registers (x2, x3). CEnum's FromString (0x21A3D4C, CEnum vtable 0x6FFC2B8 + 0x78) stores x2/x3 and reads the length as
-    // 32 bits at +8. A `const CString&` passes the CString's address in x2 and leaves x3 unset, so the game reads a garbage
-    // length. The CString overload below keeps existing call sites compiling.
+    // macOS: the game's FromString takes the text by value as a (pointer, 32-bit length) pair, which arm64 passes in
+    // two registers (x2, x3). CEnum's FromString (0x21A3D4C, CEnum vtable 0x6FFC2B8 + 0x78) stores x2/x3 and reads the
+    // length as 32 bits at +8. A `const CString&` passes the CString's address in x2 and leaves x3 unset, so the game
+    // reads a garbage length. The CString overload below keeps existing call sites compiling.
     struct FromStringText
     {
         const char* data;
