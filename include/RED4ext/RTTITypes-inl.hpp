@@ -10,6 +10,10 @@
 #include <RED4ext/Scripting/CProperty.hpp>
 #include <RED4ext/Scripting/Functions.hpp>
 
+#if defined(__APPLE__)
+#include <cxxabi.h>
+#endif
+
 RED4EXT_INLINE RED4ext::CBaseRTTIType::CBaseRTTIType()
     : unk8(0)
 {
@@ -246,6 +250,34 @@ RED4EXT_INLINE void RED4ext::CClass::Destruct(ScriptInstance aMemory) const
 {
     DestructCls(aMemory);
 }
+
+#if defined(__APPLE__)
+// Mac: the stand-ins for the five pure virtuals of CClass (see RTTITypes.hpp). Each aborts, as a call through the pure virtual slot did.
+RED4EXT_INLINE const bool RED4ext::CClass::IsEqual(const ScriptInstance aLhs, const ScriptInstance aRhs, uint32_t a3)
+{
+    __cxxabiv1::__cxa_pure_virtual();
+}
+
+RED4EXT_INLINE void RED4ext::CClass::Assign(ScriptInstance aLhs, const ScriptInstance aRhs) const
+{
+    __cxxabiv1::__cxa_pure_virtual();
+}
+
+RED4EXT_INLINE void RED4ext::CClass::ConstructCls(ScriptInstance aMemory) const
+{
+    __cxxabiv1::__cxa_pure_virtual();
+}
+
+RED4EXT_INLINE void RED4ext::CClass::DestructCls(ScriptInstance aMemory) const
+{
+    __cxxabiv1::__cxa_pure_virtual();
+}
+
+RED4EXT_INLINE void* RED4ext::CClass::AllocMemory() const
+{
+    __cxxabiv1::__cxa_pure_virtual();
+}
+#endif
 
 RED4EXT_INLINE bool RED4ext::CClass::Unserialize(BaseStream* aStream, ScriptInstance aInstance, int64_t a3) const
 {

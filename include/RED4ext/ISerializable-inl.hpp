@@ -8,12 +8,24 @@
 #include <RED4ext/RTTITypes.hpp>
 #include <RED4ext/Relocation.hpp>
 
+#if defined(__APPLE__)
+#include <cxxabi.h>
+#endif
+
 RED4EXT_INLINE RED4ext::ISerializable::ISerializable()
 {
     static UniversalRelocPtr<volatile int64_t> s_globalIDCounter{Detail::AddressHashes::ISerializable_Counter};
 
     unk28 = InterlockedIncrement64(s_globalIDCounter.GetAddr());
 }
+
+#if defined(__APPLE__)
+// Mac: the stand-in for the pure virtual (see ISerializable.hpp). Same behaviour as a call through the pure virtual slot.
+RED4EXT_INLINE RED4ext::CClass* RED4ext::ISerializable::GetNativeType()
+{
+    __cxxabiv1::__cxa_pure_virtual();
+}
+#endif
 
 RED4EXT_INLINE RED4ext::CClass* RED4ext::ISerializable::GetType()
 {

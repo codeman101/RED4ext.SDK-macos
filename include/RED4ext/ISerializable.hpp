@@ -27,7 +27,17 @@ struct ISerializable
 {
     ISerializable();
 
+#if defined(__APPLE__)
+    // Mac: not pure. Apple clang compiles the complete-object (D1) and deleting (D0) destructors of an ABSTRACT class to one `brk #1` each
+    // (clang CGClass.cpp, EmitDestructorBody: "For an abstract class, non-base destructors are never used ... emit them as functions
+    // containing a trap instruction"; MSVC has no such rule). red4ext-rs builds IScriptable objects with the SDK constructor, so the live
+    // vtable of every plugin-defined native class is this one, and the game releases an object through vtable slot 0x18 (D1): boot 1 of the
+    // Audioware port died on that brk. While GetNativeType was pure, ISerializable and IScriptable were abstract. The definition aborts like
+    // a pure virtual call (__cxa_pure_virtual), so a call behaves as it did before. Evidence: ports/audioware-B3-REPORT.md, "Fix after boot 1".
+    virtual CClass* GetNativeType();                                                    // 00
+#else
     virtual CClass* GetNativeType() = 0;                                                // 00
+#endif
     virtual CClass* GetType();                                                          // 08
     virtual Memory::IAllocator* GetAllocator();                                         // 10
     virtual ~ISerializable() = default;                                                 // 18

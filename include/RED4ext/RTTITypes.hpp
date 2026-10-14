@@ -126,9 +126,22 @@ struct CClass : CBaseRTTIType
     virtual void sub_C0();                                       // C0
     virtual uint32_t GetMaxAlignment() const;                    // C8
     virtual bool sub_D0() const;                                 // D0
+#if defined(__APPLE__)
+    // Mac: not pure, for the reason given at ISerializable::GetNativeType. red4ext-rs builds CClass objects with the SDK constructor
+    // (Class::new_native), copies this vtable and replaces slots 0x50, 0x58, 0xE0, 0xE8 and 0xF0 with its own functions, so the live
+    // vtable of every plugin-defined class has the SDK's CClass D1 and D0 in slots 0x00 and 0x08. They were `brk #1` while the class was
+    // abstract (five pure virtuals: IsEqual, Assign, ConstructCls, DestructCls, AllocMemory). Each stand-in below aborts like a call
+    // through the pure virtual slot did. The slot order is unchanged (IsEqual and Assign keep their CBaseRTTIType slots).
+    const bool IsEqual(const ScriptInstance aLhs, const ScriptInstance aRhs, uint32_t a3 = 0) override; // 48
+    void Assign(ScriptInstance aLhs, const ScriptInstance aRhs) const override;                          // 50
+    virtual void ConstructCls(ScriptInstance aMemory) const; // D8
+    virtual void DestructCls(ScriptInstance aMemory) const;  // E0
+    virtual void* AllocMemory() const;                       // E8
+#else
     virtual void ConstructCls(ScriptInstance aMemory) const = 0; // D8
     virtual void DestructCls(ScriptInstance aMemory) const = 0;  // E0
     virtual void* AllocMemory() const = 0;                       // E8
+#endif
 
     ScriptInstance CreateInstance(bool aZeroMemory = false) const;
 
