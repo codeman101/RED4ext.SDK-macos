@@ -184,28 +184,6 @@ struct DynArray
         size = 0;
     }
 
-    // Grows with value-initialised elements or shrinks and destroys the tail.
-    void Resize(uint32_t aNewSize)
-    {
-        if (aNewSize < size)
-        {
-            for (uint32_t i = aNewSize; i != size; ++i)
-            {
-                entries[i].~T();
-            }
-        }
-        else if (aNewSize > size)
-        {
-            Reserve(aNewSize);
-            for (uint32_t i = size; i != aNewSize; ++i)
-            {
-                new (&entries[i]) T();
-            }
-        }
-
-        size = aNewSize;
-    }
-
     void Reserve(uint32_t aCount)
     {
         if (capacity >= aCount)
@@ -299,15 +277,14 @@ struct DynArray
         return *(entries + size - 1);
     }
 
-    // Codeware's RedLib was written against the Windows SDK names.
-    [[nodiscard]] uint32_t Size() const
+    [[nodiscard]] T* Data() noexcept
     {
-        return size;
+        return entries;
     }
 
-    [[nodiscard]] bool IsEmpty() const
+    [[nodiscard]] const T* Data() const noexcept
     {
-        return size == 0;
+        return entries;
     }
 
     [[nodiscard]] uint32_t Capacity() const noexcept
@@ -315,14 +292,14 @@ struct DynArray
         return capacity;
     }
 
-    T* Data()
+    [[nodiscard]] uint32_t Size() const noexcept
     {
-        return entries;
+        return size;
     }
 
-    const T* Data() const
+    [[nodiscard]] bool IsEmpty() const noexcept
     {
-        return entries;
+        return size == 0;
     }
 
     T* entries;        // 00
