@@ -181,6 +181,37 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         { 3778157291, 0x21732DC },  // CBaseFunction_ExecuteNative. bool(CBaseFunction*, CStack*). Windows 0x20668A0.
         { 2399343890, 0x2198B40 },  // CClass_GetProperty. CProperty*(CClass*, CName). Windows 0x148388.
         { 1652956141, 0x2197928 },  // CClass_GetProperties. void(CClass*, DynArray<CProperty*>&). Windows 0x2519E4.
+        // ---- Audioware rows (B3, branch mac-rs). Each Mac RVA is a function start whose body matches its Windows twin (tools/addr-match, `rx w` / `rx m`
+        // and check-rows features: STRONG/OK for all but SetGlobalParameter and wwise_lookup, tiny bodies, hand-checked); the verdicts are in ports/audioware-B3-REPORT.md.
+        // 0xC0DExxxx ids are Mac-only. gameCameraComponent::OverrideAudioListeners (0x519A1468) has no row: it is inlined into Activate and Deactivate. ----
+        { 0x28F53A76, 0x3E9CD24 },  // audio::PlayDialogLine. bool(DialogLineEventData*, void*, EntityID, CName, bool, uint32_t*, CName*, float, CName). Windows 0x5339E0.
+        { 0xCDB11D0E, 0xA86010 },  // AudioSystem::Play. native handler. Windows 0x62AAD0.
+        { 0xD2781D1E, 0xA861D8 },  // AudioSystem::Stop. native handler. Windows 0x24C5EA4.
+        { 0x15081DEA, 0xA8976C },  // AudioSystem::Switch. native handler. Windows 0x103B78.
+        { 0x5E7D1BB0, 0xC9AE7C },  // Entity::QueueEvent. native handler. Windows 0x4EA45C.
+        { 0x80102488, 0x1F9157C },  // TimeDilatable::SetIndividualTimeDilation. native handler. Windows 0x246BB68.
+        { 0xDA20256B, 0x1F91868 },  // TimeDilatable::UnsetIndividualTimeDilation. native handler. Windows 0x147C8D4.
+        { 0xA1DC1F92, 0x3C00790 },  // TimeSystem::SetTimeDilation. native handler. Windows 0x8096D4.
+        { 0xF0652075, 0x3C00A54 },  // TimeSystem::UnsetTimeDilation. native handler. Windows 0x6C3E9C.
+        { 0x90231F41, 0x25D0CF8 },  // gameuiGameSystemUI::QueueEvent. native handler. Windows 0x62D454.
+        { 0x5BEB21A4, 0x47CAC28 },  // inkIGameController::QueueEvent. Windows has one function for this and inkLogicController::QueueEvent; the Mac has two, the next row is the second. native handler. Windows 0x8A7E88.
+        { 0xC87F2007, 0x47D35E0 },  // inkLogicController::QueueEvent. The second Mac function behind the Windows address of the previous row. native handler. Windows 0x8A7E88.
+        { 0xE9B92059, 0x49300D4 },  // inkMenuScenario::SwitchToScenario. native handler. Windows 0x9FBF78.
+        { 0x56A9218A, 0x4930374 },  // inkMenuScenario::QueueEvent. One Windows body serves QueueEvent and QueueBroadcastEvent; the Mac has a body for each, the next row is the second. native handler. Windows 0x130F7E8.
+        { 0xC0DEA001, 0x4930428 },  // inkMenuScenario::QueueBroadcastEvent. Mac-only id (no Windows hash of its own). Windows 0x130F7E8.
+        { 0xD4F11D73, 0x35494E8 },  // SoundComponent::OnStopDialogLine. void(SoundComponent*, StopDialogLine*). Windows 0x5341F8.
+        { 0x594613D5, 0xDE1D64 },  // SoundEngine::PostEvent. The first argument is a real this on the Mac, unused on Windows. uint32_t(SoundEngine*, CName, Sound*). Windows 0xA30218.
+        { 0xEF7F1A37, 0xDE1ED4 },  // SoundEngine::PostEvent_OneShot. uint32_t(SoundEngine*, OneShotSound*, SoundObject*). Windows 0xA2F80C.
+        { 0xA9AA1CA7, 0xDE2088 },  // SoundEngine::ExternalEvent. uint32_t(SoundEngine*, CName, ResRef*, Sound*). Windows 0xA2F548.
+        { 0xB03210CC, 0xDE22A8 },  // SoundEngine::SetSwitch. AKRESULT(SoundEngine*, CName, CName, SoundObjectId). Windows 0x9E8B78.
+        { 0xEB171218, 0xDE21A8 },  // SoundEngine::SetParameter. AKRESULT(SoundEngine*, CName, float, SoundObjectId). Windows 0x9E88E0.
+        { 0x02D61ABB, 0xDE2218 },  // SoundEngine::SetGlobalParameter. No engine argument. AKRESULT(CName, float, float, ESoundCurveType). Windows 0x9DA450.
+        { 0x3ECF1E9E, 0x3E34FD0 },  // AudioInternalEvent::ApplyAction. void(AudioInternalEvent*, EventApplicationInterface*, void*). Windows 0x4418B0.
+        { 0x55F51EAC, 0x1F040F0 },  // gameCameraComponent::Activate. native handler. Windows 0x24808D8.
+        { 0x9A531F75, 0x1F042B0 },  // gameCameraComponent::Deactivate. native handler. Windows 0x2480994.
+        { 0x3B1D13A1, 0x4295968 },  // MetadataManager::event_wwise_id (helper). uint32_t(MetadataManager*, CName). Windows 0xA30324.
+        { 0x6AA2209F, 0x4295A98 },  // wwise_lookup (helper). uint32_t(MetadataManager*, void* field, CName). Windows 0x33D3BC.
+        { 0xC0DEA002, 0x8DCC9E0 },  // SoundEngine_Instance (data). The cell that holds the SoundEngine*; Mac-only id (Windows reads .data 0x34389F0 by address). Windows 0x34389F0.
     };
 
     auto it = macOSAddressTable.find(aHash);
