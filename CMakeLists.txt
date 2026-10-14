@@ -74,6 +74,11 @@ if(RED4EXT_HEADER_ONLY)
 else()
   file(GLOB_RECURSE RED4EXT_HEADER_FILES "${RED4EXT_INCLUDE_DIR}/*.hpp")
   file(GLOB_RECURSE RED4EXT_SRC_FILES "${PROJECT_SOURCE_DIR}/src/*.cpp")
+  if(APPLE)
+    # Evidence: src/GpuApi/D3D12MemAlloc.cpp includes d3d12.h and GpuApi/DeviceData.hpp uses Microsoft::WRL (B1 report A.2, E1a);
+    # macOS plugins never use the D3D12 helpers, so the static lib leaves them out.
+    list(FILTER RED4EXT_SRC_FILES EXCLUDE REGEX "/src/GpuApi/")
+  endif()
 
   get_property(RED4EXT_USE_FOLDERS GLOBAL PROPERTY USE_FOLDERS)
   if(RED4EXT_USE_FOLDERS)

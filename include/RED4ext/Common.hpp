@@ -3,9 +3,11 @@
 #include <cstddef>
 #include <cstdint>
 
+// Evidence: upstream 2216befc2 added an unguarded Windows.h here; macOS has no Windows.h (B1 report E1b, "Windows.h file not found").
+// WinCompat.hpp pulls in Windows.h itself under _WIN32, so Windows still gets exactly one Windows.h include at this position.
+#if defined(_WIN32) || defined(_WIN64)
 #include <Windows.h>
-
-#if !defined(_WIN32) && !defined(_WIN64)
+#else
 #include <RED4ext/Detail/WinCompat.hpp>
 #endif
 

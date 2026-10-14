@@ -41,7 +41,8 @@ extern "C" uintptr_t tweakxl_class_vslot(uint32_t aByteOffset);
 #include <RED4ext/Common.hpp>
 #include <RED4ext/Detail/Memory.hpp>
 
-#include <Windows.h>
+// Evidence: the unguarded Windows.h that stood here (upstream 2216befc2) fails on macOS. On Windows it is redundant: Common.hpp, included
+// above, and the _WIN32 block at the top of this file both include Windows.h before any use in this file.
 
 #include <bit>
 #include <cstdarg>
@@ -97,8 +98,8 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
 
     // Local stand-ins that stay. These are not game RVAs. The async-id global
     // is unconfirmed. CString, DynArray, and CNamePool resolve to Mac RVAs below.
-    // Hashes still missing, not invented: CClass_InitializeProperties 2257327441,
-    // CClass_GetProperties 1652956141.
+    // Hashes still missing, not invented: CClass_InitializeProperties 2257327441
+    // (CClass_GetProperties 1652956141 has a row in the red4ext-rs block below).
     // Memory_Vault_Unk1 (0x19EC1367) stays unmapped.
     // ISerializable_Counter is the TweakXL-owned counter, not a game global.
     // IScriptable_DestructValueHolder returns when the holder at +0x38 is null.
@@ -170,6 +171,16 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         { 2920426135, 0x2173864 },  // CClassStaticFunction_ctor
         { 1613572595, 0x2173760 },  // CClassFunction_ctor (Mac pointer-to-member ABI)
         { 4201325776, 0x21739E8 },  // CGlobalFunction_ctor
+        // ---- red4ext-rs rows (branch mac-rs). Rows the table above lacks and red4ext-rs (or the SDK code it links) reaches. ----
+        // CGameEngine (hash 0x97F209D6). Data: the cell holding the CGameEngine*. Windows .data 0x342AC00 (win-addr.tsv); the twin pair
+        // AudioSystem::Play loads it the same way: Windows 0x62AB8A `mov rax,[0x342ac00]; [rax+0xa8]; [rcx+0x100]`, Mac 0xA86124
+        // `adrp/add 0x90dc3a0; ldr x8,[x8]; ldr x8,[x8,#0xa8]; ldr x0,[x8,#0x100]`.
+        { 2549221846, 0x90DC3A0 },
+        // The next four are the Codeware / ArchiveXL MacSdkRows.inc values, each checked there against the Windows body (R16a, R19).
+        { 1482886888, 0x2197FE4 },  // TTypedClass_IsEqual. bool(CClass*, lhs, rhs, uint32). Equals Mac CClass vtable slot 0x50. Windows 0x33A208.
+        { 3778157291, 0x21732DC },  // CBaseFunction_ExecuteNative. bool(CBaseFunction*, CStack*). Windows 0x20668A0.
+        { 2399343890, 0x2198B40 },  // CClass_GetProperty. CProperty*(CClass*, CName). Windows 0x148388.
+        { 1652956141, 0x2197928 },  // CClass_GetProperties. void(CClass*, DynArray<CProperty*>&). Windows 0x2519E4.
     };
 
     auto it = macOSAddressTable.find(aHash);
