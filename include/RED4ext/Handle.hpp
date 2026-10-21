@@ -70,6 +70,13 @@ public:
         }
     }
 
+    template<typename U>
+    requires std::is_base_of_v<U, T>
+    operator Handle<U>&() & noexcept
+    {
+        return *reinterpret_cast<Handle<U>*>(this);
+    }
+
     Handle& operator=(const Handle& aRhs) noexcept
     {
         Handle(aRhs).Swap(*this);
