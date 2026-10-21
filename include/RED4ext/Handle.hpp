@@ -64,18 +64,18 @@ public:
         BaseType::TryCopyConstructFromWeak(aOther);
     }
 
-    // Without these, direct-initializing Handle<Base> from Handle<Derived> (e.g. DynArray::EmplaceBack) is ambiguous on
-    // Clang: operator Handle<U>&() into the copy constructor, or operator T*() into explicit Handle(T*).
-    template<typename U, typename = std::enable_if_t<!std::is_same_v<U, T> && std::is_base_of_v<T, U>>>
+    template<typename U>
+    requires std::is_convertible_v<U*, T*>
     Handle(const Handle<U>& aOther) noexcept
-        : Handle(static_cast<const Handle<T>&>(aOther))
     {
+        BaseType::CopyConstructFrom(aOther);
     }
 
-    template<typename U, typename = std::enable_if_t<!std::is_same_v<U, T> && std::is_base_of_v<T, U>>>
+    template<typename U>
+    requires std::is_convertible_v<U*, T*>
     Handle(Handle<U>&& aOther) noexcept
-        : Handle(std::move(static_cast<Handle<T>&>(aOther)))
     {
+        BaseType::MoveConstructFrom(aOther);
     }
 
     ~Handle()
@@ -90,16 +90,9 @@ public:
     }
 
     template<typename U>
-    operator const Handle<U>&() const noexcept
+    requires std::is_convertible_v<T*, U*>
+    operator Handle<U>&() & noexcept
     {
-        static_assert(std::is_base_of_v<U, T>, "Cannot conver handle because target type is incompatible.");
-        return *reinterpret_cast<const Handle<U>*>(this);
-    }
-
-    template<typename U>
-    operator Handle<U>&() noexcept
-    {
-        static_assert(std::is_base_of_v<U, T>, "Cannot conver handle because target type is incompatible.");
         return *reinterpret_cast<Handle<U>*>(this);
     }
 
