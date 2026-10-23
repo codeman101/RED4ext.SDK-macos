@@ -25,12 +25,13 @@ struct HudSafezonesEditorGameController : game::ui::MenuGameController
     uint8_t unk_108[0x108 - (0xF0 + sizeof(rootWidget))];
     ink::CompoundWidgetReference flexWidget; // 108
 #else
-    ink::CompoundWidgetReference rootWidget; // F0
-    ink::CompoundWidgetReference flexWidget; // 108
-    uint8_t unk120[0x138 - 0x120]; // 120
+    ink::CompoundWidgetReference rootWidget; // 100
+    ink::CompoundWidgetReference flexWidget; // 118
+    uint8_t unk130[0x148 - 0x130]; // 130
+
 #endif
 };
-RED4EXT_ASSERT_SIZE(HudSafezonesEditorGameController, 0x138);
+RED4EXT_ASSERT_SIZE(HudSafezonesEditorGameController, 0x148);
 } // namespace game::ui
 using gameuiHudSafezonesEditorGameController = game::ui::HudSafezonesEditorGameController;
 } // namespace RED4ext

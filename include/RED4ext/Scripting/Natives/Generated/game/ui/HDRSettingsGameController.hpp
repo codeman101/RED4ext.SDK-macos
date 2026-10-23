@@ -31,14 +31,15 @@ struct HDRSettingsGameController : game::ui::MenuGameController
     uint8_t unk_120[0x120 - (0x108 + sizeof(callibrationScreenAtlas))];
     ink::WidgetReference callibrationScreenTarget; // 120
 #else
-    Ref<CBitmapTexture> callibrationScreen; // F0
-    RaRef<ink::TextureAtlas> callibrationScreenAtlas; // 108
-    uint8_t unk110[0x120 - 0x110]; // 110
-    ink::WidgetReference callibrationScreenTarget; // 120
-    uint8_t unk138[0x148 - 0x138]; // 138
+    Ref<CBitmapTexture> callibrationScreen; // 100
+    RaRef<ink::TextureAtlas> callibrationScreenAtlas; // 118
+    uint8_t unk120[0x130 - 0x120]; // 120
+    ink::WidgetReference callibrationScreenTarget; // 130
+    uint8_t unk148[0x158 - 0x148]; // 148
+
 #endif
 };
-RED4EXT_ASSERT_SIZE(HDRSettingsGameController, 0x148);
+RED4EXT_ASSERT_SIZE(HDRSettingsGameController, 0x158);
 } // namespace game::ui
 using gameuiHDRSettingsGameController = game::ui::HDRSettingsGameController;
 using HDRSettingsGameController = game::ui::HDRSettingsGameController;
