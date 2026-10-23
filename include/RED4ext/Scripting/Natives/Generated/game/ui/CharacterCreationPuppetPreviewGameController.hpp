@@ -24,22 +24,22 @@ struct CharacterCreationPuppetPreviewGameController : game::ui::PuppetPreviewGam
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_1B8[0x1B8 - ::RED4ext::Detail::DataSize<game::ui::PuppetPreviewGameController>];
-    CName maleSceneName; // 1B8
-    uint8_t unk_1C0[0x1C0 - (0x1B8 + sizeof(maleSceneName))];
-    CName femaleSceneName; // 1C0
-    uint8_t unk_1C8[0x1C8 - (0x1C0 + sizeof(femaleSceneName))];
-    NodeRef maleCamera01Ref; // 1C8
-    uint8_t unk_1D0[0x1D0 - (0x1C8 + sizeof(maleCamera01Ref))];
-    NodeRef femaleCamera01Ref; // 1D0
-    uint8_t unk_1D8[0x1D8 - (0x1D0 + sizeof(femaleCamera01Ref))];
-    ink::CompoundWidgetReference root; // 1D8
-    uint8_t unk_1F0[0x1F0 - (0x1D8 + sizeof(root))];
-    ink::ImageWidgetReference image; // 1F0
-    uint8_t unk_208[0x208 - (0x1F0 + sizeof(image))];
-    ink::WidgetLibraryReference animLib; // 208
-    uint8_t unk_218[0x218 - (0x208 + sizeof(animLib))];
-    CName animName; // 218
+    uint8_t unk_1E8[0x1E8 - ::RED4ext::Detail::DataSize<game::ui::PuppetPreviewGameController>];
+    CName maleSceneName; // 1E8
+    uint8_t unk_1F0[0x1F0 - (0x1E8 + sizeof(maleSceneName))];
+    CName femaleSceneName; // 1F0
+    uint8_t unk_1F8[0x1F8 - (0x1F0 + sizeof(femaleSceneName))];
+    NodeRef maleCamera01Ref; // 1F8
+    uint8_t unk_200[0x200 - (0x1F8 + sizeof(maleCamera01Ref))];
+    NodeRef femaleCamera01Ref; // 200
+    uint8_t unk_208[0x208 - (0x200 + sizeof(femaleCamera01Ref))];
+    ink::CompoundWidgetReference root; // 208
+    uint8_t unk_220[0x220 - (0x208 + sizeof(root))];
+    ink::ImageWidgetReference image; // 220
+    uint8_t unk_238[0x238 - (0x220 + sizeof(image))];
+    ink::WidgetLibraryReference animLib; // 238
+    uint8_t unk_248[0x248 - (0x238 + sizeof(animLib))];
+    CName animName; // 248
 #else
     CName maleSceneName; // 1E8
     CName femaleSceneName; // 1F0
@@ -50,8 +50,8 @@ struct CharacterCreationPuppetPreviewGameController : game::ui::PuppetPreviewGam
     ink::WidgetLibraryReference animLib; // 238
     CName animName; // 248
     uint8_t unk250[0x270 - 0x250]; // 250
-
 #endif
+
 };
 RED4EXT_ASSERT_SIZE(CharacterCreationPuppetPreviewGameController, 0x270);
 } // namespace game::ui

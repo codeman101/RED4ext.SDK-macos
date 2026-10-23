@@ -24,11 +24,25 @@ struct InventoryPuppetPreviewGameController : game::ui::PuppetPreviewGameControl
     static constexpr const char* NAME = "gameuiInventoryPuppetPreviewGameController";
     static constexpr const char* ALIAS = "inkInventoryPuppetPreviewGameController";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_1E8[0x1E8 - ::RED4ext::Detail::DataSize<game::ui::PuppetPreviewGameController>];
+    ink::ImageWidgetReference image; // 1E8
+    uint8_t unk_200[0x200 - (0x1E8 + sizeof(image))];
+    ink::WidgetLibraryReference animLib; // 200
+    uint8_t unk_210[0x210 - (0x200 + sizeof(animLib))];
+    CName animName; // 210
+    uint8_t unk_218[0x218 - (0x210 + sizeof(animName))];
+    WeakHandle<ink::Widget> animRoot; // 218
+    uint8_t unk_228[0x228 - (0x218 + sizeof(animRoot))];
+    Handle<ink::anim::Proxy> animProxy; // 228
+#else
     ink::ImageWidgetReference image; // 1E8
     ink::WidgetLibraryReference animLib; // 200
     CName animName; // 210
     WeakHandle<ink::Widget> animRoot; // 218
     Handle<ink::anim::Proxy> animProxy; // 228
+#endif
 };
 RED4EXT_ASSERT_SIZE(InventoryPuppetPreviewGameController, 0x238);
 } // namespace game::ui

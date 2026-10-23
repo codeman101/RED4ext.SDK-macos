@@ -23,9 +23,11 @@ struct __declspec(align(0x10)) ISkinTargetComponent : ent::IVisualComponent
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
     uint8_t unk_180[0x180 - ::RED4ext::Detail::DataSize<ent::IVisualComponent>];
-    Handle<ent::SkinningBinding> skinning; // 180
-    uint8_t unk_1D0[0x1D0 - (0x180 + sizeof(skinning))];
-    bool useSkinningLOD; // 1D0
+    float boundingBoxLocalBoundsOverride; // 180
+    uint8_t unk_188[0x188 - (0x180 + sizeof(boundingBoxLocalBoundsOverride))];
+    Handle<ent::SkinningBinding> skinning; // 188
+    uint8_t unk_1D8[0x1D8 - (0x188 + sizeof(skinning))];
+    bool useSkinningLOD; // 1D8
 #else
     uint8_t unk140[0x180 - 0x140]; // 140
     float boundingBoxLocalBoundsOverride; // 180

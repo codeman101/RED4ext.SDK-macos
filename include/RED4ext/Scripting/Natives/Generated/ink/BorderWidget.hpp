@@ -17,8 +17,14 @@ struct __declspec(align(0x10)) BorderWidget : ink::LeafWidget
     static constexpr const char* NAME = "inkBorderWidget";
     static constexpr const char* ALIAS = "inkBorder";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_200[0x200 - ::RED4ext::Detail::DataSize<ink::LeafWidget>];
+    float thickness; // 200
+#else
     float thickness; // 210
     uint8_t unk214[0x220 - 0x214]; // 214
+#endif
 };
 RED4EXT_ASSERT_SIZE(BorderWidget, 0x220);
 } // namespace ink

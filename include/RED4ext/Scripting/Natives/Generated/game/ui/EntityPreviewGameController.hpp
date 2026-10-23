@@ -22,14 +22,14 @@ struct EntityPreviewGameController : game::ui::MenuGameController
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_148[0x148 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
-    RaRef<ent::EntityTemplate> entityToPreview; // 148
+    uint8_t unk_158[0x158 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    RaRef<ent::EntityTemplate> entityToPreview; // 158
 #else
     uint8_t unk100[0x158 - 0x100]; // 100
     RaRef<ent::EntityTemplate> entityToPreview; // 158
     uint8_t unk160[0x170 - 0x160]; // 160
-
 #endif
+
 };
 RED4EXT_ASSERT_SIZE(EntityPreviewGameController, 0x170);
 } // namespace game::ui

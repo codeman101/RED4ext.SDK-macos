@@ -25,18 +25,18 @@ struct __declspec(align(0x10)) SkinnedClothComponent : ent::ISkinTargetComponent
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_1D8[0x1D8 - ::RED4ext::Detail::DataSize<ent::ISkinTargetComponent>];
-    RaRef<CMesh> graphicsMesh; // 1D8
-    uint8_t unk_1E0[0x1E0 - (0x1D8 + sizeof(graphicsMesh))];
-    RaRef<CMesh> physicalMesh; // 1E0
-    uint8_t unk_1E8[0x1E8 - (0x1E0 + sizeof(physicalMesh))];
-    ent::MeshComponentLODMode LODMode; // 1E8
-    uint8_t unk_1F0[0x1F0 - (0x1E8 + sizeof(LODMode))];
-    CName meshAppearance; // 1F0
-    uint8_t unk_1F8[0x1F8 - (0x1F0 + sizeof(meshAppearance))];
-    uint64_t chunkMask; // 1F8
-    uint8_t unk_210[0x210 - (0x1F8 + sizeof(chunkMask))];
-    mesh::CookedClothMeshTopologyData compiledTopologyData; // 210
+    uint8_t unk_1E0[0x1E0 - ::RED4ext::Detail::DataSize<ent::ISkinTargetComponent>];
+    RaRef<CMesh> graphicsMesh; // 1E0
+    uint8_t unk_1E8[0x1E8 - (0x1E0 + sizeof(graphicsMesh))];
+    RaRef<CMesh> physicalMesh; // 1E8
+    uint8_t unk_1F0[0x1F0 - (0x1E8 + sizeof(physicalMesh))];
+    ent::MeshComponentLODMode LODMode; // 1F0
+    uint8_t unk_1F8[0x1F8 - (0x1F0 + sizeof(LODMode))];
+    CName meshAppearance; // 1F8
+    uint8_t unk_200[0x200 - (0x1F8 + sizeof(meshAppearance))];
+    uint64_t chunkMask; // 200
+    uint8_t unk_218[0x218 - (0x200 + sizeof(chunkMask))];
+    mesh::CookedClothMeshTopologyData compiledTopologyData; // 218
 #else
     RaRef<CMesh> graphicsMesh; // 1E0
     RaRef<CMesh> physicalMesh; // 1E8

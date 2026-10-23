@@ -64,14 +64,14 @@ struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsCon
     ink::CompoundWidgetReference mappinOutlinesContainer; // 568
     uint8_t unk_580[0x580 - (0x568 + sizeof(mappinOutlinesContainer))];
     ink::CompoundWidgetReference groupOutlinesContainer; // 580
-    uint8_t unk_5D8[0x5D8 - (0x580 + sizeof(groupOutlinesContainer))];
-    game::data::District hoveredDistrict; // 5D8
-    uint8_t unk_5DC[0x5DC - (0x5D8 + sizeof(hoveredDistrict))];
-    game::data::District hoveredSubDistrict; // 5DC
-    uint8_t unk_5E0[0x5E0 - (0x5DC + sizeof(hoveredSubDistrict))];
-    game::data::District selectedDistrict; // 5E0
-    uint8_t unk_5EC[0x5EC - (0x5E0 + sizeof(selectedDistrict))];
-    game::ui::EWorldMapDistrictView districtView; // 5EC
+    uint8_t unk_5F0[0x5F0 - (0x580 + sizeof(groupOutlinesContainer))];
+    game::data::District hoveredDistrict; // 5F0
+    uint8_t unk_5F4[0x5F4 - (0x5F0 + sizeof(hoveredDistrict))];
+    game::data::District hoveredSubDistrict; // 5F4
+    uint8_t unk_5F8[0x5F8 - (0x5F4 + sizeof(hoveredSubDistrict))];
+    game::data::District selectedDistrict; // 5F8
+    uint8_t unk_604[0x604 - (0x5F8 + sizeof(selectedDistrict))];
+    game::ui::EWorldMapDistrictView districtView; // 604
 #else
     uint8_t unk340[0x368 - 0x340]; // 340
     WeakHandle<game::ui::BaseWorldMapMappinController> selectedMappin; // 368

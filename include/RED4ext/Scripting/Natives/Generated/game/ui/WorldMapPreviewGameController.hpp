@@ -24,22 +24,22 @@ struct WorldMapPreviewGameController : game::ui::MenuGameController
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_1B8[0x1B8 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
-    RaRef<ent::EntityTemplate> viewTemplate; // 1B8
-    uint8_t unk_1C0[0x1C0 - (0x1B8 + sizeof(viewTemplate))];
-    Ref<world::EnvironmentAreaParameters> viewEnvironmentDefinition; // 1C0
-    uint8_t unk_1D8[0x1D8 - (0x1C0 + sizeof(viewEnvironmentDefinition))];
-    RaRef<ent::EntityTemplate> cursorTemplate; // 1D8
-    uint8_t unk_1E0[0x1E0 - (0x1D8 + sizeof(cursorTemplate))];
-    ink::ImageWidgetReference canvas; // 1E0
+    uint8_t unk_1C8[0x1C8 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    RaRef<ent::EntityTemplate> viewTemplate; // 1C8
+    uint8_t unk_1D0[0x1D0 - (0x1C8 + sizeof(viewTemplate))];
+    Ref<world::EnvironmentAreaParameters> viewEnvironmentDefinition; // 1D0
+    uint8_t unk_1E8[0x1E8 - (0x1D0 + sizeof(viewEnvironmentDefinition))];
+    RaRef<ent::EntityTemplate> cursorTemplate; // 1E8
+    uint8_t unk_1F0[0x1F0 - (0x1E8 + sizeof(cursorTemplate))];
+    ink::ImageWidgetReference canvas; // 1F0
 #else
     uint8_t unk100[0x1C8 - 0x100]; // 100
     RaRef<ent::EntityTemplate> viewTemplate; // 1C8
     Ref<world::EnvironmentAreaParameters> viewEnvironmentDefinition; // 1D0
     RaRef<ent::EntityTemplate> cursorTemplate; // 1E8
     ink::ImageWidgetReference canvas; // 1F0
-
 #endif
+
 };
 RED4EXT_ASSERT_SIZE(WorldMapPreviewGameController, 0x208);
 } // namespace game::ui

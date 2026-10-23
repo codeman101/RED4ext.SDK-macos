@@ -20,16 +20,16 @@ struct HudSafezonesEditorGameController : game::ui::MenuGameController
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_F0[0xF0 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
-    ink::CompoundWidgetReference rootWidget; // F0
-    uint8_t unk_108[0x108 - (0xF0 + sizeof(rootWidget))];
-    ink::CompoundWidgetReference flexWidget; // 108
+    uint8_t unk_100[0x100 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    ink::CompoundWidgetReference rootWidget; // 100
+    uint8_t unk_118[0x118 - (0x100 + sizeof(rootWidget))];
+    ink::CompoundWidgetReference flexWidget; // 118
 #else
     ink::CompoundWidgetReference rootWidget; // 100
     ink::CompoundWidgetReference flexWidget; // 118
     uint8_t unk130[0x148 - 0x130]; // 130
-
 #endif
+
 };
 RED4EXT_ASSERT_SIZE(HudSafezonesEditorGameController, 0x148);
 } // namespace game::ui

@@ -23,16 +23,16 @@ struct PhotoModeMenuController : game::ui::MenuGameController
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_1D0[0x1D0 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
-    game::ui::SetPhotoModeKeyEnabledCallback SetAttributeOptionEnabled; // 1D0
-    uint8_t unk_208[0x208 - (0x1D0 + sizeof(SetAttributeOptionEnabled))];
-    game::ui::SetPhotoModeKeyEnabledCallback SetCategoryEnabled; // 208
-    uint8_t unk_240[0x240 - (0x208 + sizeof(SetCategoryEnabled))];
-    game::ui::StickerImageCallback SetStickerImage; // 240
-    uint8_t unk_278[0x278 - (0x240 + sizeof(SetStickerImage))];
-    game::ui::NpcImageCallback SetNpcImage; // 278
-    uint8_t unk_2B0[0x2B0 - (0x278 + sizeof(SetNpcImage))];
-    game::ui::ChangeAspectRatioCallback ChangeAspectRatio; // 2B0
+    uint8_t unk_1E0[0x1E0 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
+    game::ui::SetPhotoModeKeyEnabledCallback SetAttributeOptionEnabled; // 1E0
+    uint8_t unk_218[0x218 - (0x1E0 + sizeof(SetAttributeOptionEnabled))];
+    game::ui::SetPhotoModeKeyEnabledCallback SetCategoryEnabled; // 218
+    uint8_t unk_250[0x250 - (0x218 + sizeof(SetCategoryEnabled))];
+    game::ui::StickerImageCallback SetStickerImage; // 250
+    uint8_t unk_288[0x288 - (0x250 + sizeof(SetStickerImage))];
+    game::ui::NpcImageCallback SetNpcImage; // 288
+    uint8_t unk_2C0[0x2C0 - (0x288 + sizeof(SetNpcImage))];
+    game::ui::ChangeAspectRatioCallback ChangeAspectRatio; // 2C0
 #else
     uint8_t unk100[0x2C0 - 0x100]; // 100
     game::ui::SetPhotoModeKeyEnabledCallback SetAttributeOptionEnabled; // 2C0
@@ -41,8 +41,8 @@ struct PhotoModeMenuController : game::ui::MenuGameController
     game::ui::NpcImageCallback SetNpcImage; // 368
     game::ui::ChangeAspectRatioCallback ChangeAspectRatio; // 3A0
     uint8_t unk3D8[0x410 - 0x3D8]; // 3D8
-
 #endif
+
 };
 RED4EXT_ASSERT_SIZE(PhotoModeMenuController, 0x410);
 } // namespace game::ui

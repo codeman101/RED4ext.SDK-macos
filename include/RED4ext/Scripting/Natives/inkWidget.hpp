@@ -57,7 +57,11 @@ struct Widget : IScriptable
     bool isInteractive;                                           // 1FB
     bool affectsLayoutWhenHidden;                                 // 1FC
     uint8_t flags;                                                // 1FD
+#if defined(__APPLE__)
+    uint8_t unk1FE[0x200 - 0x1FE]; // 1FE
+#else
     uint8_t unk1FE[0x210 - 0x1FE];                                // 1FE
+#endif // the game reuses this tail padding (see Detail::DataSize)
 };
 // Game 2.5 (3.0.88.46235): size 0x200 -> 0x210 (registration 0xFE884E). The constructor (2.31 0x4FCE74, 2.5
 // 0x1C3390) stores the same values up to 0x1FD in both builds: 0x1C356C `mov qword ptr [rbx+0x1F0], 0x3f800000`

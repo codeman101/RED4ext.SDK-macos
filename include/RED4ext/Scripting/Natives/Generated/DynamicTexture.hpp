@@ -27,14 +27,16 @@ struct DynamicTexture : ITexture
     uint32_t height; // 40
     uint8_t unk_44[0x44 - (0x40 + sizeof(height))];
     bool scaleToViewport; // 44
-    uint8_t unk_50[0x50 - (0x44 + sizeof(scaleToViewport))];
-    DynamicTextureDataFormat dataFormat; // 50
-    uint8_t unk_51[0x51 - (0x50 + sizeof(dataFormat))];
-    bool mipChain; // 51
-    uint8_t unk_52[0x52 - (0x51 + sizeof(mipChain))];
-    uint8_t samplesCount; // 52
-    uint8_t unk_80[0x80 - (0x52 + sizeof(samplesCount))];
-    Handle<IDynamicTextureGenerator> generator; // 80
+    uint8_t unk_48[0x48 - (0x44 + sizeof(scaleToViewport))];
+    float viewportScale; // 48
+    uint8_t unk_54[0x54 - (0x48 + sizeof(viewportScale))];
+    DynamicTextureDataFormat dataFormat; // 54
+    uint8_t unk_55[0x55 - (0x54 + sizeof(dataFormat))];
+    bool mipChain; // 55
+    uint8_t unk_56[0x56 - (0x55 + sizeof(mipChain))];
+    uint8_t samplesCount; // 56
+    uint8_t unk_88[0x88 - (0x56 + sizeof(samplesCount))];
+    Handle<IDynamicTextureGenerator> generator; // 88
 #else
     uint32_t width; // 40
     uint32_t height; // 44

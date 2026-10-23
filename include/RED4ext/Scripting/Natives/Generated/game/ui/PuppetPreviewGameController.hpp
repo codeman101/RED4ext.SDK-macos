@@ -20,14 +20,14 @@ struct PuppetPreviewGameController : game::ui::PreviewGameController
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_128[0x128 - ::RED4ext::Detail::DataSize<game::ui::PreviewGameController>];
-    game::ui::PuppetPreviewCameraController cameraController; // 128
+    uint8_t unk_138[0x138 - ::RED4ext::Detail::DataSize<game::ui::PreviewGameController>];
+    game::ui::PuppetPreviewCameraController cameraController; // 138
 #else
     uint8_t unk128[0x138 - 0x128]; // 128
     game::ui::PuppetPreviewCameraController cameraController; // 138
     uint8_t unk1C8[0x1E8 - 0x1C8]; // 1C8
-
 #endif
+
 };
 RED4EXT_ASSERT_SIZE(PuppetPreviewGameController, 0x1E8);
 } // namespace game::ui

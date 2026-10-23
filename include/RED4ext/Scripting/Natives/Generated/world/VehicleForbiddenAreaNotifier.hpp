@@ -35,11 +35,13 @@ struct VehicleForbiddenAreaNotifier : world::ITriggerAreaNotifer
     uint8_t unk_F4[0xF4 - (0xF0 + sizeof(innerAreaSpeedLimit))];
     float areaSpeedLimit; // F4
     uint8_t unk_F8[0xF8 - (0xF4 + sizeof(areaSpeedLimit))];
-    bool enableNullArea; // F8
-    uint8_t unk_F9[0xF9 - (0xF8 + sizeof(enableNullArea))];
-    bool dismount; // F9
-    uint8_t unk_FA[0xFA - (0xF9 + sizeof(dismount))];
-    bool enableSummoning; // FA
+    bool speedLimitAppliedWhenEntityIsPassenger; // F8
+    uint8_t unk_F9[0xF9 - (0xF8 + sizeof(speedLimitAppliedWhenEntityIsPassenger))];
+    bool enableNullArea; // F9
+    uint8_t unk_FA[0xFA - (0xF9 + sizeof(enableNullArea))];
+    bool dismount; // FA
+    uint8_t unk_FB[0xFB - (0xFA + sizeof(dismount))];
+    bool enableSummoning; // FB
 #else
     uint8_t unkB8[0xC8 - 0xB8]; // B8
     bool innerAreaBoundToOuterArea; // C8

@@ -20,11 +20,21 @@ struct __declspec(align(0x10)) GridWidget : ink::CompoundWidget
     static constexpr const char* NAME = "inkGridWidget";
     static constexpr const char* ALIAS = "inkGrid";
 
+#if defined(__APPLE__)
+// mac-layout (generated from the reflection dump)
+    uint8_t unk_226[0x226 - ::RED4ext::Detail::DataSize<ink::CompoundWidget>];
+    ink::EOrientation orientation; // 226
+    uint8_t unk_228[0x228 - (0x226 + sizeof(orientation))];
+    ink::Margin childPadding; // 228
+    uint8_t unk_238[0x238 - (0x228 + sizeof(childPadding))];
+    Vector2 childSizeStep; // 238
+#else
     ink::EOrientation orientation; // 240
     uint8_t unk241[0x244 - 0x241]; // 241
     ink::Margin childPadding; // 244
     Vector2 childSizeStep; // 254
     uint8_t unk25C[0x290 - 0x25C]; // 25C
+#endif
 
 };
 RED4EXT_ASSERT_SIZE(GridWidget, 0x290);

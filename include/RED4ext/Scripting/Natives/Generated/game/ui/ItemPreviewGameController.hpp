@@ -21,17 +21,17 @@ struct __declspec(align(0x10)) ItemPreviewGameController : game::ui::PreviewGame
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_158[0x158 - ::RED4ext::Detail::DataSize<game::ui::PreviewGameController>];
-    ink::WidgetReference root; // 158
-    uint8_t unk_170[0x170 - (0x158 + sizeof(root))];
-    ink::ImageWidgetReference image; // 170
+    uint8_t unk_168[0x168 - ::RED4ext::Detail::DataSize<game::ui::PreviewGameController>];
+    ink::WidgetReference root; // 168
+    uint8_t unk_180[0x180 - (0x168 + sizeof(root))];
+    ink::ImageWidgetReference image; // 180
 #else
     uint8_t unk128[0x168 - 0x128]; // 128
     ink::WidgetReference root; // 168
     ink::ImageWidgetReference image; // 180
     uint8_t unk198[0x1D0 - 0x198]; // 198
-
 #endif
+
 };
 RED4EXT_ASSERT_SIZE(ItemPreviewGameController, 0x1D0);
 } // namespace game::ui

@@ -39,10 +39,12 @@ struct CallContact_NodeType : quest::IPhoneManagerNodeType
     uint8_t unk_68[0x68 - (0x60 + sizeof(prefabNodeRef))];
     bool applyPhoneRestriction; // 68
     uint8_t unk_69[0x69 - (0x68 + sizeof(applyPhoneRestriction))];
-    bool isRejectable; // 69
-    uint8_t unk_6A[0x6A - (0x69 + sizeof(isRejectable))];
-    bool showAvatar; // 6A
-    uint8_t unk_6C[0x6C - (0x6A + sizeof(showAvatar))];
+    bool blockSkipByLine; // 69
+    uint8_t unk_6A[0x6A - (0x69 + sizeof(blockSkipByLine))];
+    bool isRejectable; // 6A
+    uint8_t unk_6B[0x6B - (0x6A + sizeof(isRejectable))];
+    bool showAvatar; // 6B
+    uint8_t unk_6C[0x6C - (0x6B + sizeof(showAvatar))];
     quest::PhoneCallVisuals visuals; // 6C
 #else
     Handle<game::JournalPath> caller; // 38

@@ -44,28 +44,34 @@ struct __declspec(align(0x10)) RenderToTextureCameraComponent : ent::BaseCameraC
     uint32_t resolutionWidth; // 250
     uint8_t unk_254[0x254 - (0x250 + sizeof(resolutionWidth))];
     uint32_t resolutionHeight; // 254
-    uint8_t unk_258[0x258 - (0x254 + sizeof(resolutionHeight))];
-    CName virtualCameraName; // 258
-    uint8_t unk_260[0x260 - (0x258 + sizeof(virtualCameraName))];
-    Ref<world::EnvironmentAreaParameters> env; // 260
-    uint8_t unk_278[0x278 - (0x260 + sizeof(env))];
-    WorldRenderAreaSettings params; // 278
-    uint8_t unk_288[0x288 - (0x278 + sizeof(params))];
-    ent::RenderToTextureMode renderingMode; // 288
-    uint8_t unk_9D4[0x9D4 - (0x288 + sizeof(renderingMode))];
-    float streamingDistance; // 9D4
-    uint8_t unk_9D8[0x9D8 - (0x9D4 + sizeof(streamingDistance))];
-    float aspectRatio; // 9D8
-    uint8_t unk_9DC[0x9DC - (0x9D8 + sizeof(aspectRatio))];
-    Color backgroundColor; // 9DC
-    uint8_t unk_9E0[0x9E0 - (0x9DC + sizeof(backgroundColor))];
-    float depthCutDistance; // 9E0
-    uint8_t unk_9E4[0x9E4 - (0x9E0 + sizeof(depthCutDistance))];
-    RenderSceneLayer renderSceneLayer; // 9E4
-    uint8_t unk_9E5[0x9E5 - (0x9E4 + sizeof(renderSceneLayer))];
-    bool overrideBackgroundColor; // 9E5
-    uint8_t unk_9E6[0x9E6 - (0x9E5 + sizeof(overrideBackgroundColor))];
-    ent::RenderToTextureFeatures features; // 9E6
+    uint8_t unk_268[0x268 - (0x254 + sizeof(resolutionHeight))];
+    CName virtualCameraName; // 268
+    uint8_t unk_270[0x270 - (0x268 + sizeof(virtualCameraName))];
+    Ref<world::EnvironmentAreaParameters> env; // 270
+    uint8_t unk_288[0x288 - (0x270 + sizeof(env))];
+    WorldRenderAreaSettings params; // 288
+    uint8_t unk_298[0x298 - (0x288 + sizeof(params))];
+    ent::RenderToTextureMode renderingMode; // 298
+    uint8_t unk_29C[0x29C - (0x298 + sizeof(renderingMode))];
+    ECameraRenderingQuality renderingQuality; // 29C
+    uint8_t unk_9E4[0x9E4 - (0x29C + sizeof(renderingQuality))];
+    float streamingDistance; // 9E4
+    uint8_t unk_9E8[0x9E8 - (0x9E4 + sizeof(streamingDistance))];
+    float aspectRatio; // 9E8
+    uint8_t unk_9EC[0x9EC - (0x9E8 + sizeof(aspectRatio))];
+    Color backgroundColor; // 9EC
+    uint8_t unk_9F0[0x9F0 - (0x9EC + sizeof(backgroundColor))];
+    float depthCutDistance; // 9F0
+    uint8_t unk_9F4[0x9F4 - (0x9F0 + sizeof(depthCutDistance))];
+    RenderSceneLayer renderSceneLayer; // 9F4
+    uint8_t unk_9F5[0x9F5 - (0x9F4 + sizeof(renderSceneLayer))];
+    bool overrideBackgroundColor; // 9F5
+    uint8_t unk_9F8[0x9F8 - (0x9F5 + sizeof(overrideBackgroundColor))];
+    uint32_t renderFrequency; // 9F8
+    uint8_t unk_9FC[0x9FC - (0x9F8 + sizeof(renderFrequency))];
+    uint32_t renderPhase; // 9FC
+    uint8_t unk_A01[0xA01 - (0x9FC + sizeof(renderPhase))];
+    ent::RenderToTextureFeatures features; // A01
 #else
     RaRef<DynamicTexture> dynamicTextureRes; // 1E0
     uint8_t unk1E8[0x1F8 - 0x1E8]; // 1E8
