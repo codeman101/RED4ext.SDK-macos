@@ -130,34 +130,37 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
     // atexit handler unloads the plugins, and every SDK-relocated call made from Unload (a SharedPtr or Handle release, for example) then
     // looked a hash up in a map whose bucket array was already freed (r27 quit crash: ~SharedPtr -> Resolve(Handle_DecWeakRef), fault at 8 * (hash % 97)).
     static const std::unordered_map<uint32_t, uintptr_t>& macOSAddressTable = *new std::unordered_map<uint32_t, uintptr_t>{
-        { 240386859, 0x31E18 },       // Main
-        { 1247874916, 0x2188E8C },    // CRTTISystem_Get
-        { 3062572522, 0x35F1BAC },    // TweakDB_Init
-        { 3602585178, 0x2B75570 },    // TweakDB_Load
-        { 3512345737, 0x2B7CC9C },    // TweakDB_TryLoad
-        { 838931066, 0x26B8DB8 },     // TweakDB_CreateRecord
-        { 914361828, 0x2B73C7C },     // TweakDB_Get
-        { 3357477547, 0x2CDB8 },      // CString_ctor_str
-        { 2065762423, 0x2940C },      // CString_ctor_span
-        { 3904113489, 0x2AACC },      // CString_copy. R25: the copy ASSIGN (Windows twin 0x2503FC), was the copy constructor 0x2B110
-        { 1409615660, 0x29228 },      // CString_dtor
-        { 2057311186, 0x286E8 },      // DynArray_Realloc
-        { 1759447004, 0x3452D7C },    // CNamePool_Get
-        { 10488987, 0x3452DDC },      // CNamePool_AddCstr
-        { 3649309656, 0x3452DA0 },    // CNamePool_AddPair
+        { 240386859, 0x323A0 },       // Main
+        { 1247874916, 0x10B3CAC },    // CRTTISystem_Get
+        { 3062572522, 0x1EF64C8 },    // TweakDB_Init
+        { 3602585178, 0x37CE05C },    // TweakDB_Load
+        { 3512345737, 0x37D60CC },    // TweakDB_TryLoad
+        { 838931066, 0x3309CC4 },     // TweakDB_CreateRecord
+        { 914361828, 0x37CC900 },     // TweakDB_Get
+        { 3357477547, 0x2CCAC },      // CString_ctor_str
+        { 2065762423, 0x2933C },      // CString_ctor_span
+        { 3904113489, 0x2AA74 },      // CString_copy. R25: the copy ASSIGN (Windows twin 0x2503FC), was the copy constructor 0x2B110
+        { 1409615660, 0x2914C },      // CString_dtor
+        { 2057311186, 0x28674 },      // DynArray_Realloc
+        { 1759447004, 0x4E38940 },    // CNamePool_Get
+        { 10488987, 0x4E389D0 },      // CNamePool_AddCstr
+        { 3649309656, 0x4E38978 },    // CNamePool_AddPair
         // Handle_DecWeakRef (hash: 859509764). void(SharedPtrBase*). Identical copy at 0x914668.
-        { 859509764, 0x21048C4 },
+        { 859509764, 0x1025DC8 },
         // ResourceDepot (hash: 1704595399). Global ResourceDepot* (data, not code). Accessor 0x21C6820.
-        { 1704595399, 0x7D6C538 },
-        { 1518341917, 0x2197AAC },  // CClass_CreateInstance (rtti::ClassType::CreateObject)
-        { 404169501,  0x2173120 },  // CBaseFunction_InternalExecute
-        { 882511585,  0x6FFAEA0 },  // CStack_vtbl (data: vptr value, slot 0)
-        { 3791200470, 0x2172BF4 },  // CBaseFunction_ExecuteScripted (Gate 5 path)
-        { 3121353053, 0x2104788 },  // Handle_ctor (Gate 5 path)
-        { 961751128,  0x908B798 },  // OpcodeHandlers (data: handler table; Gate 5 path)
-        { 2920426135, 0x2173864 },  // CClassStaticFunction_ctor
-        { 1613572595, 0x2173760 },  // CClassFunction_ctor (Mac pointer-to-member ABI)
-        { 4201325776, 0x21739E8 },  // CGlobalFunction_ctor
+        { 1704595399, 0x805A7D8 },
+        { 1518341917, 0x10C36A0 },  // CClass_CreateInstance (rtti::ClassType::CreateObject)
+        { 404169501,  0x1099FBC },  // CBaseFunction_InternalExecute
+        { 882511585,  0x78300D8 },  // CStack_vtbl (data: vptr value, slot 0)
+        { 3791200470, 0x1098FC0 },  // CBaseFunction_ExecuteScripted (Gate 5 path)
+        { 3121353053, 0x1025C8C },  // Handle_ctor (Gate 5 path)
+        { 961751128,  0x9A5C940 },  // OpcodeHandlers (data: handler table; Gate 5 path)
+        { 2920426135, 0x109B974 },  // CClassStaticFunction_ctor
+        { 1613572595, 0x109B8A4 },  // CClassFunction_ctor (Mac pointer-to-member ABI)
+        { 4201325776, 0x109BAA8 },  // CGlobalFunction_ctor
+        // 2.5: new and renamed hashes (upstream 0f5eba42a). Evidence: p25/LAYOUT-SDK-REPORT.md and p25/decisions-claude.tsv.
+        { 2502822355, 0x11AB310 },    // CStackFrame_dtor (new in 2.5): frees the call map at +0x68 through the allocator at +0x90
+        { 1610876887, 0x7CDDB78 },    // Memory_PoolScript_vtbl (new in 2.5): data, the vptr the frame constructor stores at +0x90 (helper 0x4E33920)
     };
 
     auto it = macOSAddressTable.find(aHash);
