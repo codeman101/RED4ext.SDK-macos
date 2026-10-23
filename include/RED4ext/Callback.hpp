@@ -9,7 +9,7 @@
 
 namespace RED4ext
 {
-constexpr size_t DefaultFixedCallbackBufferSize = 32;
+constexpr size_t DefaultFixedCallbackBufferSize = 64; // Mac 2.5 too: the elements of the game's callback arrays are 0x48 bytes (2.3.1: 0x28), handler at +0x40
 constexpr size_t DefaultFlexCallbackBufferSize = 24;
 
 template<typename R, typename... Args>
