@@ -36,7 +36,7 @@ struct IGameSystem : IUpdatableSystem
     virtual void OnGameResumed();                                                                             // 168
 #if defined(__APPLE__)
     // macOS arm64 returns the SaveLock by value through x8 and passes the bool in x1.
-    virtual SaveLock IsSavingLocked(bool a2);                                                                 // 170 (Mac 0x178)
+    virtual SaveLock IsSavingLocked(bool a2); // 170 (Mac 0x178)
 #else
     virtual void* IsSavingLocked(SaveLock* aLock, bool a2);                                                   // 170
 #endif
