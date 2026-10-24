@@ -34,7 +34,12 @@ struct IGameSystem : IUpdatableSystem
     virtual void OnGamePrepared();                                                                            // 158
     virtual void OnGamePaused();                                                                              // 160
     virtual void OnGameResumed();                                                                             // 168
+#if defined(__APPLE__)
+    // macOS arm64 returns the SaveLock by value through x8 and passes the bool in x1.
+    virtual SaveLock IsSavingLocked(bool a2);                                                                 // 170 (Mac 0x178)
+#else
     virtual void* IsSavingLocked(SaveLock* aLock, bool a2);                                                   // 170
+#endif
     virtual void OnStreamingWorldLoaded(world::RuntimeScene* aScene, uint64_t a2, const JobGroup& aJobGroup); // 178
     virtual void sub_180();                                                                                   // 180
     virtual void sub_188();                                                                                   // 188

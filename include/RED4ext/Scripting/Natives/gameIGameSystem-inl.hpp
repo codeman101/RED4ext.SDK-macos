@@ -68,6 +68,15 @@ RED4EXT_INLINE void RED4ext::game::IGameSystem::OnGameResumed()
 {
 }
 
+#if defined(__APPLE__)
+// Returns an empty SaveLock (reason Nothing, empty description) by value, in the caller's x8 buffer.
+RED4EXT_INLINE RED4ext::game::SaveLock RED4ext::game::IGameSystem::IsSavingLocked(bool a2)
+{
+    RED4EXT_UNUSED_PARAMETER(a2);
+
+    return RED4ext::game::SaveLock{};
+}
+#else
 RED4EXT_INLINE void* RED4ext::game::IGameSystem::IsSavingLocked(RED4ext::game::SaveLock* aLock, bool a2)
 {
     RED4EXT_UNUSED_PARAMETER(a2);
@@ -75,6 +84,7 @@ RED4EXT_INLINE void* RED4ext::game::IGameSystem::IsSavingLocked(RED4ext::game::S
     *aLock = {};
     return aLock;
 }
+#endif
 
 RED4EXT_INLINE void RED4ext::game::IGameSystem::OnStreamingWorldLoaded(RED4ext::world::RuntimeScene* aScene,
                                                                        uint64_t a2, const RED4ext::JobGroup& aJobGroup)
