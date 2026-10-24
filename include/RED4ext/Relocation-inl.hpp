@@ -152,6 +152,7 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         { 1518341917, 0x10C36A0 },  // CClass_CreateInstance (rtti::ClassType::CreateObject)
         { 404169501,  0x1099FBC },  // CBaseFunction_InternalExecute
         { 882511585,  0x78300D8 },  // CStack_vtbl (data: vptr value, slot 0)
+        { 3689484881, 0x10B0B44 },  // ISerializable_sub_C0 (Mac vtable slot +0xC8, base of 6,482 vtables; 2.3.1 0x2186208)
         { 3791200470, 0x1098FC0 },  // CBaseFunction_ExecuteScripted (Gate 5 path)
         { 3121353053, 0x1025C8C },  // Handle_ctor (Gate 5 path)
         { 961751128,  0x9A5C940 },  // OpcodeHandlers (data: handler table; Gate 5 path)
