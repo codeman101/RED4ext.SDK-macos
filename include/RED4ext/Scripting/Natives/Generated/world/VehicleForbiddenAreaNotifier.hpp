@@ -6,7 +6,7 @@
 
 #include <cstdint>
 #include <RED4ext/Common.hpp>
-#include <RED4ext/DynArray.hpp>
+#include <RED4ext/Containers/DynArray.hpp>
 #include <RED4ext/Handle.hpp>
 #include <RED4ext/NativeTypes.hpp>
 #include <RED4ext/Scripting/Natives/Generated/world/ITriggerAreaNotifer.hpp>
@@ -50,11 +50,10 @@ struct VehicleForbiddenAreaNotifier : world::ITriggerAreaNotifer
     DynArray<NodeRef> parkingSpots; // E0
     float innerAreaSpeedLimit; // F0
     float areaSpeedLimit; // F4
-    bool speedLimitAppliedWhenEntityIsPassenger; // F8
-    bool enableNullArea; // F9
-    bool dismount; // FA
-    bool enableSummoning; // FB
-    uint8_t unkFC[0x100 - 0xFC]; // FC
+    bool enableNullArea; // F8
+    bool dismount; // F9
+    bool enableSummoning; // FA
+    uint8_t unkFB[0x100 - 0xFB]; // FB
 #endif
 };
 RED4EXT_ASSERT_SIZE(VehicleForbiddenAreaNotifier, 0x100);

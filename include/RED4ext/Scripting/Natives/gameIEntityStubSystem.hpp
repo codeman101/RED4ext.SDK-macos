@@ -1,19 +1,20 @@
 #pragma once
 
 #include <RED4ext/Common.hpp>
+#include <RED4ext/Memory/Allocators.hpp>
+#include <RED4ext/Memory/UniquePtr.hpp>
 #include <RED4ext/NativeTypes.hpp>
 #include <RED4ext/Scripting/Natives/Generated/Quaternion.hpp>
 #include <RED4ext/Scripting/Natives/Generated/Vector4.hpp>
 #include <RED4ext/Scripting/Natives/Generated/WorldTransform.hpp>
 #include <RED4ext/Scripting/Natives/Generated/ent/EntityID.hpp>
+#include <RED4ext/Scripting/Natives/Generated/game/EntityStubComponentPS.hpp>
 #include <RED4ext/Scripting/Natives/Generated/game/IGameSystem.hpp>
 
 namespace RED4ext
 {
 namespace game
 {
-struct ComponentPS;
-struct EntityStubComponentPS;
 struct IPersistencySystem;
 } // namespace game
 
@@ -57,6 +58,7 @@ struct EntityStubToken
 {
     using AllocatorType = Memory::GMPL_SpawnAllocator;
 
+#if defined(__APPLE__)
     EntityStub* ExtractStub()
     {
         auto extracted = stub;
@@ -64,9 +66,17 @@ struct EntityStubToken
         return extracted;
     }
 
-    EntityStub* stub;        // 00
-    EntityID entityID;       // 08
-    EntityStubStatus status; // 10
+    EntityStub* stub; // 00
+#else
+    UniquePtr<EntityStub> ExtractStub()
+    {
+        return std::move(stub);
+    }
+
+    UniquePtr<EntityStub> stub; // 00
+#endif
+    EntityID entityID;          // 08
+    EntityStubStatus status;    // 10
 };
 RED4EXT_ASSERT_SIZE(EntityStubToken, 0x18);
 RED4EXT_ASSERT_OFFSET(EntityStubToken, stub, 0x00);
@@ -134,24 +144,22 @@ struct IEntityStubSystem : IGameSystem
     static constexpr const char* NAME = "gameIEntityStubSystem";
     static constexpr const char* ALIAS = NAME;
 
-#if defined(__APPLE__)
-    // macOS: the 16-byte token comes back through the indirect result register x8, the request is in x1 and the callback in
+    // By-value token (#225). On Mac the 16-byte token comes back through x8, the request is in x1 and the callback in
     // x2 (Mac CreateStub 0x101FD71BC and RestoreStub 0x101FD74B0, consecutive slots of the stub system vtable at 0x106FBFF70:
-    // `mov x19, x8 ... str x23, [x19]; str x0, [x19, #0x8]`). With the Windows form the token pointer lands in x1, every argument
-    // shifts by one register and the token is written through a stray x8. The callback is moved like the SDK's Callback: its
+    // `mov x19, x8 ... str x23, [x19]; str x0, [x19, #0x8]`). The callback is moved like the SDK's Callback: its
     // handler table at +0x80, move at handler+0x10 (dst x0, src x1), destruct at handler+0x18.
-    virtual EntityStubTokenPtr CreateStub(EntityStubCreateRequest& aRequest, EntityStubCallback&& aCallback) = 0;   // 1B0
-    virtual EntityStubTokenPtr RestoreStub(EntityStubRestoreRequest& aRequest, EntityStubCallback&& aCallback) = 0; // 1B8
+    virtual EntityStubTokenPtr CreateStub(EntityStubCreateRequest& aRequest,
+                                          EntityStubCallback&& aCallback) = 0; // 1B0
+    virtual EntityStubTokenPtr RestoreStub(EntityStubRestoreRequest& aRequest,
+                                           EntityStubCallback&& aCallback) = 0; // 1B8
+    virtual void CancelStub(EntityStubTokenPtr& aToken) = 0; // 1C0
+#if defined(__APPLE__)
+    // Mac keeps the raw stub pointer. EntityStub has no allocator type, so UniquePtr<EntityStub> is not a Mac type.
+    virtual void* DeleteStub(EntityStub*& aStub) = 0; // 1C8
 #else
-    virtual void* CreateStub(EntityStubTokenPtr& aToken, EntityStubCreateRequest& aRequest,
-                             EntityStubCallback&& aCallback) = 0; // 1A8
-    virtual void* RestoreStub(EntityStubTokenPtr& aToken, EntityStubRestoreRequest& aRequest,
-                              EntityStubCallback&& aCallback) = 0; // 1B0
+    virtual void DeleteStub(UniquePtr<EntityStub>&& aStub) = 0; // 1C8
 #endif
-    virtual void CancelStub(EntityStubTokenPtr& aToken) = 0;       // 1B8
-    virtual void* DeleteStub(EntityStub*& aStub) = 0;              // 1C0
-    virtual EntityStub* FindStub(EntityID aEntityID) = 0;          // 1C8
-    virtual void sub_1D0() = 0;                                    // 1D0
+    virtual EntityStub* FindStub(EntityID aEntityID) = 0; // 1D0
     virtual void sub_1D8() = 0;                                    // 1D8
     virtual void sub_1E0() = 0;                                    // 1E0
     virtual void sub_1E8() = 0;                                    // 1E8
@@ -161,6 +169,8 @@ struct IEntityStubSystem : IGameSystem
     virtual void sub_208() = 0;                                    // 208
     virtual void sub_210() = 0;                                    // 210
     virtual void sub_218() = 0;                                    // 218
+    virtual void sub_220() = 0;                                    // 220
+    virtual void sub_228() = 0;                                    // 228
 };
 RED4EXT_ASSERT_SIZE(IEntityStubSystem, 0x48);
 } // namespace game

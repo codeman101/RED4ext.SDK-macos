@@ -16,16 +16,19 @@ namespace RED4ext
  * Maybe this should have the name 'CStack', but I am not entirely sure how to call '*Stack', so until a better name is
  * found, the names will be kept as they are now.
  */
-struct CBaseRTTIType;
+namespace rtti
+{
+struct IType;
+}
 struct CClass;
 struct IScriptable;
 
 struct CStackType
 {
-    CStackType(CBaseRTTIType* aType = nullptr, ScriptInstance aValue = nullptr);
+    CStackType(rtti::IType* aType = nullptr, void* aValue = nullptr);
 
-    CBaseRTTIType* type;  // 00
-    ScriptInstance value; // 08
+    rtti::IType* type; // 00
+    void* value;       // 08
 };
 RED4EXT_ASSERT_SIZE(CStackType, 0x10);
 
@@ -40,7 +43,7 @@ struct IStack
         return nullptr;
     }
 
-    virtual CBaseRTTIType* GetResultType() // 10
+    virtual rtti::IType* GetResultType() // 10
     {
         return nullptr;
     }
@@ -79,7 +82,7 @@ RED4EXT_ASSERT_SIZE(CBaseStack, 0x30);
 
 struct CStack : CBaseStack
 {
-    CStack(ScriptInstance aContext = nullptr, CStackType* aArgs = nullptr, uint32_t aArgsCount = 0,
+    CStack(void* aContext = nullptr, CStackType* aArgs = nullptr, uint32_t aArgsCount = 0,
            CStackType* aResult = nullptr);
     ~CStack() = default;
 
@@ -98,9 +101,9 @@ struct CScriptStack : CBaseStack
 {
     ~CScriptStack() override = default;
 
-    uint8_t* args;        // 30
-    ScriptInstance value; // 38
-    CBaseRTTIType* type;  // 40
+    uint8_t* args;     // 30
+    void* value;       // 38
+    rtti::IType* type; // 40
 };
 
 RED4EXT_ASSERT_SIZE(CScriptStack, 0x48);
@@ -117,30 +120,30 @@ struct CStackFrame
     CStackFrame(const CStackFrame&) = delete;
     CStackFrame& operator=(const CStackFrame&) = delete;
 
-    char* code;              // 00
-    CBaseFunction* func;     // 08 - For scripted functions
-    void* localVars;         // 10 - For scripted functions
-    void* params;            // 18 - For scripted functions
-    int64_t unk20;           // 20
-    int64_t unk28;           // 28
-    void* data;              // 30 - The result of the opcode, points to the original instance (local, param, etc.)
-    CBaseRTTIType* dataType; // 38 - The type of the result
-    IScriptable* context;    // 40
-    CStackFrame* parent;     // 48
-    int16_t unk50;           // 50
-    int64_t unk58;           // 58
-    uint16_t paramFlags;     // 60
-    uint8_t currentParam;    // 62
-    bool useDirectData;      // 63 - If set the result param is not used, preventing an extra copy of the result
+    char* code;            // 00
+    CBaseFunction* func;   // 08 - For scripted functions
+    void* localVars;       // 10 - For scripted functions
+    void* params;          // 18 - For scripted functions
+    int64_t unk20;         // 20
+    int64_t unk28;         // 28
+    void* data;            // 30 - The result of the opcode, points to the original instance (local, param, etc.)
+    rtti::IType* dataType; // 38 - The type of the result
+    IScriptable* context;  // 40
+    CStackFrame* parent;   // 48
+    int16_t unk50;         // 50
+    int64_t unk58;         // 58
+    uint16_t paramFlags;   // 60
+    uint8_t currentParam;  // 62
+    bool useDirectData;    // 63 - If set the result param is not used, preventing an extra copy of the result
     // Mac 2.5 (the layout is the Windows one): the game's frame constructor (2.5.0 0x11AB150) stores isRoot at 64, zeroes 68..88,
     // writes 0xFFFFFFFF at 88 and the script pool at 90, copies the parent's 98 (or points it to 68 for a root frame) and clears A0;
     // the frame destructor (2.5.0 0x11AB310, a bare `ret` in 2.3.1) releases the call map; the script call path
     // (2.5.0 0x1098FC0) reserves 0xA8 bytes per frame.
-    bool isRoot;             // 64 - Set when the frame has no parent
-    uint8_t unk65[3];        // 65
-    uint8_t unk68[0x30];     // 68 - HashMap (PoolScript), owned by the root frame
-    void* unk98;             // 98 - Points to unk68 of the root frame, inherited by child frames
-    uint8_t unkA0;           // A0
+    bool isRoot;           // 64 - Set when the frame has no parent
+    uint8_t unk65[3];      // 65
+    uint8_t unk68[0x30];   // 68 - HashMap (PoolScript), owned by the root frame
+    void* unk98;           // 98 - Points to unk68 of the root frame, inherited by child frames
+    uint8_t unkA0;         // A0
 
     void Step()
     {

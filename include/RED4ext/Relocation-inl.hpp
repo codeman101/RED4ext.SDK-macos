@@ -120,7 +120,9 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
     }
     // CClass virtuals. Same slot as live IScriptable. Mac offset is Windows plus 8.
     if (aHash == 0xE4AA0CAD) return tweakxl_class_vslot(0x68);
-    if (aHash == 0x65293F06) return tweakxl_class_vslot(0x70);
+    // CClass::ToString. Upstream #227 replaced 0x65293F06 with 409015031 (AddressHashes::CClass_ToString).
+    // The Mac vslot stays 0x70, which is the Windows slot plus 8.
+    if (aHash == 409015031) return tweakxl_class_vslot(0x70);
     if (aHash == 0x11D11B0C) return tweakxl_class_vslot(0x88);
     if (aHash == 0x4BDF1BB2) return tweakxl_class_vslot(0x90);
     if (aHash == 0xA26D374E) return tweakxl_class_vslot(0x98);

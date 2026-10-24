@@ -44,14 +44,14 @@ RED4EXT_INLINE bool RED4ext::TweakDB::TryGetRecord(TweakDBID aDBID, Handle<IScri
 }
 
 RED4EXT_INLINE RED4ext::DynArray<RED4ext::Handle<RED4ext::IScriptable>> RED4ext::TweakDB::GetRecordsByType(
-    CBaseRTTIType* aType)
+    rtti::IType* aType)
 {
     RED4ext::DynArray<RED4ext::Handle<RED4ext::IScriptable>> records;
     TryGetRecordsByType(aType, records);
     return std::move(records);
 }
 
-RED4EXT_INLINE bool RED4ext::TweakDB::TryGetRecordsByType(CBaseRTTIType* aType,
+RED4EXT_INLINE bool RED4ext::TweakDB::TryGetRecordsByType(rtti::IType* aType,
                                                           DynArray<Handle<IScriptable>>& aRecordsArray)
 {
     std::shared_lock<SharedSpinLock> _(mutex01);
@@ -238,14 +238,14 @@ RED4EXT_INLINE bool RED4ext::TweakDB::UpdateRecord(gamedataTweakDBRecord* aRecor
     return updated;
 }
 
-RED4EXT_INLINE bool RED4ext::TweakDB::CreateRecord(TweakDBID aDBID, CBaseRTTIType* aType)
+RED4EXT_INLINE bool RED4ext::TweakDB::CreateRecord(TweakDBID aDBID, rtti::IType* aType)
 {
     Handle<IScriptable> record;
     {
         std::shared_lock<SharedSpinLock> _(mutex01);
 
         const auto* records = recordsByType.Get(aType);
-        if (records == nullptr || records->size == 0)
+        if (records == nullptr || records->IsEmpty())
             return false;
 
         record = (*records)[0];
@@ -344,7 +344,8 @@ RED4EXT_INLINE int32_t RED4ext::TweakDB::CreateFlatValue(const CStackType& aStac
 #endif
 
     const uintptr_t flatAlignment = (std::max)(static_cast<uintptr_t>(aStackType.type->GetAlignment()), static_cast<uintptr_t>(8));
-    const uintptr_t flatValueSize = RED4ext::AlignUp(static_cast<uintptr_t>(8) /* vftable */ + static_cast<uintptr_t>(aStackType.type->GetSize()), flatAlignment);
+    // uintptr_t is unsigned long on arm64. AlignUp deduces one type, so both arguments are uintptr_t.
+    const uintptr_t flatValueSize = RED4ext::AlignUp(static_cast<uintptr_t>(8) /* vftable */ + aStackType.type->GetSize(), flatAlignment);
     const uintptr_t flatAddressAligned = RED4ext::AlignUp(flatDataBufferEnd, flatAlignment);
     const uintptr_t newFlatDataBufferEnd = flatAddressAligned + flatValueSize;
 

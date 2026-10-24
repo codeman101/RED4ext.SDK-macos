@@ -53,9 +53,9 @@ struct CallContact_NodeType : quest::IPhoneManagerNodeType
     quest::PhoneCallMode mode; // 5C
     NodeRef prefabNodeRef; // 60
     bool applyPhoneRestriction; // 68
-    bool blockSkipByLine; // 69
-    bool isRejectable; // 6A
-    bool showAvatar; // 6B
+    bool isRejectable; // 69
+    bool showAvatar; // 6A
+    uint8_t unk6B[0x6C - 0x6B]; // 6B
     quest::PhoneCallVisuals visuals; // 6C
 #endif
 };

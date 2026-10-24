@@ -2,7 +2,7 @@
 
 #include <RED4ext/CName.hpp>
 #include <RED4ext/CNamePool.hpp>
-#include <RED4ext/DynArray.hpp>
+#include <RED4ext/Containers/DynArray.hpp>
 #include <RED4ext/HashMap.hpp>
 #include <RED4ext/InstanceType.hpp>
 #include <RED4ext/Memory/Allocators.hpp>
@@ -12,13 +12,16 @@
 
 namespace RED4ext
 {
+namespace rtti
+{
+struct IType;
+}
 struct CClass;
 struct CStack;
 struct CStackFrame;
 struct CProperty;
 struct PoolRTTIFunctionAllocator;
 struct IScriptable;
-struct CBaseRTTIType;
 
 struct IFunction
 {
@@ -26,8 +29,7 @@ struct IFunction
     {
         virtual void sub_0() = 0;
         virtual void sub_8() = 0;
-        virtual void Execute(ScriptInstance aInstance, CStackFrame& aFrame, void* aResult,
-                             const CBaseRTTIType* aResultType) = 0;
+        virtual void Execute(void* aInstance, CStackFrame& aFrame, void* aResult, const rtti::IType* aResultType) = 0;
     };
 
     virtual Memory::IAllocator* GetAllocator() = 0; // 00
@@ -97,7 +99,7 @@ struct CBaseFunction : IFunction
     CBaseFunction* unkE8;           // E8 - Redirect target used by the script call path when set
 
 private:
-    using Handler_t = void (*)(ScriptInstance, RED4ext::CStackFrame&, void*, CBaseRTTIType*);
+    using Handler_t = void (*)(void*, RED4ext::CStackFrame&, void*, rtti::IType*);
 
     bool Execute_(CStack* aStack);
     static Handler_t GetHandler(uint32_t aIndex);

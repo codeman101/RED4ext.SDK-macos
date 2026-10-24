@@ -13,14 +13,9 @@ struct IDynamicEntityIDSystem : IGameSystem
     static constexpr const char* NAME = "gameIDynamicEntityIDSystem";
     static constexpr const char* ALIAS = NAME;
 
-#if defined(__APPLE__)
-    // Mac (R21, checked against the game): no out argument, the 8 byte EntityID comes back in x0 (slots 0x1B8 and 0x1C0).
-    virtual ent::EntityID GetNextTransientID() = 0;   // 1A8
-    virtual ent::EntityID GetNextPersistableID() = 0; // 1B0
-#else
-    virtual void* GetNextTransientID(ent::EntityID& aOut) = 0;   // 1A8
-    virtual void* GetNextPersistableID(ent::EntityID& aOut) = 0; // 1B0
-#endif
+    // By-value return (#225). On Mac the 8-byte EntityID comes back in x0, which is that ABI.
+    virtual ent::EntityID GetNextTransientID() = 0;              // 1A8
+    virtual ent::EntityID GetNextPersistableID() = 0;            // 1B0
     virtual void sub_1B8() = 0;                                  // 1B8
     virtual void sub_1C0() = 0;                                  // 1C0
     virtual void sub_1C8() = 0;                                  // 1C8

@@ -30,9 +30,8 @@ struct SetPhoneRestriction_NodeType : quest::IPhoneManagerNodeType
     CName forcedApplySource; // 38
 #else
     bool applyPhoneRestriction; // 38
-    bool blockSkipByLine; // 39
-    bool forcedApply; // 3A
-    uint8_t unk3B[0x40 - 0x3B]; // 3B
+    bool forcedApply; // 39
+    uint8_t unk3A[0x40 - 0x3A]; // 3A
     CName forcedApplySource; // 40
 #endif
 };

@@ -6,7 +6,7 @@
 
 #include <cstdint>
 #include <RED4ext/Common.hpp>
-#include <RED4ext/DynArray.hpp>
+#include <RED4ext/Containers/DynArray.hpp>
 #include <RED4ext/Scripting/Natives/Generated/ink/CanvasWidget.hpp>
 #include <RED4ext/Scripting/Natives/Generated/ink/WidgetReference.hpp>
 #include <RED4ext/Scripting/Natives/Generated/minimap/ui/Settings.hpp>
@@ -27,12 +27,11 @@ struct GeometryWidget : ink::CanvasWidget
     uint8_t unk_284[0x284 - (0x268 + sizeof(widgetTemplates))];
     minimap::ui::Settings settings; // 284
 #else
-    uint8_t unk240[0x280 - 0x240]; // 240
-    DynArray<ink::WidgetReference> widgetTemplates; // 280
-    uint8_t unk290[0x29C - 0x290]; // 290
-    minimap::ui::Settings settings; // 29C
-    uint8_t unk2A4[0x380 - 0x2A4]; // 2A4
-
+    uint8_t unk230[0x270 - 0x230]; // 230
+    DynArray<ink::WidgetReference> widgetTemplates; // 270
+    uint8_t unk280[0x28C - 0x280]; // 280
+    minimap::ui::Settings settings; // 28C
+    uint8_t unk294[0x380 - 0x294]; // 294
 #endif
 };
 RED4EXT_ASSERT_SIZE(GeometryWidget, 0x380);
