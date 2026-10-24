@@ -143,82 +143,86 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
     // atexit handler unloads the plugins, and every SDK-relocated call made from Unload (a SharedPtr or Handle release, for example) then
     // looked a hash up in a map whose bucket array was already freed (r27 quit crash: ~SharedPtr -> Resolve(Handle_DecWeakRef), fault at 8 * (hash % 97)).
     static const std::unordered_map<uint32_t, uintptr_t>& macOSAddressTable = *new std::unordered_map<uint32_t, uintptr_t>{
-        { 240386859, 0x31E18 },       // Main
-        { 1247874916, 0x2188E8C },    // CRTTISystem_Get
-        { 3062572522, 0x35F1BAC },    // TweakDB_Init
-        { 3602585178, 0x2B75570 },    // TweakDB_Load
-        { 3512345737, 0x2B7CC9C },    // TweakDB_TryLoad
-        { 838931066, 0x26B8DB8 },     // TweakDB_CreateRecord
-        { 914361828, 0x2B73C7C },     // TweakDB_Get
-        { 3357477547, 0x2CDB8 },      // CString_ctor_str
-        { 2065762423, 0x2940C },      // CString_ctor_span
-        { 3904113489, 0x2AACC },      // CString_copy. R25: the copy ASSIGN (Windows twin 0x2503FC), was the copy constructor 0x2B110
-        { 1409615660, 0x29228 },      // CString_dtor
-        { 2057311186, 0x286E8 },      // DynArray_Realloc
-        { 1759447004, 0x3452D7C },    // CNamePool_Get
-        { 10488987, 0x3452DDC },      // CNamePool_AddCstr
-        { 3649309656, 0x3452DA0 },    // CNamePool_AddPair
+        { 240386859, 0x323A0 },       // Main
+        { 1247874916, 0x10B3CAC },    // CRTTISystem_Get
+        { 3062572522, 0x1EF64C8 },    // TweakDB_Init
+        { 3602585178, 0x37CE05C },    // TweakDB_Load
+        { 3512345737, 0x37D60CC },    // TweakDB_TryLoad
+        { 838931066, 0x3309CC4 },     // TweakDB_CreateRecord
+        { 914361828, 0x37CC900 },     // TweakDB_Get
+        { 3357477547, 0x2CCAC },      // CString_ctor_str
+        { 2065762423, 0x2933C },      // CString_ctor_span
+        { 3904113489, 0x2AA74 },      // CString_copy. R25: the copy ASSIGN (Windows twin 0x2503FC), was the copy constructor 0x2B110
+        { 1409615660, 0x2914C },      // CString_dtor
+        { 2057311186, 0x28674 },      // DynArray_Realloc
+        { 1759447004, 0x4E38940 },    // CNamePool_Get
+        { 10488987, 0x4E389D0 },      // CNamePool_AddCstr
+        { 3649309656, 0x4E38978 },    // CNamePool_AddPair
         // Handle_DecWeakRef (hash: 859509764). void(SharedPtrBase*). Identical copy at 0x914668.
-        { 859509764, 0x21048C4 },
+        { 859509764, 0x1025DC8 },
         // ResourceDepot (hash: 1704595399). Global ResourceDepot* (data, not code). Accessor 0x21C6820.
-        { 1704595399, 0x7D6C538 },
-        { 1518341917, 0x2197AAC },  // CClass_CreateInstance (rtti::ClassType::CreateObject)
-        { 404169501,  0x2173120 },  // CBaseFunction_InternalExecute
-        { 882511585,  0x6FFAEA0 },  // CStack_vtbl (data: vptr value, slot 0)
-        { 3791200470, 0x2172BF4 },  // CBaseFunction_ExecuteScripted (Gate 5 path)
-        { 3121353053, 0x2104788 },  // Handle_ctor (Gate 5 path)
-        { 961751128,  0x908B798 },  // OpcodeHandlers (data: handler table; Gate 5 path)
-        { 2920426135, 0x2173864 },  // CClassStaticFunction_ctor
-        { 1613572595, 0x2173760 },  // CClassFunction_ctor (Mac pointer-to-member ABI)
-        { 4201325776, 0x21739E8 },  // CGlobalFunction_ctor
+        { 1704595399, 0x805A7D8 },
+        { 1518341917, 0x10C36A0 },  // CClass_CreateInstance (rtti::ClassType::CreateObject)
+        { 404169501,  0x1099FBC },  // CBaseFunction_InternalExecute
+        { 882511585,  0x78300D8 },  // CStack_vtbl (data: vptr value, slot 0)
+        { 3689484881, 0x10B0B44 },  // ISerializable_sub_C0 (Mac vtable slot +0xC8, base of 6,482 vtables; 2.3.1 0x2186208)
+        { 3791200470, 0x1098FC0 },  // CBaseFunction_ExecuteScripted (Gate 5 path)
+        { 3121353053, 0x1025C8C },  // Handle_ctor (Gate 5 path)
+        { 961751128,  0x9A5C940 },  // OpcodeHandlers (data: handler table; Gate 5 path)
+        { 2920426135, 0x109B974 },  // CClassStaticFunction_ctor
+        { 1613572595, 0x109B8A4 },  // CClassFunction_ctor (Mac pointer-to-member ABI)
+        { 4201325776, 0x109BAA8 },  // CGlobalFunction_ctor
+        // 2.5: new and renamed hashes (upstream 0f5eba42a). Evidence: p25/LAYOUT-SDK-REPORT.md and p25/decisions-claude.tsv.
+        { 2502822355, 0x11AB310 },    // CStackFrame_dtor (new in 2.5): frees the call map at +0x68 through the allocator at +0x90
+        { 1610876887, 0x7CDDB78 },    // Memory_PoolScript_vtbl (new in 2.5): data, the vptr the frame constructor stores at +0x90 (helper 0x4E33920)
         // ---- red4ext-rs rows (branch mac-rs). Rows the table above lacks and red4ext-rs (or the SDK code it links) reaches. ----
         // CGameEngine (hash 0x97F209D6). Data: the cell holding the CGameEngine*. Windows .data 0x342AC00 (win-addr.tsv); the twin pair
         // AudioSystem::Play loads it the same way: Windows 0x62AB8A `mov rax,[0x342ac00]; [rax+0xa8]; [rcx+0x100]`, Mac 0xA86124
         // `adrp/add 0x90dc3a0; ldr x8,[x8]; ldr x8,[x8,#0xa8]; ldr x0,[x8,#0x100]`.
-        { 2549221846, 0x90DC3A0 },
+        { 2549221846, 0x9D0E288 },
         // The next four are the Codeware / ArchiveXL MacSdkRows.inc values, each checked there against the Windows body (R16a, R19).
-        { 1482886888, 0x2197FE4 },  // TTypedClass_IsEqual. bool(CClass*, lhs, rhs, uint32). Equals Mac CClass vtable slot 0x50. Windows 0x33A208.
-        { 3778157291, 0x21732DC },  // CBaseFunction_ExecuteNative. bool(CBaseFunction*, CStack*). Windows 0x20668A0.
-        { 2399343890, 0x2198B40 },  // CClass_GetProperty. CProperty*(CClass*, CName). Windows 0x148388.
-        { 1652956141, 0x2197928 },  // CClass_GetProperties. void(CClass*, DynArray<CProperty*>&). Windows 0x2519E4.
+        { 1482886888, 0x10C3BC8 },  // TTypedClass_IsEqual. bool(CClass*, lhs, rhs, uint32). Equals Mac CClass vtable slot 0x50. Windows 0x33A208.
+        { 3778157291, 0x109B16C },  // CBaseFunction_ExecuteNative. bool(CBaseFunction*, CStack*). Windows 0x20668A0.
+        { 2399343890, 0x10C4C14 },  // CClass_GetProperty. CProperty*(CClass*, CName). Windows 0x148388.
+        { 1652956141, 0x10C352C },  // CClass_GetProperties. void(CClass*, DynArray<CProperty*>&). Windows 0x2519E4.
         // IScriptable_DestructValueHolder, the one row ~IScriptable needs (the SDK destructor calls it). The comment near the top of this function says
         // "in the Mac table below", but the row was not in it: once ~IScriptable is no longer a trap, the call would go to address 0 (Unknown hash).
         // Same row as Codeware / ArchiveXL MacSdkRows.inc (R19, ADDRESS_CHECK.md: OK). Re-checked with tools/addr-match, `rx w 14934c` against `rx m 22384bc`:
         // both return at once when the holder at +0x38 is null; otherwise they walk the class property list, take the properties with bit 21 of the dword at
         // +0x28 set (Windows `bt rax,0x15`, Mac `tbz w8,#5` on the byte at +0x2a), destruct each through the property type's Destruct vslot (Windows 0x40,
         // Mac 0x48), free the holder through the class allocator (GetAllocator vslot Windows 0xB8, Mac 0xC0; Free vslot 0x20 on both) and store 0 at +0x38.
-        { 55710513, 0x22384BC },    // IScriptable_DestructValueHolder. void(IScriptable*). Windows 0x14934C.
+        { 55710513, 0x11E4964 },    // IScriptable_DestructValueHolder. void(IScriptable*). Windows 0x14934C.
         // ---- Audioware rows (B3, branch mac-rs). Each Mac RVA is a function start whose body matches its Windows twin (tools/addr-match, `rx w` / `rx m`
         // and check-rows features: STRONG/OK for all but SetGlobalParameter and wwise_lookup, tiny bodies, hand-checked); the verdicts are in ports/audioware-B3-REPORT.md.
         // 0xC0DExxxx ids are Mac-only. gameCameraComponent::OverrideAudioListeners (0x519A1468) has no row: it is inlined into Activate and Deactivate. ----
-        { 0x28F53A76, 0x3E9CD24 },  // audio::PlayDialogLine. bool(DialogLineEventData*, void*, EntityID, CName, bool, uint32_t*, CName*, float, CName). Windows 0x5339E0.
-        { 0xCDB11D0E, 0xA86010 },  // AudioSystem::Play. native handler. Windows 0x62AAD0.
-        { 0xD2781D1E, 0xA861D8 },  // AudioSystem::Stop. native handler. Windows 0x24C5EA4.
-        { 0x15081DEA, 0xA8976C },  // AudioSystem::Switch. native handler. Windows 0x103B78.
-        { 0x5E7D1BB0, 0xC9AE7C },  // Entity::QueueEvent. native handler. Windows 0x4EA45C.
-        { 0x80102488, 0x1F9157C },  // TimeDilatable::SetIndividualTimeDilation. native handler. Windows 0x246BB68.
-        { 0xDA20256B, 0x1F91868 },  // TimeDilatable::UnsetIndividualTimeDilation. native handler. Windows 0x147C8D4.
-        { 0xA1DC1F92, 0x3C00790 },  // TimeSystem::SetTimeDilation. native handler. Windows 0x8096D4.
-        { 0xF0652075, 0x3C00A54 },  // TimeSystem::UnsetTimeDilation. native handler. Windows 0x6C3E9C.
-        { 0x90231F41, 0x25D0CF8 },  // gameuiGameSystemUI::QueueEvent. native handler. Windows 0x62D454.
-        { 0x5BEB21A4, 0x47CAC28 },  // inkIGameController::QueueEvent. Windows has one function for this and inkLogicController::QueueEvent; the Mac has two, the next row is the second. native handler. Windows 0x8A7E88.
-        { 0xC87F2007, 0x47D35E0 },  // inkLogicController::QueueEvent. The second Mac function behind the Windows address of the previous row. native handler. Windows 0x8A7E88.
-        { 0xE9B92059, 0x49300D4 },  // inkMenuScenario::SwitchToScenario. native handler. Windows 0x9FBF78.
-        { 0x56A9218A, 0x4930374 },  // inkMenuScenario::QueueEvent. One Windows body serves QueueEvent and QueueBroadcastEvent; the Mac has a body for each, the next row is the second. native handler. Windows 0x130F7E8.
-        { 0xC0DEA001, 0x4930428 },  // inkMenuScenario::QueueBroadcastEvent. Mac-only id (no Windows hash of its own). Windows 0x130F7E8.
-        { 0xD4F11D73, 0x35494E8 },  // SoundComponent::OnStopDialogLine. void(SoundComponent*, StopDialogLine*). Windows 0x5341F8.
-        { 0x594613D5, 0xDE1D64 },  // SoundEngine::PostEvent. The first argument is a real this on the Mac, unused on Windows. uint32_t(SoundEngine*, CName, Sound*). Windows 0xA30218.
-        { 0xEF7F1A37, 0xDE1ED4 },  // SoundEngine::PostEvent_OneShot. uint32_t(SoundEngine*, OneShotSound*, SoundObject*). Windows 0xA2F80C.
-        { 0xA9AA1CA7, 0xDE2088 },  // SoundEngine::ExternalEvent. uint32_t(SoundEngine*, CName, ResRef*, Sound*). Windows 0xA2F548.
-        { 0xB03210CC, 0xDE22A8 },  // SoundEngine::SetSwitch. AKRESULT(SoundEngine*, CName, CName, SoundObjectId). Windows 0x9E8B78.
-        { 0xEB171218, 0xDE21A8 },  // SoundEngine::SetParameter. AKRESULT(SoundEngine*, CName, float, SoundObjectId). Windows 0x9E88E0.
-        { 0x02D61ABB, 0xDE2218 },  // SoundEngine::SetGlobalParameter. No engine argument. AKRESULT(CName, float, float, ESoundCurveType). Windows 0x9DA450.
-        { 0x3ECF1E9E, 0x3E34FD0 },  // AudioInternalEvent::ApplyAction. void(AudioInternalEvent*, EventApplicationInterface*, void*). Windows 0x4418B0.
-        { 0x55F51EAC, 0x1F040F0 },  // gameCameraComponent::Activate. native handler. Windows 0x24808D8.
-        { 0x9A531F75, 0x1F042B0 },  // gameCameraComponent::Deactivate. native handler. Windows 0x2480994.
-        { 0x3B1D13A1, 0x4295968 },  // MetadataManager::event_wwise_id (helper). uint32_t(MetadataManager*, CName). Windows 0xA30324.
-        { 0x6AA2209F, 0x4295A98 },  // wwise_lookup (helper). uint32_t(MetadataManager*, void* field, CName). Windows 0x33D3BC.
-        { 0xC0DEA002, 0x8DCC9E0 },  // SoundEngine_Instance (data). The cell that holds the SoundEngine*; Mac-only id (Windows reads .data 0x34389F0 by address). Windows 0x34389F0.
+        { 0x28F53A76, 0x387B840 },  // audio::PlayDialogLine. bool(DialogLineEventData*, void*, EntityID, CName, bool, uint32_t*, CName*, float, CName). Windows 0x5339E0.
+        { 0xCDB11D0E, 0x50F0D14 },  // AudioSystem::Play. native handler. Windows 0x62AAD0.
+        { 0xD2781D1E, 0x50F0EDC },  // AudioSystem::Stop. native handler. Windows 0x24C5EA4.
+        { 0x15081DEA, 0x50F4380 },  // AudioSystem::Switch. native handler. Windows 0x103B78.
+        { 0x5E7D1BB0, 0x19ACEF8 },  // Entity::QueueEvent. native handler. Windows 0x4EA45C.
+        { 0x80102488, 0x16F6C90 },  // TimeDilatable::SetIndividualTimeDilation. native handler. Windows 0x246BB68.
+        { 0xDA20256B, 0x16F6F7C },  // TimeDilatable::UnsetIndividualTimeDilation. native handler. Windows 0x147C8D4.
+        { 0xA1DC1F92, 0x252C96C },  // TimeSystem::SetTimeDilation. native handler. Windows 0x8096D4.
+        { 0xF0652075, 0x252CC3C },  // TimeSystem::UnsetTimeDilation. native handler. Windows 0x6C3E9C.
+        { 0x90231F41, 0x4D3FA5C },  // gameuiGameSystemUI::QueueEvent. native handler. Windows 0x62D454.
+        { 0x5BEB21A4, 0x41A7570 },  // inkIGameController::QueueEvent. Windows has one function for this and inkLogicController::QueueEvent; the Mac has two, the next row is the second. native handler. Windows 0x8A7E88.
+        { 0xC87F2007, 0x41AFCA4 },  // inkLogicController::QueueEvent. The second Mac function behind the Windows address of the previous row. native handler. Windows 0x8A7E88.
+        { 0xE9B92059, 0x432AFF4 },  // inkMenuScenario::SwitchToScenario. native handler. Windows 0x9FBF78.
+        { 0x56A9218A, 0x432B294 },  // inkMenuScenario::QueueEvent. One Windows body serves QueueEvent and QueueBroadcastEvent; the Mac has a body for each, the next row is the second. native handler. Windows 0x130F7E8.
+        { 0xC0DEA001, 0x432B348 },  // inkMenuScenario::QueueBroadcastEvent. Mac-only id (no Windows hash of its own). Windows 0x130F7E8.
+        { 0xD4F11D73, 0x1E48378 },  // SoundComponent::OnStopDialogLine. void(SoundComponent*, StopDialogLine*). Windows 0x5341F8.
+        { 0x594613D5, 0x51EA4F0 },  // SoundEngine::PostEvent. The first argument is a real this on the Mac, unused on Windows. uint32_t(SoundEngine*, CName, Sound*). Windows 0xA30218.
+        { 0xEF7F1A37, 0x51EA658 },  // SoundEngine::PostEvent_OneShot. uint32_t(SoundEngine*, OneShotSound*, SoundObject*). Windows 0xA2F80C.
+        { 0xA9AA1CA7, 0x51EA80C },  // SoundEngine::ExternalEvent. uint32_t(SoundEngine*, CName, ResRef*, Sound*). Windows 0xA2F548.
+        { 0xB03210CC, 0x51EAA2C },  // SoundEngine::SetSwitch. AKRESULT(SoundEngine*, CName, CName, SoundObjectId). Windows 0x9E8B78.
+        { 0xEB171218, 0x51EA92C },  // SoundEngine::SetParameter. AKRESULT(SoundEngine*, CName, float, SoundObjectId). Windows 0x9E88E0.
+        { 0x02D61ABB, 0x51EA99C },  // SoundEngine::SetGlobalParameter. No engine argument. AKRESULT(CName, float, float, ESoundCurveType). Windows 0x9DA450.
+        { 0x3ECF1E9E, 0x380F7CC },  // AudioInternalEvent::ApplyAction. void(AudioInternalEvent*, EventApplicationInterface*, void*). Windows 0x4418B0.
+        { 0x55F51EAC, 0x1665AF4 },  // gameCameraComponent::Activate. native handler. Windows 0x24808D8.
+        { 0x9A531F75, 0x1665C94 },  // gameCameraComponent::Deactivate. native handler. Windows 0x2480994.
+        { 0x3B1D13A1, 0x4126C10 },  // MetadataManager::event_wwise_id (helper). uint32_t(MetadataManager*, CName). Windows 0xA30324.
+        { 0x6AA2209F, 0x4126DBC },  // wwise_lookup (helper). uint32_t(MetadataManager*, void* field, CName). Windows 0x33D3BC.
+        { 0xC0DEA002, 0x9D24AE8 },  // SoundEngine_Instance (data). The cell that holds the SoundEngine*; Mac-only id (Windows reads .data 0x34389F0 by address). Windows 0x34389F0.
     };
 
     auto it = macOSAddressTable.find(aHash);

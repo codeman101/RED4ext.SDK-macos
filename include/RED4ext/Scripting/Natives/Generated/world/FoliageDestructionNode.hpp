@@ -20,20 +20,21 @@ struct __declspec(align(0x10)) FoliageDestructionNode : world::CollisionNode
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_120[0x120 - ::RED4ext::Detail::DataSize<world::CollisionNode>];
-    DynArray<uint32_t> populationIndex; // 120
-    uint8_t unk_130[0x130 - (0x120 + sizeof(populationIndex))];
-    uint64_t foliageResourceHash; // 130
-    uint8_t unk_138[0x138 - (0x130 + sizeof(foliageResourceHash))];
-    uint32_t dataVersion; // 138
+    uint8_t unk_B0[0xB0 - ::RED4ext::Detail::DataSize<world::CollisionNode>];
+    DynArray<uint32_t> populationIndex; // B0
+    uint8_t unk_C0[0xC0 - (0xB0 + sizeof(populationIndex))];
+    uint64_t foliageResourceHash; // C0
+    uint8_t unk_C8[0xC8 - (0xC0 + sizeof(foliageResourceHash))];
+    uint32_t dataVersion; // C8
 #else
-    DynArray<uint32_t> populationIndex; // 120
-    uint64_t foliageResourceHash; // 130
-    uint32_t dataVersion; // 138
-    uint8_t unk13C[0x140 - 0x13C]; // 13C
+    DynArray<uint32_t> populationIndex; // C0
+    uint64_t foliageResourceHash; // D0
+    uint32_t dataVersion; // D8
+    uint8_t unkDC[0xE0 - 0xDC]; // DC
 #endif
+
 };
-RED4EXT_ASSERT_SIZE(FoliageDestructionNode, 0x140);
+RED4EXT_ASSERT_SIZE(FoliageDestructionNode, 0xE0);
 } // namespace world
 using worldFoliageDestructionNode = world::FoliageDestructionNode;
 } // namespace RED4ext

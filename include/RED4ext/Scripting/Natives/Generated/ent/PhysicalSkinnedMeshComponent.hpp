@@ -24,16 +24,16 @@ struct __declspec(align(0x10)) PhysicalSkinnedMeshComponent : ent::SkinnedMeshCo
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_2A0[0x2A0 - ::RED4ext::Detail::DataSize<ent::SkinnedMeshComponent>];
-    Handle<physics::FilterData> filterData; // 2A0
-    uint8_t unk_2BC[0x2BC - (0x2A0 + sizeof(filterData))];
-    physics::SimulationType simulationType; // 2BC
-    uint8_t unk_2BD[0x2BD - (0x2BC + sizeof(simulationType))];
-    physics::FilterDataSource filterDataSource; // 2BD
-    uint8_t unk_2BE[0x2BE - (0x2BD + sizeof(filterDataSource))];
-    bool startInactive; // 2BE
-    uint8_t unk_2C0[0x2C0 - (0x2BE + sizeof(startInactive))];
-    bool useResourceSimulationType; // 2C0
+    uint8_t unk_2A8[0x2A8 - ::RED4ext::Detail::DataSize<ent::SkinnedMeshComponent>];
+    Handle<physics::FilterData> filterData; // 2A8
+    uint8_t unk_2C4[0x2C4 - (0x2A8 + sizeof(filterData))];
+    physics::SimulationType simulationType; // 2C4
+    uint8_t unk_2C5[0x2C5 - (0x2C4 + sizeof(simulationType))];
+    physics::FilterDataSource filterDataSource; // 2C5
+    uint8_t unk_2C6[0x2C6 - (0x2C5 + sizeof(filterDataSource))];
+    bool startInactive; // 2C6
+    uint8_t unk_2C8[0x2C8 - (0x2C6 + sizeof(startInactive))];
+    bool useResourceSimulationType; // 2C8
 #else
     uint8_t unk270[0x2A8 - 0x270]; // 270
     Handle<physics::FilterData> filterData; // 2A8

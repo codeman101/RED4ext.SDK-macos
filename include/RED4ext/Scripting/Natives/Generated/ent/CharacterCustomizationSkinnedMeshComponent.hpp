@@ -20,8 +20,8 @@ struct __declspec(align(0x10)) CharacterCustomizationSkinnedMeshComponent : ent:
 
 #if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
-    uint8_t unk_268[0x268 - ::RED4ext::Detail::DataSize<ent::SkinnedMeshComponent>];
-    red::TagList tags; // 268
+    uint8_t unk_270[0x270 - ::RED4ext::Detail::DataSize<ent::SkinnedMeshComponent>];
+    red::TagList tags; // 270
 #else
     red::TagList tags; // 270
 #endif

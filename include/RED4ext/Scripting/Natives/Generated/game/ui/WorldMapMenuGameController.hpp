@@ -64,14 +64,14 @@ struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsCon
     ink::CompoundWidgetReference mappinOutlinesContainer; // 568
     uint8_t unk_580[0x580 - (0x568 + sizeof(mappinOutlinesContainer))];
     ink::CompoundWidgetReference groupOutlinesContainer; // 580
-    uint8_t unk_5D8[0x5D8 - (0x580 + sizeof(groupOutlinesContainer))];
-    game::data::District hoveredDistrict; // 5D8
-    uint8_t unk_5DC[0x5DC - (0x5D8 + sizeof(hoveredDistrict))];
-    game::data::District hoveredSubDistrict; // 5DC
-    uint8_t unk_5E0[0x5E0 - (0x5DC + sizeof(hoveredSubDistrict))];
-    game::data::District selectedDistrict; // 5E0
-    uint8_t unk_5EC[0x5EC - (0x5E0 + sizeof(selectedDistrict))];
-    game::ui::EWorldMapDistrictView districtView; // 5EC
+    uint8_t unk_5F0[0x5F0 - (0x580 + sizeof(groupOutlinesContainer))];
+    game::data::District hoveredDistrict; // 5F0
+    uint8_t unk_5F4[0x5F4 - (0x5F0 + sizeof(hoveredDistrict))];
+    game::data::District hoveredSubDistrict; // 5F4
+    uint8_t unk_5F8[0x5F8 - (0x5F4 + sizeof(hoveredSubDistrict))];
+    game::data::District selectedDistrict; // 5F8
+    uint8_t unk_604[0x604 - (0x5F8 + sizeof(selectedDistrict))];
+    game::ui::EWorldMapDistrictView districtView; // 604
 #else
     uint8_t unk340[0x368 - 0x340]; // 340
     WeakHandle<game::ui::BaseWorldMapMappinController> selectedMappin; // 368
@@ -96,16 +96,16 @@ struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsCon
     uint8_t unk561[0x568 - 0x561]; // 561
     ink::CompoundWidgetReference mappinOutlinesContainer; // 568
     ink::CompoundWidgetReference groupOutlinesContainer; // 580
-    uint8_t unk598[0x5D8 - 0x598]; // 598
-    game::data::District hoveredDistrict; // 5D8
-    game::data::District hoveredSubDistrict; // 5DC
-    game::data::District selectedDistrict; // 5E0
-    uint8_t unk5E4[0x5EC - 0x5E4]; // 5E4
-    game::ui::EWorldMapDistrictView districtView; // 5EC
-    uint8_t unk5F0[0x6C0 - 0x5F0]; // 5F0
+    uint8_t unk598[0x5F0 - 0x598]; // 598
+    game::data::District hoveredDistrict; // 5F0
+    game::data::District hoveredSubDistrict; // 5F4
+    game::data::District selectedDistrict; // 5F8
+    uint8_t unk5FC[0x604 - 0x5FC]; // 5FC
+    game::ui::EWorldMapDistrictView districtView; // 604
+    uint8_t unk608[0x6D0 - 0x608]; // 608
 #endif
 };
-RED4EXT_ASSERT_SIZE(WorldMapMenuGameController, 0x6C0);
+RED4EXT_ASSERT_SIZE(WorldMapMenuGameController, 0x6D0);
 } // namespace game::ui
 using gameuiWorldMapMenuGameController = game::ui::WorldMapMenuGameController;
 using WorldMapMenuGameController = game::ui::WorldMapMenuGameController;

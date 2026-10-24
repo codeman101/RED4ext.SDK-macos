@@ -88,6 +88,13 @@ struct CBaseFunction : IFunction
     CCompiledCode bytecode;         // 78
     Flags flags;                    // A8
     int32_t unkAC;                  // AC
+    // New in 2.5. Mac: the CBaseFunction constructor (2.5.0 0x1097DE8) initializes two hash sets at B0 and C8 (their element counts
+    // are at BC and D4) and a null pointer at E8; E0 is not touched by it. The script call
+    // path (2.5.0 0x1098FC0) reads E8 as the redirect target and the counts at BC / D4 of the redirect target (or of the function).
+    uint8_t unkB0[0x18];            // B0 - red::Set<uint64_t>, checked by the script call path
+    uint8_t unkC8[0x18];            // C8 - red::Set<uint64_t>, checked by the script call path
+    int64_t unkE0;                  // E0
+    CBaseFunction* unkE8;           // E8 - Redirect target used by the script call path when set
 
 private:
     using Handler_t = void (*)(ScriptInstance, RED4ext::CStackFrame&, void*, CBaseRTTIType*);
@@ -96,7 +103,7 @@ private:
     static Handler_t GetHandler(uint32_t aIndex);
     bool ExecuteNative(CStack* aStack, CStackFrame& aFrame);
 };
-RED4EXT_ASSERT_SIZE(CBaseFunction, 0xB0);
+RED4EXT_ASSERT_SIZE(CBaseFunction, 0xF0);
 RED4EXT_ASSERT_OFFSET(CBaseFunction, fullName, 0x08);
 RED4EXT_ASSERT_OFFSET(CBaseFunction, bytecode, 0x78);
 RED4EXT_ASSERT_OFFSET(CBaseFunction, flags, 0xA8);
@@ -121,10 +128,10 @@ struct CGlobalFunction : CBaseFunction
         return memory;
     }
 
-    uint32_t regIndex; // B0
+    uint32_t regIndex; // F0 - Mac: the CGlobalFunction constructor (2.5.0 0x109BA60) stores it at F0 (2.3.1: B0)
 };
-RED4EXT_ASSERT_SIZE(CGlobalFunction, 0xB8);
-RED4EXT_ASSERT_OFFSET(CGlobalFunction, regIndex, 0xB0);
+RED4EXT_ASSERT_SIZE(CGlobalFunction, 0xF8);
+RED4EXT_ASSERT_OFFSET(CGlobalFunction, regIndex, 0xF0);
 
 struct CClassFunction : CBaseFunction
 {
@@ -155,12 +162,12 @@ struct CClassFunction : CBaseFunction
         return memory;
     }
 
-    CClass* parent;    // B0
-    uint32_t regIndex; // B8
+    CClass* parent;    // F0 - Mac: the CClassFunction constructor (2.5.0 0x109B838) stores parent at F0 and regIndex at F8
+    uint32_t regIndex; // F8
 };
-RED4EXT_ASSERT_SIZE(CClassFunction, 0xC0);
-RED4EXT_ASSERT_OFFSET(CClassFunction, parent, 0xB0);
-RED4EXT_ASSERT_OFFSET(CClassFunction, regIndex, 0xB8);
+RED4EXT_ASSERT_SIZE(CClassFunction, 0x100);
+RED4EXT_ASSERT_OFFSET(CClassFunction, parent, 0xF0);
+RED4EXT_ASSERT_OFFSET(CClassFunction, regIndex, 0xF8);
 
 struct CClassStaticFunction : CClassFunction
 {
@@ -184,14 +191,14 @@ struct CClassStaticFunction : CClassFunction
         return memory;
     }
 };
-RED4EXT_ASSERT_SIZE(CClassStaticFunction, 0xC0);
+RED4EXT_ASSERT_SIZE(CClassStaticFunction, 0x100);
 
 struct CScriptedFunction : CBaseFunction
 {
-    CClass* parent; // B0
+    CClass* parent; // F0 - Mac: the CScriptedFunction move constructor (2.5.0 0x109BBE0) copies it at F0 (2.3.1 0x2173D08: B0)
 };
-RED4EXT_ASSERT_SIZE(CScriptedFunction, 0xB8);
-RED4EXT_ASSERT_OFFSET(CScriptedFunction, parent, 0xB0);
+RED4EXT_ASSERT_SIZE(CScriptedFunction, 0xF8);
+RED4EXT_ASSERT_OFFSET(CScriptedFunction, parent, 0xF0);
 } // namespace RED4ext
 
 #ifdef RED4EXT_HEADER_ONLY

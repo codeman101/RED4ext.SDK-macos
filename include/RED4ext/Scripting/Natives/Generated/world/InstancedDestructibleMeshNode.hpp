@@ -34,81 +34,77 @@ struct InstancedDestructibleMeshNode : world::MeshNode
 // mac-layout (generated from the reflection dump)
     uint8_t unk_5A[0x5A - ::RED4ext::Detail::DataSize<world::MeshNode>];
     NavGenNavigationSetting navigationSetting; // 5A
-    uint8_t unk_60[0x60 - (0x5A + sizeof(navigationSetting))];
-    world::TransformBuffer cookedInstanceTransforms; // 60
-    uint8_t unk_78[0x78 - (0x60 + sizeof(cookedInstanceTransforms))];
-    physics::SimulationType simulationType; // 78
-    uint8_t unk_80[0x80 - (0x78 + sizeof(simulationType))];
-    Handle<physics::FilterData> filterData; // 80
-    uint8_t unk_90[0x90 - (0x80 + sizeof(filterData))];
-    physics::FilterDataSource filterDataSource; // 90
-    uint8_t unk_98[0x98 - (0x90 + sizeof(filterDataSource))];
-    RaRef<world::Effect> fracturingEffect; // 98
-    uint8_t unk_A0[0xA0 - (0x98 + sizeof(fracturingEffect))];
-    RaRef<world::Effect> idleEffect; // A0
-    uint8_t unk_A8[0xA8 - (0xA0 + sizeof(idleEffect))];
-    RaRef<CMesh> staticMesh; // A8
-    uint8_t unk_B0[0xB0 - (0xA8 + sizeof(staticMesh))];
-    CName staticMeshAppearance; // B0
-    uint8_t unk_B8[0xB8 - (0xB0 + sizeof(staticMeshAppearance))];
-    float impulseToDamage; // B8
-    uint8_t unk_BC[0xBC - (0xB8 + sizeof(impulseToDamage))];
-    float damageThreshold; // BC
-    uint8_t unk_C0[0xC0 - (0xBC + sizeof(damageThreshold))];
-    float damageEndurance; // C0
-    uint8_t unk_C4[0xC4 - (0xC0 + sizeof(damageEndurance))];
-    bool useAggregate; // C4
-    uint8_t unk_C5[0xC5 - (0xC4 + sizeof(useAggregate))];
-    bool enableSelfCollisionInAggregate; // C5
-    uint8_t unk_C6[0xC6 - (0xC5 + sizeof(enableSelfCollisionInAggregate))];
-    bool startInactive; // C6
-    uint8_t unk_C7[0xC7 - (0xC6 + sizeof(startInactive))];
-    bool turnDynamicOnImpulse; // C7
-    uint8_t unk_C8[0xC8 - (0xC7 + sizeof(turnDynamicOnImpulse))];
-    bool isDestructible; // C8
-    uint8_t unk_C9[0xC9 - (0xC8 + sizeof(isDestructible))];
-    bool accumulateDamage; // C9
-    uint8_t unk_CA[0xCA - (0xC9 + sizeof(accumulateDamage))];
-    bool isPierceable; // CA
-    uint8_t unk_CB[0xCB - (0xCA + sizeof(isPierceable))];
-    bool isWorkspot; // CB
-    uint8_t unk_CC[0xCC - (0xCB + sizeof(isWorkspot))];
-    bool useMeshNavmeshSettings; // CC
-    uint8_t unk_CE[0xCE - (0xCC + sizeof(useMeshNavmeshSettings))];
-    uint16_t systemsToNotifyFlags; // CE
-    uint8_t unk_D0[0xD0 - (0xCE + sizeof(systemsToNotifyFlags))];
-    DynArray<Transform> instanceTransforms; // D0
+    uint8_t unk_5C[0x5C - (0x5A + sizeof(navigationSetting))];
+    physics::SimulationType simulationType; // 5C
+    uint8_t unk_60[0x60 - (0x5C + sizeof(simulationType))];
+    Handle<physics::FilterData> filterData; // 60
+    uint8_t unk_70[0x70 - (0x60 + sizeof(filterData))];
+    physics::FilterDataSource filterDataSource; // 70
+    uint8_t unk_78[0x78 - (0x70 + sizeof(filterDataSource))];
+    RaRef<world::Effect> fracturingEffect; // 78
+    uint8_t unk_80[0x80 - (0x78 + sizeof(fracturingEffect))];
+    RaRef<world::Effect> idleEffect; // 80
+    uint8_t unk_88[0x88 - (0x80 + sizeof(idleEffect))];
+    RaRef<CMesh> staticMesh; // 88
+    uint8_t unk_90[0x90 - (0x88 + sizeof(staticMesh))];
+    CName staticMeshAppearance; // 90
+    uint8_t unk_98[0x98 - (0x90 + sizeof(staticMeshAppearance))];
+    float impulseToDamage; // 98
+    uint8_t unk_9C[0x9C - (0x98 + sizeof(impulseToDamage))];
+    float damageThreshold; // 9C
+    uint8_t unk_A0[0xA0 - (0x9C + sizeof(damageThreshold))];
+    float damageEndurance; // A0
+    uint8_t unk_A4[0xA4 - (0xA0 + sizeof(damageEndurance))];
+    bool useAggregate; // A4
+    uint8_t unk_A5[0xA5 - (0xA4 + sizeof(useAggregate))];
+    bool enableSelfCollisionInAggregate; // A5
+    uint8_t unk_A6[0xA6 - (0xA5 + sizeof(enableSelfCollisionInAggregate))];
+    bool startInactive; // A6
+    uint8_t unk_A7[0xA7 - (0xA6 + sizeof(startInactive))];
+    bool turnDynamicOnImpulse; // A7
+    uint8_t unk_A8[0xA8 - (0xA7 + sizeof(turnDynamicOnImpulse))];
+    bool isDestructible; // A8
+    uint8_t unk_A9[0xA9 - (0xA8 + sizeof(isDestructible))];
+    bool accumulateDamage; // A9
+    uint8_t unk_AA[0xAA - (0xA9 + sizeof(accumulateDamage))];
+    bool isPierceable; // AA
+    uint8_t unk_AB[0xAB - (0xAA + sizeof(isPierceable))];
+    bool isWorkspot; // AB
+    uint8_t unk_AC[0xAC - (0xAB + sizeof(isWorkspot))];
+    bool useMeshNavmeshSettings; // AC
+    uint8_t unk_AE[0xAE - (0xAC + sizeof(useMeshNavmeshSettings))];
+    uint16_t systemsToNotifyFlags; // AE
+    uint8_t unk_B0[0xB0 - (0xAE + sizeof(systemsToNotifyFlags))];
+    DynArray<Transform> instanceTransforms; // B0
 #else
     NavGenNavigationSetting navigationSetting; // 60
-    uint8_t unk62[0x68 - 0x62]; // 62
-    world::TransformBuffer cookedInstanceTransforms; // 68
-    physics::SimulationType simulationType; // 80
-    uint8_t unk81[0x88 - 0x81]; // 81
-    Handle<physics::FilterData> filterData; // 88
-    physics::FilterDataSource filterDataSource; // 98
-    uint8_t unk99[0xA0 - 0x99]; // 99
-    RaRef<world::Effect> fracturingEffect; // A0
-    RaRef<world::Effect> idleEffect; // A8
-    RaRef<CMesh> staticMesh; // B0
-    CName staticMeshAppearance; // B8
-    float impulseToDamage; // C0
-    float damageThreshold; // C4
-    float damageEndurance; // C8
-    bool useAggregate; // CC
-    bool enableSelfCollisionInAggregate; // CD
-    bool startInactive; // CE
-    bool turnDynamicOnImpulse; // CF
-    bool isDestructible; // D0
-    bool accumulateDamage; // D1
-    bool isPierceable; // D2
-    bool isWorkspot; // D3
-    bool useMeshNavmeshSettings; // D4
-    uint8_t unkD5[0xD6 - 0xD5]; // D5
-    uint16_t systemsToNotifyFlags; // D6
-    DynArray<Transform> instanceTransforms; // D8
+    physics::SimulationType simulationType; // 62
+    uint8_t unk63[0x68 - 0x63]; // 63
+    Handle<physics::FilterData> filterData; // 68
+    physics::FilterDataSource filterDataSource; // 78
+    uint8_t unk79[0x80 - 0x79]; // 79
+    RaRef<world::Effect> fracturingEffect; // 80
+    RaRef<world::Effect> idleEffect; // 88
+    RaRef<CMesh> staticMesh; // 90
+    CName staticMeshAppearance; // 98
+    float impulseToDamage; // A0
+    float damageThreshold; // A4
+    float damageEndurance; // A8
+    bool useAggregate; // AC
+    bool enableSelfCollisionInAggregate; // AD
+    bool startInactive; // AE
+    bool turnDynamicOnImpulse; // AF
+    bool isDestructible; // B0
+    bool accumulateDamage; // B1
+    bool isPierceable; // B2
+    bool isWorkspot; // B3
+    bool useMeshNavmeshSettings; // B4
+    uint8_t unkB5[0xB6 - 0xB5]; // B5
+    uint16_t systemsToNotifyFlags; // B6
+    DynArray<Transform> instanceTransforms; // B8
 #endif
 };
-RED4EXT_ASSERT_SIZE(InstancedDestructibleMeshNode, 0xE8);
+RED4EXT_ASSERT_SIZE(InstancedDestructibleMeshNode, 0xC8);
 } // namespace world
 using worldInstancedDestructibleMeshNode = world::InstancedDestructibleMeshNode;
 } // namespace RED4ext
