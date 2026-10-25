@@ -618,8 +618,9 @@ private:
         if (aSrcSizeInBytes == 0)
             return;
 
-        // The destination is the new buffer of a reallocation and holds no elements yet: construct them there (move-assigning
-        // would first release the garbage that the memory holds, which for a Handle means a release through a stale pointer).
+        // The destination is the new buffer of a reallocation and holds no elements yet: construct them there
+        // (move-assigning would first release the garbage that the memory holds, which for a Handle means a release
+        // through a stale pointer).
         std::uninitialized_move(aSrcBuffer, aSrcBuffer + aSrcArray->Size(), aDstBuffer);
         std::destroy(aSrcBuffer, aSrcBuffer + aSrcArray->Size());
     }
