@@ -226,7 +226,10 @@ struct DynArray
 
         const SizeType tailSize = m_size - posIdx;
         if (tailSize > 0)
+        {
             ShiftEntries(Iterator(&m_entries[posIdx]), Iterator(&m_entries[posIdx + 1]), tailSize);
+            std::destroy_at(&m_entries[posIdx]); // the moved-from element left in the slot
+        }
 
         new (&m_entries[posIdx]) ValueType(std::forward<TArgs>(aArgs)...);
 
@@ -258,9 +261,18 @@ struct DynArray
             ShiftEntries(insertPos, insertPos + insertSize, tailSize);
 
         if (distance > 0)
-            std::copy(aFirst, aLast, insertPos);
+        {
+            // Assign over the moved-from elements of the gap, construct past the old end.
+            const SizeType live = (std::min)(insertSize, tailSize);
+            auto it = aFirst;
+            for (SizeType i = 0; i < live; ++i, ++it)
+                insertPos[i] = *it;
+            std::uninitialized_copy(it, aLast, insertPos + live);
+        }
         else
+        {
             std::reverse_copy(aFirst, aLast, insertPos);
+        }
 
         m_size = newSize;
         return insertPos;
@@ -293,7 +305,10 @@ struct DynArray
         if (tailSize > 0)
             ShiftEntries(first, last, tailSize);
 
-        std::fill(first, last, aValue);
+        // Assign over the moved-from elements of the gap, construct past the old end.
+        const SizeType live = (std::min)(aCount, tailSize);
+        std::fill_n(first, live, aValue);
+        std::uninitialized_fill(first + live, last, aValue);
 
         m_size = newSize;
         return first;
@@ -583,9 +598,19 @@ private:
             return;
 
         if (aSrc > aDst)
+        {
             std::move(aSrc, aSrc + aCount, aDst);
+        }
         else
-            std::move_backward(aSrc, aSrc + aCount, aDst + aCount);
+        {
+            // The elements that land past the old end go to memory without elements: construct them there, then move
+            // the rest onto the elements they replace.
+            const auto end = aSrc + aCount;
+            const auto shift = static_cast<SizeType>(aDst - aSrc);
+            const auto raw = (std::min)(shift, aCount);
+            std::uninitialized_move(end - raw, end, end - raw + shift);
+            std::move_backward(aSrc, end - raw, end - raw + shift);
+        }
     }
 
     static void MoveEntries(Pointer aDstBuffer, Pointer aSrcBuffer, uint32_t aSrcSizeInBytes, DynArray* aSrcArray)
@@ -593,7 +618,9 @@ private:
         if (aSrcSizeInBytes == 0)
             return;
 
-        std::move(aSrcBuffer, aSrcBuffer + aSrcArray->Size(), aDstBuffer);
+        // The destination is the new buffer of a reallocation and holds no elements yet: construct them there (move-assigning
+        // would first release the garbage that the memory holds, which for a Handle means a release through a stale pointer).
+        std::uninitialized_move(aSrcBuffer, aSrcBuffer + aSrcArray->Size(), aDstBuffer);
         std::destroy(aSrcBuffer, aSrcBuffer + aSrcArray->Size());
     }
 
