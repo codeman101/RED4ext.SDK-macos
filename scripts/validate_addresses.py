@@ -38,7 +38,7 @@ KNOWN_LAYOUT = {
         "__DATA_CONST": (0x107758000, 0x5D8000, 125140992),
         "__DATA": (0x107D30000, 0x1FF8000, 131268608),
     },
-    "sections": {("__TEXT", "__text"): (0x1000015A0, 0x52A2698)},
+    "sections": {("__TEXT", "__text"): (0x1000015A0, 0x52A2698), ("__TEXT", "__const"): (0x1052BFD00, 0x21D28A0)},
 }
 
 SEGS = {1: "__TEXT", 2: "__DATA_CONST", 3: "__DATA"}
