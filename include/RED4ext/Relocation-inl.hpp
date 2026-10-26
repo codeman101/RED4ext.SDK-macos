@@ -10,6 +10,9 @@
 
 #if !defined(_WIN32) && !defined(_WIN64)
 #include <mach-o/loader.h>
+#if defined(__APPLE__)
+#include <RED4ext/Mac/RelocationHooks.hpp>
+#endif
 
 namespace RED4ext
 {
@@ -232,10 +235,33 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
     {
         return imageBase + it->second;
     }
+
+#if defined(__APPLE__)
+    // The plugin's own rows, when this plugin compiles RED4ext/Mac/PluginSupport.hpp (RED4ext/Mac/RelocationHooks.hpp).
+    // The table above wins for a hash in both.
+    const auto* pluginHooks = Detail::MacPluginHooks();
+    if (pluginHooks && pluginHooks->rva)
+    {
+        if (const uintptr_t rva = pluginHooks->rva(aHash); rva != 0)
+        {
+            return imageBase + rva;
+        }
+    }
+#endif
     
     // Address not found or placeholder - return a non-zero sentinel value
     // This prevents null pointer crashes while making it clear something is wrong
     // The calling code should handle this gracefully
+#if defined(__APPLE__)
+    // A plugin may hand back its own address for an unknown hash (a trap stub, say); 0 falls through to the warning.
+    if (pluginHooks && pluginHooks->unknownHash)
+    {
+        if (const uintptr_t stub = pluginHooks->unknownHash(aHash); stub != 0)
+        {
+            return stub;
+        }
+    }
+#endif
     static bool firstWarning = true;
     if (firstWarning) {
         std::cerr << "=== SDK ADDRESS RESOLUTION WARNING ===" << std::endl;

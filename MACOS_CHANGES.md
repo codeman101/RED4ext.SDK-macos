@@ -79,6 +79,27 @@ Wide character output:
 |---------|-------|
 | `std::wcerr` | `std::cerr` (convert to narrow string) |
 
+### `include/RED4ext/Mac/` (plugin support, header-only)
+
+The Mac address table in `Relocation-inl.hpp` routes nine hashes to symbols each plugin defines (`tweakxl_memory_vault`,
+`tweakxl_vault_*`, `tweakxl_class_vslot`, `tweakxl_rtti_async_id`, `tweakxl_serializable_counter`). After its own table,
+`Resolve` now looks in the plugin's own image (`__dso_handle`) for a `__DATA,__red4ext_hooks` section (`Mac/RelocationHooks.hpp`):
+the plugin's rows and an optional unknown-hash handler. A plugin without the section behaves as before.
+
+A plugin built against the plain headers (the xmake package) adds one file that defines all of them:
+
+```cpp
+#define RED4EXT_MAC_PLUGIN_SUPPORT_IMPL
+#define RED4EXT_MAC_RTTI_ASYNC_ID_BASE 0x7FF80000             // its id bands
+#define RED4EXT_MAC_SERIALIZABLE_ID_BASE 0x7FC0000000000000
+#define RED4EXT_MAC_PLUGIN_ROWS "MyPluginRows.inc"           // optional: { hash, RVA }, rows
+#include <RED4ext/Mac/PluginSupport.hpp>
+```
+
+`PluginSupport.hpp` lists the options (`RED4EXT_MAC_PLUGIN_PROVIDES_HELPERS` for a plugin with its own vault,
+`RED4EXT_MAC_NO_SDK_ROWS`, `RED4EXT_MAC_UNKNOWN_HASH_HANDLER`, log prefix, diagnostics variable). `Mac/SdkRows.inc` is a copy of
+Codeware's `macos/MacSdkRows.inc` (the SDK-core rows the CMake ports inject); `Mac/MacPools.inc` is the game's pool list.
+
 ### `include/RED4ext/Common.hpp`
 
 Macro compatibility:
