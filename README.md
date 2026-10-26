@@ -63,7 +63,7 @@ The full procedure, with checks for each step, is in [docs/PORTING_A_PLUGIN.md](
 
 **Verified** means the address was identified by static analysis, with the evidence written down in
 [docs/ADDRESS_AUDIT.md](docs/ADDRESS_AUDIT.md) or [docs/re/](docs/README.md) (for 2.5.0:
-[docs/re/ADDRESS_DB_2.5.md](docs/re/ADDRESS_DB_2.5.md) and its evidence table). Currently 633 of 699 entries are
+[docs/re/ADDRESS_DB_2.5.md](docs/re/ADDRESS_DB_2.5.md) and its evidence table). Currently 635 of 701 entries are
 verified. Unverified entries are kept for later work but do
 not resolve.
 

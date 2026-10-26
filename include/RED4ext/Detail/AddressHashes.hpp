@@ -106,6 +106,7 @@ constexpr std::uint32_t CRTTISystem_Get = 0x4A610F64;
 
 #pragma region CStack
 constexpr std::uint32_t CStack_vtbl = 0x349A0EE1;
+constexpr std::uint32_t CStackFrame_dtor = 0x952E09D3;
 #pragma endregion
 
 #pragma region CString
@@ -198,6 +199,7 @@ constexpr std::uint32_t Memory_Vault_ReallocAligned = 0x56961AA9;
 constexpr std::uint32_t Memory_Vault_Free = 0x33421332;
 constexpr std::uint32_t Memory_Vault_Unk1 = 0x19EC1367;
 constexpr std::uint32_t Memory_PoolStorage_OOM = 0xD54F163A;
+constexpr std::uint32_t Memory_PoolScript_vtbl = 0x600407D7;
 #pragma endregion
 
 #pragma region OpcodeHandlers

@@ -15,22 +15,25 @@ The segments moved: 2.5.0 has `__TEXT` 0x7758000 bytes, `__DATA_CONST` at 0x1077
 
 | | 2.3.1 (merged) | 2.5.0 |
 |---|---|---|
-| rows | 699 | 699 |
-| resolved (offset not 0) | 694 | 687 |
+| rows | 699 | 701 |
+| resolved (offset not 0) | 694 | 689 |
 | unresolved | 5 | 12 |
-| verified | 635 | 633 |
+| verified | 635 | 635 |
 
-Verified rows in 2.5.0 by method (633):
+Verified rows in 2.5.0 by method (633 carried over, plus the 2 rows below):
 
 | method | rows | evidence |
 |---|---|---|
 | `configvar-name` | 394 | `scripts/config_var_dump.py` run on both binaries (with two fixes in the copy used here: stores that reach the object through a base register, and a longer replay window for the 9000-instruction initializer). Same group and name strings, same constructor call, same value-type vtable (bool/int/float) as in 2.3.1. 391 variables, plus the 3 value-type vtables. |
 | `accepted-auto` | 110 | The old-to-new pair is an accepted entry of `p25/accepted-auto.tsv` (exact, propagate, feature-matched at 0.9 or above), re-checked with `bodycmp.py` (callee twins, caller twins). |
 | `manual-comparison` | 40 | Read side by side: disassembly or a card from `card.py`, vtable context (`vtctx*.py`), caller context (`callers.py`), string evidence (`strrefs.py`). The note column of the TSV says what was compared. |
-| `bodycmp` | 39 | Same strings, similar constants and field offsets, matched callees, sequence similarity at least 0.4 (`bodycmp.py`); all but 11 also have a reviewer entry in `p25/map-final.tsv` (CONFIRMED or CORRECTED). The 11 without one have sequence similarity 0.5 to 0.98 and all their callees matched. |
+| `bodycmp` | 39 | Same strings, similar constants and field offsets, matched callees, sequence similarity at least 0.4 (`bodycmp.py`); 27 also have a reviewer entry in `p25/map-final.tsv` (CONFIRMED or CORRECTED). The other 12 have sequence similarity 0.5 to 0.98 and all their twinned callees present. |
 | `exact/named/propagate` | 38 | The masked body hash (PC-relative fields masked) is identical, from `macdiff.py`. |
 | `data-xref` | 11 | Data rows: the functions that reference the global in 2.3.1 have twins that reference the 2.5.0 address (the notes give the counts). |
 | `script` | 1 | `scripts/upscaler_scale_table.py` on the 2.5.0 binary. |
+
+Two rows are new in 2.5.0 (no 2.3.1 row), added with the 2.5 layout headers (`Scripting/Stack.hpp`): `CStackFrame_dtor` (2502822355,
+1:0x11AB310) and `Memory_PoolScript_vtbl` (1610876887, 2:0x585B78). Their evidence is in the TSV; both agree with the sdk-pkg table.
 
 A row is verified in 2.5.0 only if it was verified in 2.3.1. Unverified rows were mapped when the match was good (54 rows with an
 offset, still unverified) and set to 0 otherwise.
