@@ -288,7 +288,7 @@ def self_test() -> int:
         "stats": {"total": 7, "resolved": 7, "unresolved": 0},
         "Addresses": [
             {"hash": str(good), "offset": "1:0x950AB8"},
-            {"hash": "1", "offset": "1:0x6C3E9A1"},  # misaligned, outside __text
+            {"hash": "1", "offset": "1:0x52A3C39"},  # misaligned, outside __text (in __stubs; __const tables are skipped)
             {"hash": "2", "offset": "1:0x0"},  # zero
             {"hash": "3", "offset": "1:0x22EEAC"},  # shared with 4
             {"hash": "4", "offset": "1:0x22EEAC"},
@@ -304,12 +304,12 @@ def self_test() -> int:
         res = validate([p, c], KNOWN_LAYOUT, {data_hash: "CGameEngine"}, {"CGameEngine"})
     errs = {(r[2], r[5].split(" ")[0]) for r in res if r[0] == "ERROR"}
     msgs = [r[5] for r in res if r[0] == "ERROR"]
-    assert (1, "function") in errs, msgs  # 0x6C3E9A1 not in __text
+    assert (1, "function") in errs, msgs  # 0x52A3C39 not in __text
     assert (2, "zero") in errs, msgs
     assert any("shared by 2 hashes" in m for m in msgs), msgs
     assert any(r[2] == data_hash and "outside __TEXT" in r[5] for r in res), msgs
     assert any("stats" == r[3] and "unresolved=0 but contents say 1" in r[5] for r in res), msgs
-    assert any(r[1] == "<cross-source>" and r[2] == 1 for r in res), msgs  # 0x6C3E9A1 vs 0x22EEB0
+    assert any(r[1] == "<cross-source>" and r[2] == 1 for r in res), msgs  # 0x52A3C39 vs 0x22EEB0
     assert not any(r[2] in (good, 5) for r in res), msgs
     print("self-test ok")
     return 0
