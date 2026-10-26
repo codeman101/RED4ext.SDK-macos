@@ -31,7 +31,6 @@ struct AttachmentSlotEventsPartRemovedFromSlotEvent : red::Event
     WeakHandle<game::ItemObject> item; // 40
     ItemID removedPartID; // 50
     TweakDBID slotID; // 60
-
 #endif
 };
 RED4EXT_ASSERT_SIZE(AttachmentSlotEventsPartRemovedFromSlotEvent, 0x68);

@@ -1,3 +1,4 @@
+#if defined(__APPLE__)
 #pragma once
 
 // clang-format off
@@ -28,7 +29,6 @@ struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsCon
     static constexpr const char* NAME = "gameuiWorldMapMenuGameController";
     static constexpr const char* ALIAS = "WorldMapMenuGameController";
 
-#if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
     uint8_t unk_368[0x368 - ::RED4ext::Detail::DataSize<game::ui::MappinsContainerController>];
     WeakHandle<game::ui::BaseWorldMapMappinController> selectedMappin; // 368
@@ -72,7 +72,45 @@ struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsCon
     game::data::District selectedDistrict; // 5F8
     uint8_t unk_604[0x604 - (0x5F8 + sizeof(selectedDistrict))];
     game::ui::EWorldMapDistrictView districtView; // 604
+};
+RED4EXT_ASSERT_SIZE(WorldMapMenuGameController, 0x6D0);
+} // namespace game::ui
+using gameuiWorldMapMenuGameController = game::ui::WorldMapMenuGameController;
+using WorldMapMenuGameController = game::ui::WorldMapMenuGameController;
+} // namespace RED4ext
+
+// clang-format on
 #else
+#pragma once
+
+// clang-format off
+
+// This file is generated from the Game's Reflection data
+
+#include <cstdint>
+#include <RED4ext/Common.hpp>
+#include <RED4ext/CName.hpp>
+#include <RED4ext/Handle.hpp>
+#include <RED4ext/NativeTypes.hpp>
+#include <RED4ext/Scripting/Natives/Generated/game/NewMappinID.hpp>
+#include <RED4ext/Scripting/Natives/Generated/game/data/District.hpp>
+#include <RED4ext/Scripting/Natives/Generated/game/ui/EWorldMapDistrictView.hpp>
+#include <RED4ext/Scripting/Natives/Generated/game/ui/MappinsContainerController.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/CompoundWidgetReference.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/Margin.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/WidgetReference.hpp>
+
+namespace RED4ext
+{
+namespace game::ui { struct BaseWorldMapMappinController; }
+
+namespace game::ui
+{
+struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsContainerController
+{
+    static constexpr const char* NAME = "gameuiWorldMapMenuGameController";
+    static constexpr const char* ALIAS = "WorldMapMenuGameController";
+
     uint8_t unk340[0x368 - 0x340]; // 340
     WeakHandle<game::ui::BaseWorldMapMappinController> selectedMappin; // 368
     uint8_t unk378[0x3B0 - 0x378]; // 378
@@ -103,7 +141,6 @@ struct __declspec(align(0x10)) WorldMapMenuGameController : game::ui::MappinsCon
     uint8_t unk5FC[0x604 - 0x5FC]; // 5FC
     game::ui::EWorldMapDistrictView districtView; // 604
     uint8_t unk608[0x6D0 - 0x608]; // 608
-#endif
 };
 RED4EXT_ASSERT_SIZE(WorldMapMenuGameController, 0x6D0);
 } // namespace game::ui
@@ -112,3 +149,4 @@ using WorldMapMenuGameController = game::ui::WorldMapMenuGameController;
 } // namespace RED4ext
 
 // clang-format on
+#endif

@@ -64,11 +64,6 @@ struct __declspec(align(0x10)) CMesh : res::StreamedResource
     ERenderObjectType objectType;                               // 219
     uint8_t unk21A[0x220 - 0x21A];                              // 21A
 };
-// Game 2.5 (3.0.88.46235): size 0x230 -> 0x220. Class registration 0x1058686 `mov r8d, 0x220`; the 2.31
-// constructor's 16-byte member at 0x220 (2.31 0x22460C/0x224605 stores to [r8+0x220]/[r8+0x228]) has no store in
-// the 2.5 constructor (0x62506C), whose last member store is 0x6252AE `mov word ptr [r8+0x218]`.
-// Reflected offsets unchanged: appearances 0x1E0, renderResourceBlob 0x1F8,
-// objectType 0x219; CMesh_FindAppearance 0x4B2258 reads [rcx+0x1E0].
 RED4EXT_ASSERT_SIZE(CMesh, 0x220);
 RED4EXT_ASSERT_OFFSET(CMesh, appearances, 0x1E0);
 RED4EXT_ASSERT_OFFSET(CMesh, renderResource, 0x1F0);

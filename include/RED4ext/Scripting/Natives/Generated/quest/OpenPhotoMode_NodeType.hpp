@@ -1,3 +1,4 @@
+#if defined(__APPLE__)
 #pragma once
 
 // clang-format off
@@ -18,7 +19,6 @@ struct OpenPhotoMode_NodeType : quest::IUIManagerNodeType
     static constexpr const char* NAME = "questOpenPhotoMode_NodeType";
     static constexpr const char* ALIAS = NAME;
 
-#if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
     uint8_t unk_38[0x38 - ::RED4ext::Detail::DataSize<quest::IUIManagerNodeType>];
     CString factName; // 38
@@ -28,13 +28,6 @@ struct OpenPhotoMode_NodeType : quest::IUIManagerNodeType
     bool alwaysAllowTPP; // 59
     uint8_t unk_5A[0x5A - (0x59 + sizeof(alwaysAllowTPP))];
     bool lockExitUntilScreenshot; // 5A
-#else
-    CString factName; // 38
-    bool forceFppMode; // 58
-    bool alwaysAllowTPP; // 59
-    bool lockExitUntilScreenshot; // 5A
-    uint8_t unk5B[0x60 - 0x5B]; // 5B
-#endif
 };
 RED4EXT_ASSERT_SIZE(OpenPhotoMode_NodeType, 0x60);
 } // namespace quest
@@ -42,3 +35,38 @@ using questOpenPhotoMode_NodeType = quest::OpenPhotoMode_NodeType;
 } // namespace RED4ext
 
 // clang-format on
+#else
+#pragma once
+
+// clang-format off
+
+// This file is generated from the Game's Reflection data
+
+#include <cstdint>
+#include <RED4ext/Common.hpp>
+#include <RED4ext/NativeTypes.hpp>
+#include <RED4ext/Scripting/Natives/Generated/quest/IUIManagerNodeType.hpp>
+
+namespace RED4ext
+{
+namespace quest
+{
+struct OpenPhotoMode_NodeType : quest::IUIManagerNodeType
+{
+    static constexpr const char* NAME = "questOpenPhotoMode_NodeType";
+    static constexpr const char* ALIAS = NAME;
+
+    CString factName; // 38
+    bool forceFppMode; // 58
+    bool alwaysAllowTPP; // 59
+    bool lockExitUntilScreenshot; // 5A
+    bool blockOutfitOption; // 5B
+    uint8_t unk5C[0x60 - 0x5C]; // 5C
+};
+RED4EXT_ASSERT_SIZE(OpenPhotoMode_NodeType, 0x60);
+} // namespace quest
+using questOpenPhotoMode_NodeType = quest::OpenPhotoMode_NodeType;
+} // namespace RED4ext
+
+// clang-format on
+#endif

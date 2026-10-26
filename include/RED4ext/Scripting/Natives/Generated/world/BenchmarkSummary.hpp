@@ -1,3 +1,4 @@
+#if defined(__APPLE__)
 #pragma once
 
 // clang-format off
@@ -19,7 +20,6 @@ struct BenchmarkSummary : IScriptable
     static constexpr const char* NAME = "worldBenchmarkSummary";
     static constexpr const char* ALIAS = NAME;
 
-#if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
     uint8_t unk_40[0x40 - ::RED4ext::Detail::DataSize<IScriptable>];
     CString gameVersion; // 40
@@ -153,7 +153,35 @@ struct BenchmarkSummary : IScriptable
     int32_t rayTracedLightingQuality; // 224
     uint8_t unk_228[0x228 - (0x224 + sizeof(rayTracedLightingQuality))];
     bool rayTracedPathTracingEnabled; // 228
+};
+RED4EXT_ASSERT_SIZE(BenchmarkSummary, 0x230);
+} // namespace world
+using worldBenchmarkSummary = world::BenchmarkSummary;
+} // namespace RED4ext
+
+// clang-format on
 #else
+#pragma once
+
+// clang-format off
+
+// This file is generated from the Game's Reflection data
+
+#include <cstdint>
+#include <RED4ext/Common.hpp>
+#include <RED4ext/CName.hpp>
+#include <RED4ext/NativeTypes.hpp>
+#include <RED4ext/Scripting/IScriptable.hpp>
+
+namespace RED4ext
+{
+namespace world
+{
+struct BenchmarkSummary : IScriptable
+{
+    static constexpr const char* NAME = "worldBenchmarkSummary";
+    static constexpr const char* ALIAS = NAME;
+
     CString gameVersion; // 40
     CString benchmarkName; // 60
     CString gpuName; // 80
@@ -234,7 +262,6 @@ struct BenchmarkSummary : IScriptable
     int32_t rayTracedLightingQuality; // 224
     bool rayTracedPathTracingEnabled; // 228
     uint8_t unk229[0x230 - 0x229]; // 229
-#endif
 };
 RED4EXT_ASSERT_SIZE(BenchmarkSummary, 0x230);
 } // namespace world
@@ -242,3 +269,4 @@ using worldBenchmarkSummary = world::BenchmarkSummary;
 } // namespace RED4ext
 
 // clang-format on
+#endif

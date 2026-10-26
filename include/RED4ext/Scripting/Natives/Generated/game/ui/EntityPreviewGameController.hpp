@@ -1,3 +1,4 @@
+#if defined(__APPLE__)
 #pragma once
 
 // clang-format off
@@ -20,15 +21,9 @@ struct EntityPreviewGameController : game::ui::MenuGameController
     static constexpr const char* NAME = "gameuiEntityPreviewGameController";
     static constexpr const char* ALIAS = "inkEntityPreviewGameController";
 
-#if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
     uint8_t unk_158[0x158 - ::RED4ext::Detail::DataSize<game::ui::MenuGameController>];
     RaRef<ent::EntityTemplate> entityToPreview; // 158
-#else
-    uint8_t unk100[0x158 - 0x100]; // 100
-    RaRef<ent::EntityTemplate> entityToPreview; // 158
-    uint8_t unk160[0x170 - 0x160]; // 160
-#endif
 
 };
 RED4EXT_ASSERT_SIZE(EntityPreviewGameController, 0x170);
@@ -38,3 +33,38 @@ using inkEntityPreviewGameController = game::ui::EntityPreviewGameController;
 } // namespace RED4ext
 
 // clang-format on
+#else
+#pragma once
+
+// clang-format off
+
+// This file is generated from the Game's Reflection data
+
+#include <cstdint>
+#include <RED4ext/Common.hpp>
+#include <RED4ext/NativeTypes.hpp>
+#include <RED4ext/Scripting/Natives/Generated/game/ui/MenuGameController.hpp>
+
+namespace RED4ext
+{
+namespace ent { struct EntityTemplate; }
+
+namespace game::ui
+{
+struct EntityPreviewGameController : game::ui::MenuGameController
+{
+    static constexpr const char* NAME = "gameuiEntityPreviewGameController";
+    static constexpr const char* ALIAS = "inkEntityPreviewGameController";
+
+    uint8_t unk100[0x158 - 0x100]; // 100
+    RaRef<ent::EntityTemplate> entityToPreview; // 158
+    uint8_t unk160[0x170 - 0x160]; // 160
+};
+RED4EXT_ASSERT_SIZE(EntityPreviewGameController, 0x170);
+} // namespace game::ui
+using gameuiEntityPreviewGameController = game::ui::EntityPreviewGameController;
+using inkEntityPreviewGameController = game::ui::EntityPreviewGameController;
+} // namespace RED4ext
+
+// clang-format on
+#endif

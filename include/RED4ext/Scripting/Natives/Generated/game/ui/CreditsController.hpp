@@ -1,3 +1,4 @@
+#if defined(__APPLE__)
 #pragma once
 
 // clang-format off
@@ -24,7 +25,6 @@ struct CreditsController : game::ui::WidgetGameController
     static constexpr const char* NAME = "gameuiCreditsController";
     static constexpr const char* ALIAS = NAME;
 
-#if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
     uint8_t unk_130[0x130 - ::RED4ext::Detail::DataSize<game::ui::WidgetGameController>];
     Ref<ink::CreditsResource> creditsResourceXBOX; // 130
@@ -84,7 +84,40 @@ struct CreditsController : game::ui::WidgetGameController
     CName basicLibraryID; // 2E0
     uint8_t unk_2E8[0x2E8 - (0x2E0 + sizeof(basicLibraryID))];
     CName basicTranslatableLibraryID; // 2E8
+};
+RED4EXT_ASSERT_SIZE(CreditsController, 0x370);
+} // namespace game::ui
+using gameuiCreditsController = game::ui::CreditsController;
+} // namespace RED4ext
+
+// clang-format on
 #else
+#pragma once
+
+// clang-format off
+
+// This file is generated from the Game's Reflection data
+
+#include <cstdint>
+#include <RED4ext/Common.hpp>
+#include <RED4ext/CName.hpp>
+#include <RED4ext/NativeTypes.hpp>
+#include <RED4ext/Scripting/Natives/Generated/game/ui/WidgetGameController.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/CompoundWidgetReference.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/TextWidgetReference.hpp>
+
+namespace RED4ext
+{
+struct CResource;
+namespace ink { struct CreditsResource; }
+
+namespace game::ui
+{
+struct CreditsController : game::ui::WidgetGameController
+{
+    static constexpr const char* NAME = "gameuiCreditsController";
+    static constexpr const char* ALIAS = NAME;
+
     uint8_t unkE0[0x130 - 0xE0]; // E0
     Ref<ink::CreditsResource> creditsResourceXBOX; // 130
     Ref<ink::CreditsResource> creditsResourcePC; // 148
@@ -122,7 +155,6 @@ struct CreditsController : game::ui::WidgetGameController
     CName basicLibraryID; // 2E0
     CName basicTranslatableLibraryID; // 2E8
     uint8_t unk2F0[0x370 - 0x2F0]; // 2F0
-#endif
 };
 RED4EXT_ASSERT_SIZE(CreditsController, 0x370);
 } // namespace game::ui
@@ -130,3 +162,4 @@ using gameuiCreditsController = game::ui::CreditsController;
 } // namespace RED4ext
 
 // clang-format on
+#endif

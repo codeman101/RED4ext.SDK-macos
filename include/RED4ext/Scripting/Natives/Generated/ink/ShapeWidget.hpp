@@ -1,3 +1,4 @@
+#if defined(__APPLE__)
 #pragma once
 
 // clang-format off
@@ -28,7 +29,6 @@ struct __declspec(align(0x10)) ShapeWidget : ink::BaseShapeWidget
     static constexpr const char* NAME = "inkShapeWidget";
     static constexpr const char* ALIAS = "inkShape";
 
-#if defined(__APPLE__)
 // mac-layout (generated from the reflection dump)
     uint8_t unk_220[0x220 - ::RED4ext::Detail::DataSize<ink::BaseShapeWidget>];
     Ref<ink::ShapeCollectionResource> shapeResource; // 220
@@ -58,7 +58,46 @@ struct __declspec(align(0x10)) ShapeWidget : ink::BaseShapeWidget
     bool useNineSlice; // 276
     uint8_t unk_278[0x278 - (0x276 + sizeof(useNineSlice))];
     ink::Margin nineSliceScale; // 278
+
+};
+RED4EXT_ASSERT_SIZE(ShapeWidget, 0x380);
+} // namespace ink
+using inkShapeWidget = ink::ShapeWidget;
+using inkShape = ink::ShapeWidget;
+} // namespace RED4ext
+
+// clang-format on
 #else
+#pragma once
+
+// clang-format off
+
+// This file is generated from the Game's Reflection data
+
+#include <cstdint>
+#include <RED4ext/Common.hpp>
+#include <RED4ext/CName.hpp>
+#include <RED4ext/NativeTypes.hpp>
+#include <RED4ext/Scripting/Natives/Generated/HDRColor.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/BaseShapeWidget.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/EEndCapStyle.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/EHorizontalAlign.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/EJointStyle.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/EShapeVariant.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/EVerticalAlign.hpp>
+#include <RED4ext/Scripting/Natives/Generated/ink/Margin.hpp>
+
+namespace RED4ext
+{
+namespace ink { struct ShapeCollectionResource; }
+
+namespace ink
+{
+struct __declspec(align(0x10)) ShapeWidget : ink::BaseShapeWidget
+{
+    static constexpr const char* NAME = "inkShapeWidget";
+    static constexpr const char* ALIAS = "inkShape";
+
     Ref<ink::ShapeCollectionResource> shapeResource; // 240
     CName shapeName; // 258
     bool keepInBounds; // 260
@@ -77,8 +116,6 @@ struct __declspec(align(0x10)) ShapeWidget : ink::BaseShapeWidget
     uint8_t unk297[0x298 - 0x297]; // 297
     ink::Margin nineSliceScale; // 298
     uint8_t unk2A8[0x380 - 0x2A8]; // 2A8
-#endif
-
 };
 RED4EXT_ASSERT_SIZE(ShapeWidget, 0x380);
 } // namespace ink
@@ -87,3 +124,4 @@ using inkShape = ink::ShapeWidget;
 } // namespace RED4ext
 
 // clang-format on
+#endif
