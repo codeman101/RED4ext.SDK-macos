@@ -156,13 +156,23 @@ RED4EXT_INLINE RED4ext::SharedPtr<RED4ext::DeferredDataBufferToken> RED4ext::Def
 
 RED4EXT_INLINE RED4ext::SharedPtr<RED4ext::DeferredDataBufferCopyToken> RED4ext::DeferredDataBuffer::LoadCopyAsync()
 {
-    using LoadBufferRefAsync_t = void* (*)(DeferredDataBuffer*, SharedPtr<DeferredDataBufferCopyToken>*, int8_t);
+#if defined(__APPLE__)
+    // Mac: the result comes back through x8 (the game function 2.3.1 0x226276C / 2.5.0 0x1215680 copies x8 into a callee saved
+    // register in its prologue, as LoadAsync does) and the Windows out argument is gone. The 2.5 function takes the extra bool in x2
+    // (2.3.1: only the int8 in x1). The SharedPtr return type itself is the Windows one and is not proven on Mac.
+    using LoadBufferRefAsync_t = SharedPtr<DeferredDataBufferCopyToken> (*)(DeferredDataBuffer*, int8_t, bool);
+    static UniversalRelocFunc<LoadBufferRefAsync_t> func(Detail::AddressHashes::DeferredDataBuffer_LoadRefAsync);
+
+    return func(this, 0, false);
+#else
+    using LoadBufferRefAsync_t = void* (*)(DeferredDataBuffer*, SharedPtr<DeferredDataBufferCopyToken>*, int8_t, bool);
     static UniversalRelocFunc<LoadBufferRefAsync_t> func(Detail::AddressHashes::DeferredDataBuffer_LoadRefAsync);
 
     SharedPtr<DeferredDataBufferCopyToken> token;
-    func(this, &token, 0);
+    func(this, &token, 0, false);
 
     return token;
+#endif
 }
 
 RED4EXT_INLINE RED4ext::DeferredDataBufferToken::DeferredDataBufferToken(DeferredDataBuffer& aBuffer,
