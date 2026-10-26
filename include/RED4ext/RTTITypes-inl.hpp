@@ -388,18 +388,10 @@ RED4EXT_INLINE bool RED4ext::CEnum::FromString(void* aInstance, FromStringText a
 #else
 RED4EXT_INLINE bool RED4ext::CEnum::FromString(void* aInstance, const CString& aString) const
 {
-#ifdef __APPLE__
-    // macOS: the game function (0x1021A3D4C, rtti::EnumType::FromString, twin of Windows RVA 0x59B204) takes the
-    // text as a red::StringView {data, size} by value, which arm64 passes in x2 and x3 (Windows: a pointer to it).
-    using func_t = bool (*)(const CEnum*, void*, const char*, uint64_t);
-    static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CEnum_FromString);
-    return func(this, aInstance, aString.c_str(), aString.Length());
-#else
     using func_t = bool (*)(const CEnum*, void*, const CString&);
 #endif
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CEnum_FromString);
     return func(this, aInstance, aString);
-#endif
 }
 
 RED4EXT_INLINE RED4ext::CBitfield::CBitfield(CName aName, int8_t aActualSize, Flags aFlags)
@@ -522,16 +514,8 @@ RED4EXT_INLINE bool RED4ext::CBitfield::FromString(void* aInstance, FromStringTe
 #else
 RED4EXT_INLINE bool RED4ext::CBitfield::FromString(void* aInstance, const CString& aString) const
 {
-#ifdef __APPLE__
-    // macOS: the same StringView by value in x2 and x3 as CEnum::FromString (game function 0x102196A2C,
-    // rtti::BitFieldType::FromString, twin of Windows RVA 0x2076E00).
-    using func_t = bool (*)(const CBitfield*, void*, const char*, uint64_t);
-    static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CBitfield_FromString);
-    return func(this, aInstance, aString.c_str(), aString.Length());
-#else
     using func_t = bool (*)(const CBitfield*, void*, const CString&);
 #endif
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CBitfield_FromString);
     return func(this, aInstance, aString);
-#endif
 }
