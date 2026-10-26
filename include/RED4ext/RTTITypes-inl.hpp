@@ -381,6 +381,11 @@ RED4EXT_INLINE bool RED4ext::CEnum::ToString(const void* aInstance, CString& aOu
     return func(this, aInstance, aOut);
 }
 
+#ifdef __APPLE__
+RED4EXT_INLINE bool RED4ext::CEnum::FromString(void* aInstance, FromStringText aString) const
+{
+    using func_t = bool (*)(const CEnum*, void*, FromStringText);
+#else
 RED4EXT_INLINE bool RED4ext::CEnum::FromString(void* aInstance, const CString& aString) const
 {
 #ifdef __APPLE__
@@ -391,6 +396,7 @@ RED4EXT_INLINE bool RED4ext::CEnum::FromString(void* aInstance, const CString& a
     return func(this, aInstance, aString.c_str(), aString.Length());
 #else
     using func_t = bool (*)(const CEnum*, void*, const CString&);
+#endif
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CEnum_FromString);
     return func(this, aInstance, aString);
 #endif
@@ -509,6 +515,11 @@ RED4EXT_INLINE bool RED4ext::CBitfield::ToString(const void* aInstance, CString&
     return func(this, aInstance, aOut);
 }
 
+#ifdef __APPLE__
+RED4EXT_INLINE bool RED4ext::CBitfield::FromString(void* aInstance, FromStringText aString) const
+{
+    using func_t = bool (*)(const CBitfield*, void*, FromStringText);
+#else
 RED4EXT_INLINE bool RED4ext::CBitfield::FromString(void* aInstance, const CString& aString) const
 {
 #ifdef __APPLE__
@@ -519,6 +530,7 @@ RED4EXT_INLINE bool RED4ext::CBitfield::FromString(void* aInstance, const CStrin
     return func(this, aInstance, aString.c_str(), aString.Length());
 #else
     using func_t = bool (*)(const CBitfield*, void*, const CString&);
+#endif
     static UniversalRelocFunc<func_t> func(Detail::AddressHashes::CBitfield_FromString);
     return func(this, aInstance, aString);
 #endif
