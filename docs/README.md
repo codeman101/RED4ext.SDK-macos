@@ -1,8 +1,9 @@
 # Docs
 
 Evidence for the macOS address database (`../cyberpunk2077_addresses.json`) and the macOS layouts. Every entry marked
-`"verified": true` must be justified in one of these files. All work is static analysis of the 2.3.1 arm64 binary
-(UUID `A6656ADC-FBE2-36A4-9B9D-B4A9DE645089`) unless a section says it was confirmed in game.
+`"verified": true` must be justified in one of these files. The older files are static analysis of the 2.3.1 arm64 binary
+(UUID `A6656ADC-FBE2-36A4-9B9D-B4A9DE645089`) unless a section says it was confirmed in game; [re/ADDRESS_DB_2.5.md](re/ADDRESS_DB_2.5.md)
+and its evidence table carry the database over to 2.5.0 (UUID `7D7382D0-EADD-36F0-BA1C-CEBEC1D5BEBC`).
 
 | File | Contents |
 |---|---|

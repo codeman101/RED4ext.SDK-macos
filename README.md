@@ -1,8 +1,9 @@
 # RED4ext.SDK (macOS arm64 fork)
 
 C++20 headers for writing [RED4ext](https://github.com/jackmaxwil/RED4ext-macos) plugins for Cyberpunk 2077. This fork of
-[WopsS/RED4ext.SDK](https://github.com/WopsS/RED4ext.SDK) adds macOS arm64 support for Cyberpunk 2077 **2.3.1** (game
-binary UUID `A6656ADC-FBE2-36A4-9B9D-B4A9DE645089`). The Windows build is kept; CI still builds it.
+[WopsS/RED4ext.SDK](https://github.com/WopsS/RED4ext.SDK) adds macOS arm64 support for Cyberpunk 2077 **2.5.0** (game
+binary UUID `7D7382D0-EADD-36F0-BA1C-CEBEC1D5BEBC`; the address database of game 2.3.1, UUID `A6656ADC-FBE2-36A4-9B9D-B4A9DE645089`, is in
+the git history before the `loader-2.5` branch). The Windows build is kept; CI still builds it.
 
 What the fork adds:
 
@@ -60,9 +61,10 @@ The full procedure, with checks for each step, is in [docs/PORTING_A_PLUGIN.md](
 `segment:offset` (1 = `__TEXT`, 2 = `__DATA_CONST`, 3 = `__DATA`). At runtime the SDK reads it from
 `$RED4EXT_SDK_ADDRESS_DB` or `<game>/red4ext/bin/x64/cyberpunk2077_addresses.json` (installed by RED4ext).
 
-**Verified** means the address was identified in the 2.3.1 binary by static analysis, with the evidence written down in
-[docs/ADDRESS_AUDIT.md](docs/ADDRESS_AUDIT.md) or [docs/re/](docs/README.md). Currently 187 of 278 entries are
-verified, including every address TweakXL, ArchiveXL and ModMenu use. Unverified entries are kept for later work but do
+**Verified** means the address was identified by static analysis, with the evidence written down in
+[docs/ADDRESS_AUDIT.md](docs/ADDRESS_AUDIT.md) or [docs/re/](docs/README.md) (for 2.5.0:
+[docs/re/ADDRESS_DB_2.5.md](docs/re/ADDRESS_DB_2.5.md) and its evidence table). Currently 633 of 699 entries are
+verified. Unverified entries are kept for later work but do
 not resolve.
 
 ```bash

@@ -10,7 +10,7 @@ Sources (any mix, given as paths; default = this repo's canonical DB):
 Checks: zero offsets, segment bounds, function in __text + 4-byte aligned + listed in
 LC_FUNCTION_STARTS + recognisable prologue (warning only: leaf functions have none),
 data in __DATA*, shared addresses, stats vs contents, and same hash -> same address
-across sources. Without the game binary, only checks the embedded 2.3.1 layout supports.
+across sources. Without the game binary, only checks the embedded 2.5.0 layout supports.
 
 Exit 1 on any error. `--self-test` runs the built-in check.
 """
@@ -29,14 +29,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BINARY = Path.home() / "Library/Application Support/Steam/steamapps/common/Cyberpunk 2077/Cyberpunk2077.orig"
 
-# Steam 2.3.1 build 5314028, UUID A6656ADC-FBE2-36A4-9B9D-B4A9DE645089. Used when the binary is absent (CI).
+# Steam 2.5.0 (CFBundleVersion 5814786), UUID 7D7382D0-EADD-36F0-BA1C-CEBEC1D5BEBC. Used when the binary is absent (CI).
+# (The 2.3.1 layout, UUID A6656ADC-FBE2-36A4-9B9D-B4A9DE645089: __TEXT 0x6DE0000, __DATA_CONST 0x106DE0000 + 0x5B4000,
+# __DATA 0x107394000 + 0x1D7C000, __text 0x100002070 + 0x4A37630.)
 KNOWN_LAYOUT = {
     "segments": {
-        "__TEXT": (0x100000000, 0x6DE0000, 0),
-        "__DATA_CONST": (0x106DE0000, 0x5B4000, 115212288),
-        "__DATA": (0x107394000, 0x1D7C000, 121192448),
+        "__TEXT": (0x100000000, 0x7758000, 0),
+        "__DATA_CONST": (0x107758000, 0x5D8000, 125140992),
+        "__DATA": (0x107D30000, 0x1FF8000, 131268608),
     },
-    "sections": {("__TEXT", "__text"): (0x100002070, 0x4A37630)},
+    "sections": {("__TEXT", "__text"): (0x1000015A0, 0x52A2698)},
 }
 
 SEGS = {1: "__TEXT", 2: "__DATA_CONST", 3: "__DATA"}
@@ -48,6 +50,15 @@ ALLOW_ZERO = {
     2203918127: "Global_ExecuteProcess: CProcessRunner::Run, the Windows process runner, no macOS twin found",
     2875532677: "CBaseEngine_InitScripts: inlined into its caller (0x3D9E5E8); the out-of-line copy 0x3D9ED9C has no callers",
     2508398574: "ResourceToken_DestructUnk38: inlined into its callers on macOS",
+    # Rows of the 2.3.1 database that have no unambiguous twin in 2.5.0 (docs/re/ADDRESS_DB_2.5.md, evidence in
+    # docs/re/ADDRESS_DB_2.5_EVIDENCE.tsv). They stay in the file so the hashes do not disappear; the loader and SDK ignore them.
+    15404457: "ResourceReference_Load: the 2.3.1 entry was mid-function; no start-to-start mapping was made",
+    620961393: "MappinSystem_GetPoiData: the 4-instruction stub was merged into another function in 2.5.0",
+    1518151849: "CBaseFunction_Handlers: a data address recorded with segment 1 in 2.3.1; no 2.5.0 twin found",
+    2786924000: "CommandListContext_FlushPendingBarriers: not a function start in 2.3.1; no 2.5.0 twin found",
+    2814122829: "CommandListContext_AddPendingBarrier: shared its 2.3.1 address with CommandListContext_Close; no separate 2.5.0 twin",
+    4228123904: "CommandListContext_dtor: no 2.5.0 twin found",
+    1426857557: "ConfigVar MFX/PreExposure: no variable with this group, name and value type in 2.5.0",
 }
 # frozenset of hashes -> justification. Hashes that may legitimately share one address.
 ALLOW_SHARED: dict[frozenset[int], str] = {}
@@ -281,7 +292,7 @@ def self_test() -> int:
             {"hash": "2", "offset": "1:0x0"},  # zero
             {"hash": "3", "offset": "1:0x22EEAC"},  # shared with 4
             {"hash": "4", "offset": "1:0x22EEAC"},
-            {"hash": str(data_hash), "offset": "1:0x6E50000"},  # beyond __TEXT
+            {"hash": str(data_hash), "offset": "1:0x7760000"},  # beyond __TEXT
             {"hash": "5", "offset": "2:0x100"},  # data, fine
         ],
     }
@@ -323,7 +334,7 @@ def main() -> int:
         print(f"binary: {args.binary} (UUID {layout['uuid']}, {len(layout['starts'])} function starts)")
     else:
         layout = KNOWN_LAYOUT
-        print(f"binary not found ({args.binary}): using embedded 2.3.1 layout; function-start/prologue checks skipped")
+        print(f"binary not found ({args.binary}): using embedded 2.5.0 layout; function-start/prologue checks skipped")
 
     names, data_names = load_names([ROOT / "include/RED4ext", *args.names])
     res = validate(sources, layout, names, data_names, args.verified_only)
