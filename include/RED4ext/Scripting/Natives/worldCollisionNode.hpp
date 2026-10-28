@@ -70,8 +70,9 @@ struct __declspec(align(0x10)) CollisionNode : Node
 
     CollisionDataView GetCollisionDataView() const noexcept
     {
-        return {compiledData, 0, numActors, numShapeInfos, numShapePositions, numShapeRotations, numScales,
-                numMaterials, numPresets, numShapeIndices, numMaterialIndices};
+        return {compiledData,      0,         numActors,    numShapeInfos, numShapePositions,
+                numShapeRotations, numScales, numMaterials, numPresets,    numShapeIndices,
+                numMaterialIndices};
     }
 
     uint32_t actorsOffset;          // 38

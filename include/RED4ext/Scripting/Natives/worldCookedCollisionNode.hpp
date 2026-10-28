@@ -49,9 +49,9 @@ struct CookedCollisionNode : CookedNode
     CollisionDataView GetCollisionDataView(uint32_t aInnerNodeIndex)
     {
         auto& node = GetInnerNodes().At(aInnerNodeIndex);
-        return {compiledData, node.dataOffset, node.numActors, node.numShapeInfos, node.numShapePositions,
-                node.numShapeRotations, node.numScales, node.numMaterials, node.numPresets, node.numShapeIndices,
-                node.numMaterialIndices};
+        return {compiledData,           node.dataOffset,        node.numActors,         node.numShapeInfos,
+                node.numShapePositions, node.numShapeRotations, node.numScales,         node.numMaterials,
+                node.numPresets,        node.numShapeIndices,   node.numMaterialIndices};
     }
 
     uint8_t unk38[0x40 - 0x38];   // 38
