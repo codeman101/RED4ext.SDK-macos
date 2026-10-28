@@ -7,7 +7,6 @@
 #include <RED4ext/Scripting/Natives/Generated/shadows/ShadowCastingMode.hpp>
 #include <RED4ext/Scripting/Natives/Generated/vis/WorldOccluderType.hpp>
 #include <RED4ext/Scripting/Natives/Generated/world/CookedNode.hpp>
-#include <RED4ext/Scripting/Natives/Generated/world/NodeTransform.hpp>
 
 namespace RED4ext
 {
@@ -44,12 +43,12 @@ struct InstancedMeshNode : CookedNode
     static constexpr const char* NAME = "worldInstancedMeshNode";
     static constexpr const char* ALIAS = NAME;
 
-    TDataBuffer<NodeTransform> cookedWorldTransformsBuffer;   // 38
-    DynArray<rend::RenderProxyTransform> unk60;               // 60
-    DynArray<InstancedMeshInnerNode> cookedInstances;         // 70
-    DynArray<InstancedMeshNodeTranformRange> transformRanges; // 80
-    uint8_t version;                                          // 90
-    uint8_t unk91[0x98 - 0x91];                               // 91
+    TDataBuffer<rend::RenderProxyTransform> cookedWorldTransformsBuffer; // 38
+    DynArray<rend::RenderProxyTransform> unk60;                          // 60
+    DynArray<InstancedMeshInnerNode> cookedInstances;                    // 70
+    DynArray<InstancedMeshNodeTranformRange> transformRanges;            // 80
+    uint8_t version;                                                     // 90
+    uint8_t unk91[0x98 - 0x91];                                          // 91
 };
 RED4EXT_ASSERT_SIZE(InstancedMeshNode, 0x98);
 RED4EXT_ASSERT_OFFSET(InstancedMeshNode, cookedWorldTransformsBuffer, 0x38);
