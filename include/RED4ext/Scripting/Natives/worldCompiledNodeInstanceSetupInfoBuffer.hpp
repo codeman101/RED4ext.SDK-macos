@@ -16,7 +16,7 @@ struct __declspec(align(0x10)) CompiledNodeInstanceSetupInfo
     Vector3 scale;                     // 20
     Vector3 secondaryRefPointPosition; // 2C
     Vector3 streamingRefPoint;         // 38
-    Vector3 unk44;                     // 44
+    Vector3 preboostStreamingRefPoint; // 44
     Node* node;                        // 50
     uint64_t globalNodeID;             // 58
     uint64_t proxyNodeID;              // 60
@@ -26,14 +26,14 @@ struct __declspec(align(0x10)) CompiledNodeInstanceSetupInfo
         // Version 68 (patch 2.5, current)
         struct
         {
-            uint64_t nodeIndex : 19;             // 70
-            uint64_t unk70_19 : 29;              // 70
-            uint64_t unk70_48 : 16;              // 70
-            float secondaryRefPointDistance;     // 78
-            float streamingDistance;             // 7C
-            uint32_t instanceIndex;              // 80
-            world::StreamingDataGroup dataGroup; // 84
-            uint8_t unk85[0x90 - 0x85];          // 85
+            uint64_t nodeIndex : 19;         // 70
+            uint64_t unk70_19 : 29;          // 70
+            uint64_t unk70_48 : 16;          // 70
+            float secondaryRefPointDistance; // 78
+            float streamingDistance;         // 7C
+            uint32_t instanceIndex;          // 80
+            StreamingDataGroup dataGroup;    // 84
+            uint8_t unk85[0x90 - 0x85];      // 85
         };
         // Version 62 (patch 2.31)
         struct
@@ -67,5 +67,6 @@ struct CompiledNodeInstanceSetupInfoBuffer
 };
 RED4EXT_ASSERT_SIZE(CompiledNodeInstanceSetupInfoBuffer, 0x30);
 } // namespace world
+using worldCompiledNodeInstanceSetupInfo = world::CompiledNodeInstanceSetupInfo;
 using worldCompiledNodeInstanceSetupInfoBuffer = world::CompiledNodeInstanceSetupInfoBuffer;
 } // namespace RED4ext
