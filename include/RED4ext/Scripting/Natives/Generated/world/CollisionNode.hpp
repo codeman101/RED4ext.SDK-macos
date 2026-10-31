@@ -10,6 +10,7 @@
 #include <RED4ext/NativeTypes.hpp>
 #include <RED4ext/Scripting/Natives/Generated/Vector4.hpp>
 #include <RED4ext/Scripting/Natives/Generated/world/Node.hpp>
+#include <RED4ext/Scripting/Natives/worldCollisionNode.hpp>
 
 namespace RED4ext
 {
@@ -19,6 +20,12 @@ struct __declspec(align(0x10)) CollisionNode : world::Node
 {
     static constexpr const char* NAME = "worldCollisionNode";
     static constexpr const char* ALIAS = NAME;
+
+    CollisionDataView GetCollisionDataView() const noexcept
+    {
+        return {compiledData, 0, numActors, numShapeInfos, numShapePositions, numShapeRotations, numScales,
+                numMaterials, numPresets, numShapeIndices, numMaterialIndices};
+    }
 
 // mac-layout (generated from the reflection dump)
     uint8_t unk_58[0x58 - ::RED4ext::Detail::DataSize<world::Node>];

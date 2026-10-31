@@ -63,6 +63,9 @@ struct CollisionDataView
     Span<uint8_t> materialIndices;
 };
 
+#if !defined(__APPLE__)
+// The Mac layout of CollisionNode is generated from the Mac reflection dump (Generated/world/CollisionNode.hpp): the Mac
+// world::Node is 8 bytes smaller, so compiledData is at 0x58, not 0x60. The helper types above are shared.
 struct __declspec(align(0x10)) CollisionNode : Node
 {
     static constexpr const char* NAME = "worldCollisionNode";
@@ -101,6 +104,9 @@ struct __declspec(align(0x10)) CollisionNode : Node
     Vector4 extents;                // B0
 };
 RED4EXT_ASSERT_SIZE(CollisionNode, 0xC0);
+#endif
 } // namespace world
+#if !defined(__APPLE__)
 using worldCollisionNode = world::CollisionNode;
+#endif
 } // namespace RED4ext
