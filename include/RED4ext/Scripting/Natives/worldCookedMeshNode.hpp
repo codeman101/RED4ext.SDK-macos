@@ -6,7 +6,7 @@
 #include <RED4ext/Scripting/Natives/Generated/shadows/ShadowCastingMode.hpp>
 #include <RED4ext/Scripting/Natives/Generated/vis/WorldOccluderType.hpp>
 #include <RED4ext/Scripting/Natives/Generated/world/CookedNode.hpp>
-#include <RED4ext/Views/DynArrayView.hpp>
+#include <RED4ext/Views/BufferView.hpp>
 
 namespace RED4ext
 {
@@ -39,9 +39,15 @@ struct CookedMeshNode : CookedNode
     static constexpr const char* NAME = "worldCookedMeshNode";
     static constexpr const char* ALIAS = NAME;
 
+    BufferView<CookedMeshInnerNode> GetInnerNodes()
+    {
+        return {cookedData.Data(), cookedData.Size(), cookedElementSize};
+    }
+
     uint8_t unk38[0x40 - 0x38];   // 38
     DynArray<uint8_t> cookedData; // 40
-    uint8_t unk50[0x58 - 0x50];   // 48
+    uint32_t cookedElementSize;   // 50
+    uint8_t unk54[0x58 - 0x54];   // 54
 };
 RED4EXT_ASSERT_SIZE(CookedMeshNode, 0x58);
 RED4EXT_ASSERT_OFFSET(CookedMeshNode, cookedData, 0x40);

@@ -10,8 +10,7 @@
 #include <RED4ext/Scripting/Natives/Generated/physics/ShapeType.hpp>
 #include <RED4ext/Scripting/Natives/Generated/world/CollisionNode.hpp>
 #include <RED4ext/Scripting/Natives/Generated/world/CookedNode.hpp>
-#include <RED4ext/Views/DynArrayView.hpp>
-#include <RED4ext/Views/RawBufferView.hpp>
+#include <RED4ext/Views/BufferView.hpp>
 
 namespace RED4ext
 {
@@ -41,9 +40,9 @@ struct CookedCollisionNode : CookedNode
     static constexpr const char* NAME = "worldCookedCollisionNode";
     static constexpr const char* ALIAS = NAME;
 
-    DynArrayView<CookedCollisionInnerNode> GetInnerNodes()
+    BufferView<CookedCollisionInnerNode> GetInnerNodes()
     {
-        return {cookedData};
+        return {cookedData.Data(), cookedData.Size(), cookedElementSize};
     }
 
     CollisionDataView GetCollisionDataView(uint32_t aInnerNodeIndex)
@@ -56,7 +55,8 @@ struct CookedCollisionNode : CookedNode
 
     uint8_t unk38[0x40 - 0x38];   // 38
     DynArray<uint8_t> cookedData; // 40
-    uint8_t unk50[0x58 - 0x50];   // 48
+    uint32_t cookedElementSize;   // 50
+    uint8_t unk54[0x58 - 0x54];   // 54
     DataBuffer compiledData;      // 58
 };
 RED4EXT_ASSERT_SIZE(CookedCollisionNode, 0x80);

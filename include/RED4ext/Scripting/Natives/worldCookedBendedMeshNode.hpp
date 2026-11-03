@@ -6,7 +6,7 @@
 #include <RED4ext/Scripting/Natives/Generated/Matrix.hpp>
 #include <RED4ext/Scripting/Natives/Generated/shadows/ShadowCastingMode.hpp>
 #include <RED4ext/Scripting/Natives/Generated/world/CookedNode.hpp>
-#include <RED4ext/Views/DynArrayView.hpp>
+#include <RED4ext/Views/BufferView.hpp>
 
 namespace RED4ext
 {
@@ -21,7 +21,7 @@ struct CookedBendedMeshInnerNode
     CName meshAppearance;                        // 08
     uint32_t deformationDataStartIndex;          // 10
     uint32_t deformationDataCount;               // 14
-    uint16_t index;                              // 18
+    uint16_t deformedBoxIndex;                   // 18
     shadows::ShadowCastingMode castShadows;      // 1A
     shadows::ShadowCastingMode castLocalShadows; // 1B
     bool removeFromRainMap;                      // 1C
@@ -35,14 +35,15 @@ struct CookedBendedMeshNode : CookedNode
     static constexpr const char* NAME = "worldCookedBendedMeshNode";
     static constexpr const char* ALIAS = NAME;
 
-    DynArrayView<CookedBendedMeshInnerNode> GetInnerNodes()
+    BufferView<CookedBendedMeshInnerNode> GetInnerNodes()
     {
-        return {cookedData};
+        return {cookedData.Data(), cookedData.Size(), cookedElementSize};
     }
 
     uint8_t unk38[0x40 - 0x38];       // 38
     DynArray<uint8_t> cookedData;     // 40
-    uint8_t unk50[0x58 - 0x50];       // 48
+    uint32_t cookedElementSize;       // 50
+    uint8_t unk54[0x58 - 0x54];       // 54
     DynArray<Matrix> deformationData; // 58
     DynArray<Box> deformedBoxes;      // 68
 };

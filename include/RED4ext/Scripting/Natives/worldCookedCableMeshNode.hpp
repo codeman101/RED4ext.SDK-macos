@@ -19,9 +19,9 @@ struct CookedCableMeshNode : CookedBendedMeshNode
     static constexpr const char* NAME = "worldCookedCableMeshNode";
     static constexpr const char* ALIAS = NAME;
 
-    DynArrayView<CookedCableMeshInnerNode> GetInnerNodes()
+    BufferView<CookedCableMeshInnerNode> GetInnerNodes()
     {
-        return {cookedData};
+        return {cookedData.Data(), cookedData.Size(), cookedElementSize};
     }
 };
 RED4EXT_ASSERT_SIZE(CookedCableMeshNode, 0x78);

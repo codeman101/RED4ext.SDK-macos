@@ -22,9 +22,9 @@ struct CookedFoliageDestructionNode : CookedCollisionNode
     static constexpr const char* NAME = "worldCookedFoliageDestructionNode";
     static constexpr const char* ALIAS = NAME;
 
-    DynArrayView<CookedFoliageDestructionInnerNode> GetInnerNodes()
+    BufferView<CookedFoliageDestructionInnerNode> GetInnerNodes()
     {
-        return {cookedData};
+        return {cookedData.Data(), cookedData.Size(), cookedElementSize};
     }
 
     DynArray<uint32_t> populationIndices; // 80
